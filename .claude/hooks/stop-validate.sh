@@ -69,20 +69,9 @@ while IFS= read -r FILE; do
         esac
     fi
 
-<<<<<<< Updated upstream
     # Check for singleton pattern
     if grep -qE 'static\s+\w+\s+[Ii]nstance\b' "$FILE" 2>/dev/null; then
         FILE_ISSUES="${FILE_ISSUES}    Architecture: Singleton pattern detected — use VContainer instead\n"
-=======
-    # Check for singleton pattern (allowed for manager-level classes only — architecture.md)
-    if grep -qE 'static\s+\w+\s+[Ii]nstance\b' "$FILE" 2>/dev/null; then
-        case "$FILE" in
-            *Manager*) ;; # Manager-level singletons are allowed per the 싱글톤 사용 가이드
-            *)
-                FILE_ISSUES="${FILE_ISSUES}    Architecture: Singleton pattern detected — confirm this is a manager-level class, not a feature Presenter (see 싱글톤 사용 가이드 in architecture.md)\n"
-                ;;
-        esac
->>>>>>> Stashed changes
     fi
 
     # Check for public fields (should be [SerializeField] private)

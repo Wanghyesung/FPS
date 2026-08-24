@@ -157,7 +157,6 @@ New Input System 패키지는 **필수**입니다. 레거시 `Input.GetKey`/`Inp
 // InputView — PlayerControls를 다루는 유일한 곳
 public sealed class InputView : MonoBehaviour
 {
-<<<<<<< Updated upstream
     private PlayerControls _controls;
     private PlayerSystem _playerSystem;
 
@@ -170,35 +169,19 @@ public sealed class InputView : MonoBehaviour
     public void Construct(PlayerSystem playerSystem)
     {
         _playerSystem = playerSystem;
-=======
-    [SerializeField] private PlayerPresenter m_refPlayerPresenter; // 인스펙터에서 직접 연결
-
-    private PlayerControls m_controls;
-
-    private void Awake()
-    {
-        m_controls = new PlayerControls();
->>>>>>> Stashed changes
     }
 
     // 필수: OnEnable에서 액션을 활성화
     private void OnEnable()
     {
-<<<<<<< Updated upstream
         _controls.Player.Enable();
         _controls.Player.Jump.performed += OnJump;
         _controls.Player.Attack.performed += OnAttack;
-=======
-        m_controls.Player.Enable();
-        m_controls.Player.Jump.performed += OnJump;
-        m_controls.Player.Attack.performed += OnAttack;
->>>>>>> Stashed changes
     }
 
     // 필수: OnDisable에서 액션을 비활성화하고 구독 해제
     private void OnDisable()
     {
-<<<<<<< Updated upstream
         _controls.Player.Jump.performed -= OnJump;
         _controls.Player.Attack.performed -= OnAttack;
         _controls.Player.Disable();
@@ -216,27 +199,6 @@ public sealed class InputView : MonoBehaviour
 }
 ```
 
-=======
-        m_controls.Player.Jump.performed -= OnJump;
-        m_controls.Player.Attack.performed -= OnAttack;
-        m_controls.Player.Disable();
-    }
-
-    // 연속 입력은 Update에서 읽고, Presenter를 위해 캐싱함
-    private void Update()
-    {
-        Vector2 vMoveInput = m_controls.Player.Move.ReadValue<Vector2>();
-        m_refPlayerPresenter.SetMoveInput(vMoveInput);
-    }
-
-    private void OnJump(InputAction.CallbackContext _ctx) => m_refPlayerPresenter.Jump();
-    private void OnAttack(InputAction.CallbackContext _ctx) => m_refPlayerPresenter.Attack();
-}
-```
-
-> 이 프로젝트는 VContainer(DI)를 쓰지 않습니다 (`architecture.md` 참고) — `PlayerPresenter`는 위처럼 `[SerializeField]` 직접 참조로 연결하세요. `[Inject]`/`Construct()` 패턴은 사용하지 마세요.
-
->>>>>>> Stashed changes
 ### 규칙
 
 | 규칙 | 이유 |
@@ -246,32 +208,19 @@ public sealed class InputView : MonoBehaviour
 | **연속 입력은 Update에서 읽기** | FixedUpdate는 다른 주기로 실행되므로 입력을 놓칠 수 있습니다 |
 | **입력을 캐싱하고 FixedUpdate에서 적용** | 물리 힘은 원시 값이 아닌 캐싱된 값을 사용합니다 |
 | **레거시 Input API는 절대 사용 금지** | `Input.GetKey`, `Input.GetAxis`, `Input.GetButton`은 차단됩니다 |
-<<<<<<< Updated upstream
 | **InputView는 View입니다** | 순수한 얇은 어댑터 — 입력을 읽고 System을 호출합니다. 로직은 전혀 없습니다 |
-=======
-| **InputView는 View입니다** | 순수한 얇은 어댑터 — 입력을 읽고 Presenter를 호출합니다. 로직은 전혀 없습니다 |
->>>>>>> Stashed changes
 | **씬당 InputView는 하나** | 중앙화된 입력 읽기가 중복 구독을 방지합니다 |
 
 ### 액션 맵 전환
 
 ```csharp
 // 게임플레이 → UI (예: 일시정지 메뉴 열기)
-<<<<<<< Updated upstream
 _controls.Player.Disable();
 _controls.UI.Enable();
 
 // UI → 게임플레이 (메뉴 닫기)
 _controls.UI.Disable();
 _controls.Player.Enable();
-=======
-m_controls.Player.Disable();
-m_controls.UI.Enable();
-
-// UI → 게임플레이 (메뉴 닫기)
-m_controls.UI.Disable();
-m_controls.Player.Enable();
->>>>>>> Stashed changes
 ```
 
 항상 다음 맵을 활성화하기 **전에** 현재 맵을 비활성화하세요. 여러 게임플레이 맵을 동시에 활성화한 채로 두지 마세요.

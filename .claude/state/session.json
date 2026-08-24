@@ -1,24 +1,30 @@
 {
   "schema_version": 1,
-  "branch": "devel/Collider",
+  "branch": "devel/GameDesign",
   "workflow_phase": "",
   "modified_files": [
-    "C:\\Users\\user\\Documents\\GitHub\\ECS\\Assets\\3D\\02_Player\\Weapon\\BaseCollider.cs",
-    "C:\\Users\\user\\Documents\\GitHub\\ECS\\Assets\\3D\\02_Player\\Weapon\\CircleCollider.cs",
-    "C:\\Users\\user\\Documents\\GitHub\\ECS\\Assets\\3D\\02_Player\\Weapon\\ObbCollider.cs",
-    "C:\\Users\\user\\Documents\\GitHub\\ECS\\Assets\\3D\\05_Manager\\ColliderCenterRefresher.cs",
-    "C:\\Users\\user\\Documents\\GitHub\\ECS\\Assets\\3D\\05_Manager\\ColliderManager.cs",
-    "C:\\Users\\user\\Documents\\GitHub\\ECS\\Docs\\Collider.md"
+    "C:\\Users\\user\\AppData\\Local\\Temp\\claude\\C--Users-user-Documents-GitHub-ECS\\09dd470d-5396-4e48-b1f6-cdc0cf65a77d\\scratchpad\\gdd.html",
+    "C:\\Users\\user\\Documents\\GitHub\\ECS\\.claude\\commands\\unity-instincts.md",
+    "C:\\Users\\user\\Documents\\GitHub\\ECS\\.claude\\commands\\unity-learn.md",
+    "C:\\Users\\user\\Documents\\GitHub\\ECS\\.claude\\docs\\known-issues.md",
+    "C:\\Users\\user\\Documents\\GitHub\\ECS\\.claude\\hooks\\auto-learn.sh",
+    "C:\\Users\\user\\Documents\\GitHub\\ECS\\.claude\\hooks\\gateguard.sh",
+    "C:\\Users\\user\\Documents\\GitHub\\ECS\\.claude\\hooks\\instinct-distill.sh",
+    "C:\\Users\\user\\Documents\\GitHub\\ECS\\.claude\\rules\\architecture.md",
+    "C:\\Users\\user\\Documents\\GitHub\\ECS\\.claude\\scripts\\validate-architecture.sh",
+    "C:\\Users\\user\\Documents\\GitHub\\ECS\\.claude\\skills\\learner\\SKILL.md",
+    "C:\\Users\\user\\Documents\\GitHub\\ECS\\.claude\\skills\\unity-instincts-guide\\SKILL.md",
+    "C:\\Users\\user\\Documents\\GitHub\\ECS\\CLAUDE.md"
   ],
   "recent_commits": [
+    "4fcbb13 [Refactor] ColliderManager PreLoadCenter를 TransformAccessArray+Job으로 전환, 이동 추적 로직을 ColliderCenterRefresher로 분리",
     "44b4646 [Refactor] ColliderManager 전체 콜라이더를 단일 그리드+Job으로 통합, 판정을 Update/LateUpdate로 분리",
-    "daef9e3 [Refactor] ColliderManager Box 브로드페이즈를 Burst IJobParallelFor로 교체",
-    "71eb7b5 [Add] 개발일지 Collider.md파일 추가"
+    "daef9e3 [Refactor] ColliderManager Box 브로드페이즈를 Burst IJobParallelFor로 교체"
   ],
-  "session_duration": "33m 39s",
+  "session_duration": "20m 4s",
   "tool_calls": 0,
   "warnings_count": 0,
-  "saved_at": "2026-08-24T05:05:17Z",
+  "saved_at": "2026-08-24T07:31:56Z",
   "plan": {},
   "verification": {},
   "agent_context": {}
