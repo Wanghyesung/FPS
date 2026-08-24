@@ -1,0 +1,25 @@
+{
+  "schema_version": 1,
+  "branch": "devel/Collider",
+  "workflow_phase": "",
+  "modified_files": [
+    "C:\\Users\\user\\Documents\\GitHub\\ECS\\Assets\\3D\\02_Player\\Weapon\\BaseCollider.cs",
+    "C:\\Users\\user\\Documents\\GitHub\\ECS\\Assets\\3D\\02_Player\\Weapon\\CircleCollider.cs",
+    "C:\\Users\\user\\Documents\\GitHub\\ECS\\Assets\\3D\\02_Player\\Weapon\\ObbCollider.cs",
+    "C:\\Users\\user\\Documents\\GitHub\\ECS\\Assets\\3D\\05_Manager\\ColliderCenterRefresher.cs",
+    "C:\\Users\\user\\Documents\\GitHub\\ECS\\Assets\\3D\\05_Manager\\ColliderManager.cs",
+    "C:\\Users\\user\\Documents\\GitHub\\ECS\\Docs\\Collider.md"
+  ],
+  "recent_commits": [
+    "44b4646 [Refactor] ColliderManager 전체 콜라이더를 단일 그리드+Job으로 통합, 판정을 Update/LateUpdate로 분리",
+    "daef9e3 [Refactor] ColliderManager Box 브로드페이즈를 Burst IJobParallelFor로 교체",
+    "71eb7b5 [Add] 개발일지 Collider.md파일 추가"
+  ],
+  "session_duration": "33m 39s",
+  "tool_calls": 0,
+  "warnings_count": 0,
+  "saved_at": "2026-08-24T05:05:17Z",
+  "plan": {},
+  "verification": {},
+  "agent_context": {}
+}
