@@ -3,9 +3,15 @@ set -euo pipefail
 
 # =============================================================================
 # validate-architecture.sh
+<<<<<<< Updated upstream
 # Checks Model-View-System (MVS) architecture compliance via grep-based
 # static analysis. Detects violations of dependency direction, forbidden
 # patterns (singletons, coroutines), and injection misuse.
+=======
+# Checks Model-View-Presenter (MVP) architecture compliance via grep-based
+# static analysis. Detects violations of dependency direction, forbidden
+# patterns (coroutines), and singleton discipline.
+>>>>>>> Stashed changes
 #
 # Usage:
 #   .claude/scripts/validate-architecture.sh [--path <dir>]
@@ -27,7 +33,11 @@ fi
 # ---------------------------------------------------------------------------
 if [[ "${1:-}" == "--help" || "${1:-}" == "-h" ]]; then
     cat <<EOF
+<<<<<<< Updated upstream
 ${BOLD}validate-architecture.sh${RESET} - MVS architecture compliance checker.
+=======
+${BOLD}validate-architecture.sh${RESET} - MVP architecture compliance checker.
+>>>>>>> Stashed changes
 
 ${BOLD}Usage:${RESET}
   .claude/scripts/validate-architecture.sh [OPTIONS]
@@ -37,6 +47,7 @@ ${BOLD}Options:${RESET}
   -h, --help     Show this help
 
 ${BOLD}What it checks:${RESET}
+<<<<<<< Updated upstream
   1. Models don't reference Views, Systems, or MonoBehaviour
   2. Systems don't reference Views or MonoBehaviour
   3. No singleton patterns (static Instance, FindObjectOfType)
@@ -44,6 +55,21 @@ ${BOLD}What it checks:${RESET}
   5. Correct injection patterns (method for MonoBehaviour, constructor for Systems)
 
 ${BOLD}Note:${RESET}
+=======
+  1. Models don't reference Views, Presenters, or MonoBehaviour
+  2. Singleton discipline — static Instance / FindObjectOfType / DontDestroyOnLoad
+     usage is flagged for manual review against the "싱글톤 사용 가이드" in
+     architecture.md (manager-level classes only — AudioManager, SaveManager,
+     ObjectPoolManager, etc.)
+  3. No coroutines (StartCoroutine, IEnumerator, yield return)
+
+${BOLD}Note:${RESET}
+  This project does not use VContainer/DI — Presenters are wired via direct
+  references ([SerializeField]/GetComponent), C# events, or manager singletons.
+  Presenters holding a View reference (to call Refresh()) is expected in this
+  project's Passive View flavor of MVP, so it is not flagged.
+
+>>>>>>> Stashed changes
   This is heuristic-based (grep). It may produce false positives.
   Add "// architecture:ignore" on any line to suppress a warning for that line.
 EOF
@@ -104,9 +130,15 @@ report_issue() {
 }
 
 # ---------------------------------------------------------------------------
+<<<<<<< Updated upstream
 # Check 1: Models must not reference Views or Systems
 # ---------------------------------------------------------------------------
 echo "${BOLD}${CYAN}[1/5] Checking Model dependency direction...${RESET}"
+=======
+# Check 1: Models must not reference Views or Presenters
+# ---------------------------------------------------------------------------
+echo "${BOLD}${CYAN}[1/3] Checking Model dependency direction...${RESET}"
+>>>>>>> Stashed changes
 
 MODEL_FILES=$(find "$SCAN_PATH" -name "*Model.cs" -o -name "*Model[0-9]*.cs" | grep -v '/Editor/' | grep -v '/Tests/' || true)
 
@@ -125,15 +157,23 @@ while IFS= read -r FILE; do
         report_issue "ERROR" "$FILE" "$LINE_NUM" "Model references a View — Models must not depend on Views"
     fi
 
+<<<<<<< Updated upstream
     # Check for System references (but allow the word "System" in using statements)
     LINE_NUM=$(grep -nE '\b\w+System\b' "$FILE" | grep -v '^\s*using' | grep -v '^\s*//' | grep -v 'architecture:ignore' | grep -v 'IDisposable' | head -1 | cut -d: -f1 || true)
     if [[ -n "$LINE_NUM" ]]; then
         report_issue "WARNING" "$FILE" "$LINE_NUM" "Model may reference a System — check dependency direction"
+=======
+    # Check for Presenter references (but allow the word "System" in using statements)
+    LINE_NUM=$(grep -nE '\b\w+Presenter\b' "$FILE" | grep -v '^\s*using' | grep -v '^\s*//' | grep -v 'architecture:ignore' | grep -v 'IDisposable' | head -1 | cut -d: -f1 || true)
+    if [[ -n "$LINE_NUM" ]]; then
+        report_issue "WARNING" "$FILE" "$LINE_NUM" "Model may reference a Presenter — check dependency direction"
+>>>>>>> Stashed changes
     fi
 done <<< "$MODEL_FILES"
 echo ""
 
 # ---------------------------------------------------------------------------
+<<<<<<< Updated upstream
 # Check 2: Systems must not reference Views
 # ---------------------------------------------------------------------------
 echo "${BOLD}${CYAN}[2/5] Checking System dependency direction...${RESET}"
@@ -161,12 +201,18 @@ echo ""
 # Check 3: No singletons
 # ---------------------------------------------------------------------------
 echo "${BOLD}${CYAN}[3/5] Checking for singleton patterns...${RESET}"
+=======
+# Check 2: Singleton discipline (advisory)
+# ---------------------------------------------------------------------------
+echo "${BOLD}${CYAN}[2/3] Checking singleton discipline...${RESET}"
+>>>>>>> Stashed changes
 
 ALL_CS=$(find "$SCAN_PATH" -name "*.cs" -not -path "*/Editor/*" -not -path "*/Tests/*" 2>/dev/null || true)
 
 while IFS= read -r FILE; do
     [[ -z "$FILE" ]] && continue
 
+<<<<<<< Updated upstream
     # Skip LifetimeScope files (they are the DI containers)
     case "$FILE" in *LifetimeScope* | *Scope*) continue ;; esac
 
@@ -174,11 +220,18 @@ while IFS= read -r FILE; do
     LINE_NUM=$(grep -nE 'static\s+\w+\s+Instance\b' "$FILE" | grep -v 'architecture:ignore' | head -1 | cut -d: -f1 || true)
     if [[ -n "$LINE_NUM" ]]; then
         report_issue "WARNING" "$FILE" "$LINE_NUM" "Singleton pattern detected (static Instance) — use VContainer registration instead"
+=======
+    # Static Instance pattern
+    LINE_NUM=$(grep -nE 'static\s+\w+\s+Instance\b' "$FILE" | grep -v 'architecture:ignore' | head -1 | cut -d: -f1 || true)
+    if [[ -n "$LINE_NUM" ]]; then
+        report_issue "WARNING" "$FILE" "$LINE_NUM" "Singleton pattern detected (static Instance) — confirm this is a manager-level class (AudioManager/SaveManager/ObjectPoolManager) per architecture.md's 싱글톤 사용 가이드, not a feature Presenter (PlayerPresenter/ScorePresenter, etc.)"
+>>>>>>> Stashed changes
     fi
 
     # FindObjectOfType outside of tests
     LINE_NUM=$(grep -nE 'FindObjectOfType|FindObjectsOfType|FindFirstObjectByType' "$FILE" | grep -v 'architecture:ignore' | head -1 | cut -d: -f1 || true)
     if [[ -n "$LINE_NUM" ]]; then
+<<<<<<< Updated upstream
         report_issue "WARNING" "$FILE" "$LINE_NUM" "FindObjectOfType usage — use VContainer injection instead"
     fi
 
@@ -186,14 +239,29 @@ while IFS= read -r FILE; do
     LINE_NUM=$(grep -nE 'DontDestroyOnLoad' "$FILE" | grep -v 'architecture:ignore' | head -1 | cut -d: -f1 || true)
     if [[ -n "$LINE_NUM" ]]; then
         report_issue "WARNING" "$FILE" "$LINE_NUM" "DontDestroyOnLoad — prefer bootstrapper scene with RootLifetimeScope"
+=======
+        report_issue "WARNING" "$FILE" "$LINE_NUM" "FindObjectOfType usage — cache a direct reference ([SerializeField] or GetComponent) instead"
+    fi
+
+    # DontDestroyOnLoad outside manager singletons
+    LINE_NUM=$(grep -nE 'DontDestroyOnLoad' "$FILE" | grep -v 'architecture:ignore' | head -1 | cut -d: -f1 || true)
+    if [[ -n "$LINE_NUM" ]]; then
+        report_issue "WARNING" "$FILE" "$LINE_NUM" "DontDestroyOnLoad — prefer the bootstrap scene pattern (manager singletons initialized once there)"
+>>>>>>> Stashed changes
     fi
 done <<< "$ALL_CS"
 echo ""
 
 # ---------------------------------------------------------------------------
+<<<<<<< Updated upstream
 # Check 4: No coroutines
 # ---------------------------------------------------------------------------
 echo "${BOLD}${CYAN}[4/5] Checking for coroutine usage...${RESET}"
+=======
+# Check 3: No coroutines
+# ---------------------------------------------------------------------------
+echo "${BOLD}${CYAN}[3/3] Checking for coroutine usage...${RESET}"
+>>>>>>> Stashed changes
 
 while IFS= read -r FILE; do
     [[ -z "$FILE" ]] && continue
@@ -216,6 +284,7 @@ done <<< "$ALL_CS"
 echo ""
 
 # ---------------------------------------------------------------------------
+<<<<<<< Updated upstream
 # Check 5: Injection patterns
 # ---------------------------------------------------------------------------
 echo "${BOLD}${CYAN}[5/5] Checking injection patterns...${RESET}"
@@ -238,6 +307,8 @@ done <<< "$ALL_CS"
 echo ""
 
 # ---------------------------------------------------------------------------
+=======
+>>>>>>> Stashed changes
 # Summary
 # ---------------------------------------------------------------------------
 echo "═══════════════════════════════════════════════════════════════"
@@ -247,7 +318,11 @@ if [[ $TOTAL -eq 0 ]]; then
 else
     echo "${BOLD}Architecture check: ${RED}$ERRORS error(s)${RESET}, ${YELLOW}$WARNINGS warning(s)${RESET}"
     if [[ $ERRORS -gt 0 ]]; then
+<<<<<<< Updated upstream
         echo "Errors indicate MVS pattern violations that should be fixed."
+=======
+        echo "Errors indicate MVP pattern violations that should be fixed."
+>>>>>>> Stashed changes
     fi
     echo ""
     echo "Suppress false positives by adding ${CYAN}// architecture:ignore${RESET} to the line."

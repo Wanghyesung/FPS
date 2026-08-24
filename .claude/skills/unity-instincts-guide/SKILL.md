@@ -15,7 +15,11 @@ Our static rules in `.claude/rules/` encode *universal* Unity truths (serializat
 
 - This project stores Models in `Runtime/Domain/`, not `Scripts/Models/`.
 - Editing *View.cs reliably triggers quality-gate warnings here because developers hand-roll input handling.
+<<<<<<< Updated upstream
 - VContainer scopes are nested by feature, not by scene.
+=======
+- Manager singletons are always wired in the bootstrap scene, never a gameplay scene.
+>>>>>>> Stashed changes
 
 The instinct system captures these project-specific patterns automatically. Universal patterns remain owned by rules.
 
@@ -68,7 +72,11 @@ global/*.json
 
 ## Heuristics currently emitted
 
+<<<<<<< Updated upstream
 **H1 — Warning hotspot by path tag.** If observations with a given `path_tag` (view/system/model/sobject/mono/editor/scene/prefab) accumulate >=2 new warnings across >=3 tool-uses in a session, an instinct is emitted or bumped.
+=======
+**H1 — Warning hotspot by path tag.** If observations with a given `path_tag` (view/presenter/model/sobject/mono/editor/scene/prefab) accumulate >=2 new warnings across >=3 tool-uses in a session, an instinct is emitted or bumped.
+>>>>>>> Stashed changes
 
 **H2 — Tool-sequence affinity.** If `*View.cs` edits are frequently preceded by `*Model.cs` reads, emit the "read Model before editing View" instinct.
 

@@ -112,9 +112,15 @@ echo "$TAG_STATS" | jq -c '.[]' 2>/dev/null | while read -r row; do
     TAG=$(echo "$row" | jq -r '.tag')
 
     case "$TAG" in
+<<<<<<< Updated upstream
         view)    TRIG="before editing *View.cs" ; ACTION="expect quality-gate warnings; confirm the Model is read first and no Update-loop allocations are introduced" ; DOMAIN="mvs" ;;
         system)  TRIG="before editing *System.cs" ; ACTION="confirm VContainer registration is consistent; System owns Model mutations, not Views" ; DOMAIN="mvs" ;;
         model)   TRIG="before editing *Model.cs" ; ACTION="keep Models pure C#; no MonoBehaviour, no Unity API references" ; DOMAIN="mvs" ;;
+=======
+        view)      TRIG="before editing *View.cs" ; ACTION="expect quality-gate warnings; confirm the Model is read first and no Update-loop allocations are introduced" ; DOMAIN="mvp" ;;
+        presenter) TRIG="before editing *Presenter.cs" ; ACTION="confirm wiring is a direct reference or manager singleton (no VContainer); Presenter owns Model mutations and calls View.Refresh()" ; DOMAIN="mvp" ;;
+        model)     TRIG="before editing *Model.cs" ; ACTION="keep Models pure C#; no MonoBehaviour, no Unity API references" ; DOMAIN="mvp" ;;
+>>>>>>> Stashed changes
         sobject) TRIG="before editing a ScriptableObject type" ; ACTION="SO holds static config; runtime mutable state belongs in a Model" ; DOMAIN="data" ;;
         mono)    TRIG="before editing a MonoBehaviour Controller/Manager/Handler" ; ACTION="watch for GetComponent/Camera.main/allocations in Update loops" ; DOMAIN="perf" ;;
         scene)   TRIG="before editing a .unity scene file" ; ACTION="use unity-mcp scene tools, not raw text edits; diffs corrupt GUIDs" ; DOMAIN="safety" ;;
