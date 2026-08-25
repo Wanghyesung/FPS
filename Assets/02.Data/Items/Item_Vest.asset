@@ -1,0 +1,22 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3cc7dd71813934d4b80d99d28989d641, type: 3}
+  m_Name: Item_Vest
+  m_EditorClassIdentifier: 
+  m_eType: 2
+  m_strDisplayName: Vest
+  m_fUseDuration: 0
+  m_iHealAmount: 0
+  m_iAmmoAmount: 0
+  m_refWorldModelPrefab: {fileID: 0}
+  m_refPickupPrefab: {fileID: 1507584485299854, guid: 0024a548e7da3a243b80d0845e3bcd2c,
+    type: 3}

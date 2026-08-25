@@ -1,0 +1,43 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7b2145a45cc65ad4da688d9a53626da1, type: 3}
+  m_Name: LootTable_Default
+  m_EditorClassIdentifier: 
+  m_tEntries:
+  - m_fWeight: 20
+    m_refWeaponDefinition: {fileID: 11400000, guid: 8dfffe0662fc08c45bfee25b2259bb6c,
+      type: 2}
+    m_refItemDefinition: {fileID: 0}
+  - m_fWeight: 10
+    m_refWeaponDefinition: {fileID: 11400000, guid: 2cff1505d46e1dc4a98ff9ae65e2b6e8,
+      type: 2}
+    m_refItemDefinition: {fileID: 0}
+  - m_fWeight: 25
+    m_refWeaponDefinition: {fileID: 0}
+    m_refItemDefinition: {fileID: 11400000, guid: ce46e69cb16f9ba498840cb5a84d3e85,
+      type: 2}
+  - m_fWeight: 15
+    m_refWeaponDefinition: {fileID: 0}
+    m_refItemDefinition: {fileID: 11400000, guid: 7cfdbd723702f934ba052ba6fb7ee147,
+      type: 2}
+  - m_fWeight: 15
+    m_refWeaponDefinition: {fileID: 0}
+    m_refItemDefinition: {fileID: 11400000, guid: e83034dbd86d71b48ba5eb179dc58dbd,
+      type: 2}
+  - m_fWeight: 20
+    m_refWeaponDefinition: {fileID: 0}
+    m_refItemDefinition: {fileID: 11400000, guid: c22aa69e9c0c04b418b647caea6d8d01,
+      type: 2}
+  - m_fWeight: 15
+    m_refWeaponDefinition: {fileID: 0}
+    m_refItemDefinition: {fileID: 11400000, guid: 9297695000cab4e49afab28a3bcb9c01,
+      type: 2}
