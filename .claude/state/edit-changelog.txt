@@ -259,3 +259,64 @@
 2026-08-25 16:16:39 | C:\\Users\\user\\Documents\\GitHub\\FPS\\Assets\\Scripts\\Input\\InputValue.cs | new file, 21 lines
 2026-08-25 16:16:56 | C:\\Users\\user\\Documents\\GitHub\\FPS\\Assets\\01.Player\\Player\\InputView.cs | new file, 229 lines
 2026-08-25 16:17:04 | C:\\Users\\user\\Documents\\GitHub\\FPS\\Assets\\01.Player\\Player\\InputView.cs | new file, 231 lines
+2026-08-26 08:44:25 | C:\\Users\\user\\Documents\\GitHub\\FPS\\Assets\\02 Player\\Weapon.cs | new file, 230 lines
+2026-08-26 08:44:27 | C:\\Users\\user\\Documents\\GitHub\\FPS\\Assets\\02 Player\\Weapon.cs | new file, 228 lines
+2026-08-26 08:44:29 | C:\\Users\\user\\Documents\\GitHub\\FPS\\Assets\\02 Player\\Weapon.cs | new file, 226 lines
+2026-08-26 08:44:32 | C:\\Users\\user\\Documents\\GitHub\\FPS\\Assets\\02 Player\\PlayerMoveMent.cs | new file, 73 lines
+2026-08-26 08:44:36 | C:\\Users\\user\\Documents\\GitHub\\FPS\\Assets\\Player.cs | new file, 46 lines
+2026-08-26 08:44:41 | C:\\Users\\user\\Documents\\GitHub\\FPS\\Assets\\02 Player\\IDamageable.cs | new file, 9 lines
+2026-08-26 08:44:48 | C:\\Users\\user\\Documents\\GitHub\\FPS\\Assets\\02 Player\\Bullet.cs | new file, 68 lines
+2026-08-26 09:06:03 | C:\\Users\\user\\Documents\\GitHub\\FPS\\Assets\\02 Player\\Weapon.cs | new file, 223 lines
+2026-08-26 09:06:10 | C:\\Users\\user\\Documents\\GitHub\\FPS\\Assets\\Player.cs | new file, 60 lines
+2026-08-26 09:06:11 | C:\\Users\\user\\Documents\\GitHub\\FPS\\Assets\\01 Manager\\InputManager.cs | new file, 126 lines
+2026-08-26 09:06:13 | C:\\Users\\user\\Documents\\GitHub\\FPS\\Assets\\01 Manager\\InputManager.cs | new file, 129 lines
+2026-08-26 09:06:15 | C:\\Users\\user\\Documents\\GitHub\\FPS\\Assets\\01 Manager\\InputManager.cs | new file, 131 lines
+2026-08-26 09:06:16 | C:\\Users\\user\\Documents\\GitHub\\FPS\\Assets\\01 Manager\\InputManager.cs | new file, 139 lines
+2026-08-26 09:06:22 | C:\\Users\\user\\Documents\\GitHub\\FPS\\Assets\\02 Player\\WeaponPickup.cs | new file, 32 lines
+2026-08-26 09:18:00 | C:\\Users\\user\\Documents\\GitHub\\FPS\\Assets\\01 Manager\\PlayerControls.inputactions | new file, 159 lines
+2026-08-26 09:20:02 | C:\\Users\\user\\Documents\\GitHub\\FPS\\Assets\\03 Data\\SOAttackInfo.cs | new file, 141 lines
+2026-08-26 09:20:04 | C:\\Users\\user\\Documents\\GitHub\\FPS\\Assets\\03 Data\\SOAttackInfo.cs | new file, 142 lines
+2026-08-26 09:20:06 | C:\\Users\\user\\Documents\\GitHub\\FPS\\Assets\\03 Data\\SOAttackInfo.cs | new file, 145 lines
+2026-08-26 09:20:19 | C:\\Users\\user\\Documents\\GitHub\\FPS\\Assets\\01 Manager\\CameraManager.cs | new file, 75 lines
+2026-08-26 09:20:32 | C:\\Users\\user\\Documents\\GitHub\\FPS\\Assets\\02 Player\\Weapon.cs | new file, 226 lines
+2026-08-26 09:21:03 | C:\\Users\\user\\Documents\\GitHub\\FPS\\Assets\\01 Manager\\GameCameraManager.cs | new file, 78 lines
+2026-08-26 09:21:08 | C:\\Users\\user\\Documents\\GitHub\\FPS\\Assets\\02 Player\\Weapon.cs | new file, 226 lines
+2026-08-26 09:24:58 | C:\\Users\\user\\Documents\\GitHub\\FPS\\Assets\\01 Manager\\SceneController.cs | new file, 18 lines
+2026-08-26 09:25:02 | C:\\Users\\user\\Documents\\GitHub\\FPS\\Assets\\01 Manager\\SceneController.cs | new file, 19 lines
+2026-08-26 10:15:47 | C:\\Users\\user\\Documents\\GitHub\\FPS\\Assets\\01 Manager\\InputManager.cs | new file, 140 lines
+2026-08-26 10:15:49 | C:\\Users\\user\\Documents\\GitHub\\FPS\\Assets\\01 Manager\\InputManager.cs | new file, 141 lines
+2026-08-26 10:15:50 | C:\\Users\\user\\Documents\\GitHub\\FPS\\Assets\\01 Manager\\InputManager.cs | new file, 144 lines
+2026-08-26 10:15:52 | C:\\Users\\user\\Documents\\GitHub\\FPS\\Assets\\01 Manager\\InputManager.cs | new file, 146 lines
+2026-08-26 10:15:54 | C:\\Users\\user\\Documents\\GitHub\\FPS\\Assets\\01 Manager\\InputManager.cs | new file, 154 lines
+2026-08-26 10:16:03 | C:\\Users\\user\\Documents\\GitHub\\FPS\\Assets\\02 Player\\Weapon.cs | new file, 231 lines
+2026-08-26 10:16:10 | C:\\Users\\user\\Documents\\GitHub\\FPS\\Assets\\03 Data\\SOSceneData.cs | new file, 16 lines
+2026-08-26 10:16:16 | C:\\Users\\user\\Documents\\GitHub\\FPS\\Assets\\01 Manager\\SceneController.cs | new file, 19 lines
+2026-08-26 10:16:25 | C:\\Users\\user\\Documents\\GitHub\\FPS\\Assets\\01 Manager\\SceneController.cs | new file, 18 lines
+2026-08-26 10:17:00 | C:\\Users\\user\\Documents\\GitHub\\FPS\\Assets\\02 Player\\CameraZoomView.cs | new file, 32 lines
+2026-08-26 10:17:10 | C:\\Users\\user\\Documents\\GitHub\\FPS\\Assets\\01 Manager\\PlayerControls.inputactions | new file, 167 lines
+2026-08-26 10:17:16 | C:\\Users\\user\\Documents\\GitHub\\FPS\\Assets\\01 Manager\\PlayerControls.inputactions | new file, 178 lines
+2026-08-26 10:18:18 | C:\\Users\\user\\Documents\\GitHub\\FPS\\Assets\\02 Player\\HitEffectView.cs | new file, 23 lines
+2026-08-26 11:13:54 | C:\\Users\\user\\Documents\\GitHub\\FPS\\Assets\\01 Manager\\GameCameraManager.cs | new file, 83 lines
+2026-08-26 11:14:01 | C:\\Users\\user\\Documents\\GitHub\\FPS\\Assets\\02 Player\\Player.cs | new file, 63 lines
+2026-08-26 12:59:17 | C:\\Users\\user\\Documents\\GitHub\\FPS\\Assets\\02 Player\\PlayerAnim.controller | new file, 329 lines
+2026-08-26 12:59:25 | C:\\Users\\user\\Documents\\GitHub\\FPS\\Assets\\02 Player\\PlayerAnim.controller | new file, 303 lines
+2026-08-26 12:59:31 | C:\\Users\\user\\Documents\\GitHub\\FPS\\Assets\\02 Player\\PlayerAnim.controller | new file, 300 lines
+2026-08-26 12:59:45 | C:\\Users\\user\\Documents\\GitHub\\FPS\\Assets\\02 Player\\PlayerAnim.controller | new file, 300 lines
+2026-08-26 13:12:37 | C:\\Users\\user\\Documents\\GitHub\\FPS\\Assets\\02 Player\\WeaponIK.cs | new file, 44 lines
+2026-08-26 13:12:44 | C:\\Users\\user\\Documents\\GitHub\\FPS\\Assets\\02 Player\\Weapon.cs | new file, 234 lines
+2026-08-26 13:12:53 | C:\\Users\\user\\Documents\\GitHub\\FPS\\Assets\\02 Player\\Player.cs | new file, 71 lines
+2026-08-26 13:13:02 | C:\\Users\\user\\Documents\\GitHub\\FPS\\Assets\\02 Player\\Player.cs | new file, 78 lines
+2026-08-26 13:38:07 | C:\\Users\\user\\Documents\\GitHub\\FPS\\.claude\\docs\\known-issues.md | 1 file changed, 12 insertions(+)
+2026-08-26 14:04:43 | C:\\Users\\user\\Documents\\GitHub\\FPS\\Assets\\02 Player\\WeaponIK.cs | new file, 66 lines
+2026-08-26 14:04:52 | C:\\Users\\user\\Documents\\GitHub\\FPS\\Assets\\02 Player\\Player.cs | new file, 78 lines
+2026-08-26 14:19:02 | C:\\Users\\user\\Documents\\GitHub\\FPS\\Assets\\02 Player\\Weapon.cs | new file, 236 lines
+2026-08-26 14:19:13 | C:\\Users\\user\\Documents\\GitHub\\FPS\\Assets\\02 Player\\WeaponIK.cs | new file, 51 lines
+2026-08-26 14:19:22 | C:\\Users\\user\\Documents\\GitHub\\FPS\\Assets\\02 Player\\Player.cs | new file, 78 lines
+2026-08-26 14:25:32 | C:\\Users\\user\\Documents\\GitHub\\FPS\\Assets\\02 Player\\WeaponIK.cs | new file, 89 lines
+2026-08-26 14:28:22 | C:\\Users\\user\\Documents\\GitHub\\FPS\\Assets\\02 Player\\WeaponIK.cs | new file, 49 lines
+2026-08-26 14:28:30 | C:\\Users\\user\\Documents\\GitHub\\FPS\\Assets\\02 Player\\Weapon.cs | new file, 234 lines
+2026-08-26 14:28:39 | C:\\Users\\user\\Documents\\GitHub\\FPS\\Assets\\02 Player\\Player.cs | new file, 79 lines
+2026-08-26 15:03:36 | C:\\Users\\user\\Documents\\GitHub\\FPS\\Assets\\02 Player\\WeaponIK.cs | new file, 52 lines
+2026-08-26 15:55:59 | C:\\Users\\user\\Documents\\GitHub\\FPS\\Assets\\02 Player\\Weapon.cs | new file, 236 lines
+2026-08-26 15:56:13 | C:\\Users\\user\\Documents\\GitHub\\FPS\\Assets\\02 Player\\Player.cs | new file, 82 lines
+2026-08-26 15:56:28 | C:\\Users\\user\\Documents\\GitHub\\FPS\\Assets\\02 Player\\Player.cs | new file, 100 lines
