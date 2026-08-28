@@ -1,0 +1,20 @@
+{
+  "schema_version": 1,
+  "branch": "devel/Player",
+  "workflow_phase": "",
+  "modified_files": [
+    "C:\\Users\\user\\.claude\\plans\\lexical-swimming-sutton.md"
+  ],
+  "recent_commits": [
+    "8552340 [Add] 게임 기본 로직 구성",
+    "c74d107 [Backup] 스크립트/에디터 데이터 전체 재작업 전 백업 커밋",
+    "2cdf4f0 [Add] MVP 개발에 필요한 하네스 셋팅 추가"
+  ],
+  "session_duration": "37m 19s",
+  "tool_calls": 0,
+  "warnings_count": 10,
+  "saved_at": "2026-08-28T11:05:00Z",
+  "plan": {},
+  "verification": {},
+  "agent_context": {}
+}

@@ -19,8 +19,10 @@ public enum eEntityState
 {
     Idle = 0,
     Move = 1,
-    Shot = 2,
-    Dead = 3,
+    Fire = 2,
+    FireWait = 3,
+    HasWeapon = 4,
+    Dead = 5,
 }
 
 [Serializable]
@@ -167,6 +169,10 @@ public class AnimationTable : MonoBehaviour
         return null;
     }
 
+    public void SetSpeed(float _fSpeed)
+    {
+        m_refAnimator.speed = _fSpeed;
+    }
 
 
 }

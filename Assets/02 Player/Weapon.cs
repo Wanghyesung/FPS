@@ -34,11 +34,14 @@ public class Weapon : MonoBehaviour
     [SerializeField] private ParticleSystem m_refEffectObject;
 
     [SerializeField] private Transform m_refRightHandGripTr; // 오른손이 닿아야 할 그립 포인트 — Player가 무기를 소켓에 배치할 때 참조
-    [SerializeField] private Transform m_refLeftHandGripTr;  // 왼손 IK가 잡아야 할 그립 포인트 — WeaponIK가 참조
-    [SerializeField] private Transform m_refZoomTr;  // 왼손 IK가 잡아야 할 그립 포인트 — WeaponIK가 참조
+    [SerializeField] private Transform m_refLeftHandGripTr;  // 왼손 IK가 잡아야 할 그립 포인트 — WeaponRigTarget이 참조
+    [SerializeField] private Transform m_refZoomTr;  // 왼손 IK가 잡아야 할 그립 포인트 — WeaponRigTarget이 참조
     public Transform RightHandGripTr => m_refRightHandGripTr;
     public Transform LeftHandGripTr => m_refLeftHandGripTr;
     public Transform ZoomTr => m_refZoomTr;
+    
+
+    private WeaponRecoilKick m_refRecoilKick; // 사격 시 순수 연출용 스프링 반동 — 없으면 조용히 생략(선택 컴포넌트)
 
     private float m_fFireTime = 0.2f;
     private float m_fBaseCooldown = 0.2f;
@@ -74,6 +77,12 @@ public class Weapon : MonoBehaviour
 
         m_fFireTime = m_refAttackInfo.CoolDown;
         m_fLastFireTime = Time.time;
+
+        // TakeWeapon()이 그립 정렬을 이미 마친 뒤(Player.EquipWeapon()에서 Init()을 그
+        // 다음에 호출함) — 이 시점의 로컬 포즈를 반동 스프링의 "원점"으로 캡처해야 한다.
+        m_refRecoilKick = GetComponent<WeaponRecoilKick>();
+        if (m_refRecoilKick != null)
+            m_refRecoilKick.CaptureBasePose();
     }
 
     public void Fire(Vector3 _vTargetPos)
@@ -188,6 +197,17 @@ public class Weapon : MonoBehaviour
 
         if (GameCameraManager.m_Instance != null)
             GameCameraManager.m_Instance.Shake(m_refAttackInfo.RecoilAmount);
+
+        // 순수 연출용 반동 — 조준(pitch/yaw)이나 실제 탄 퍼짐(m_fInaccuracyAngle)과는
+        // 완전히 별개로, 무기 모델(transform)에만 스프링 오프셋을 얹는다.
+        if (m_refRecoilKick != null)
+        {
+            Vector3 vRotKick = m_SOAttackInfo.VisualRotKick;
+            vRotKick.y += UnityEngine.Random.Range(-m_SOAttackInfo.VisualRotKickRandomYaw, m_SOAttackInfo.VisualRotKickRandomYaw);
+
+            m_refRecoilKick.Kick(m_SOAttackInfo.VisualKickback, vRotKick,
+                m_SOAttackInfo.VisualSpringStiffness, m_SOAttackInfo.VisualSpringDamping);
+        }
 
         m_fLastFireTime = Time.time;
         m_fFireTime = m_refAttackInfo.CoolDown;

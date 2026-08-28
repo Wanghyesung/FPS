@@ -9,9 +9,9 @@ using UnityEngine;
        그냥 따라가게(Lerp/Slerp)만 한다.
        줌 여부는 이 클래스가 직접 입력을 읽지 않는다 — Player가 입력을 읽고
        SetZoomed()를 호출해서 알려준다.
-       발사 반동(Shake)도 같은 LateUpdate 한 곳에서만 카메라 회전에 얹는다
-       (여러 스크립트가 각자 다른 타이밍에 카메라를 건드리면 그 자체로 흔들림의
-       원인이 되므로, 카메라를 만지는 로직은 이 클래스 하나로 모아둔다).
+       발사 반동(Shake)은 카메라 자체를 건드리지 않는다 — PlayerMovement의 실제
+       pitch/yaw에 직접 얹어서, 플레이어가 마우스로 눌러야만 상쇄되는 스프레이
+       컨트롤로 동작한다(Shake 참고). 이 클래스는 그 결과 피벗을 그대로 따라갈 뿐이다.
  *///////////////////////////////////////////
 
 public sealed class GameCameraManager : MonoBehaviour
@@ -21,13 +21,12 @@ public sealed class GameCameraManager : MonoBehaviour
     [SerializeField] private Transform m_refCamera;
     [SerializeField] private Transform m_refFirstPersonPivot;
     [SerializeField] private Transform m_refThirdPersonPivot;
+    [SerializeField] private PlayerMovement m_refPlayerMovement; // 반동을 실제 조준 pitch/yaw에 직접 얹기 위한 참조 — Shake() 참고
     public Transform ThirdPersonPivot { get { return m_refThirdPersonPivot; } set { m_refThirdPersonPivot = value; } }
 
     [SerializeField] private float m_fBlendSpeed = 10f;
-    [SerializeField] private float m_fRecoverySpeed = 6f; // 초당 반동 회복 비율
 
     private bool m_bZoomed;
-    private Vector3 m_vRecoilOffset;
 
     private void Awake()
     {
@@ -55,7 +54,10 @@ public sealed class GameCameraManager : MonoBehaviour
         m_bZoomed = _bZoomed;
     }
 
-    // Weapon.OnBulletFired()가 발사마다 호출한다. _fAmount는 무기별 반동 각도(도, SOAttackInfo.RecoilAmount)
+    // Weapon.OnBulletFired()가 발사마다 호출한다. _fAmount는 무기별 반동 각도(도, SOAttackInfo.RecoilAmount).
+    // 반동 자체는 더 이상 카메라 쪽 오프셋이 아니라 PlayerMovement의 실제 pitch/yaw에 얹는다 —
+    // 그래야 마우스로 직접 눌러서 상쇄하는 스프레이 컨트롤이 되고, 카메라 쪽 별도 상태가 없어져
+    // 이전에 있었던 반동 누적(되먹임) 버그도 구조적으로 사라진다.
     public void Shake(float _fAmount)
     {
         if (_fAmount <= 0f)
@@ -64,13 +66,11 @@ public sealed class GameCameraManager : MonoBehaviour
         if (m_bZoomed == true)
             _fAmount /= 4.0f;
 
-        m_vRecoilOffset += new Vector3(
-            -Mathf.Abs(_fAmount) * Random.Range(0.7f, 1f), // 반동은 항상 위쪽(부호 고정)
-            Random.Range(-_fAmount, _fAmount) * 0.5f,
-            0f);
+        if (m_refPlayerMovement != null)
+            m_refPlayerMovement.AddRecoil(_fAmount);
     }
 
-    
+
     private void LateUpdate()
     {
         if (m_refCamera == null || m_refFirstPersonPivot == null)
@@ -80,10 +80,7 @@ public sealed class GameCameraManager : MonoBehaviour
         float fT = Time.deltaTime * m_fBlendSpeed;
 
         m_refCamera.position = Vector3.Lerp(m_refCamera.position, refTarget.position, fT);
-        Quaternion qFollow = Quaternion.Slerp(m_refCamera.rotation, refTarget.rotation, fT);
-
-        m_vRecoilOffset = Vector3.Lerp(m_vRecoilOffset, Vector3.zero, Time.deltaTime * m_fRecoverySpeed);
-        m_refCamera.rotation = qFollow * Quaternion.Euler(m_vRecoilOffset);
+        m_refCamera.rotation = Quaternion.Slerp(m_refCamera.rotation, refTarget.rotation, fT);
     }
 
     public Transform GetCameraTranform()

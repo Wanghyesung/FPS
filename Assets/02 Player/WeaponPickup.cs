@@ -10,7 +10,7 @@ using UnityEngine;
 public sealed class WeaponPickup : MonoBehaviour
 {
     private Weapon m_refWeapon;
-    private bool m_bPicked;
+    private bool m_bPicked = false;
 
     private void Awake()
     {

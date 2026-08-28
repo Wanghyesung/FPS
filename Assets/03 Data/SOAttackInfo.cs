@@ -48,6 +48,15 @@ public class SOAttackInfo : ScriptableObject
     [Header("Recoil")]
     public float RecoilAmount = 2f; // 발사 1회당 카메라에 가할 반동 각도(도)
 
+    [Header("Visual Recoil (Spring)")]
+    // 무기 모델(Weapon.transform)에만 얹히는 순수 연출용 반동 — 조준(pitch/yaw)이나
+    // 실제 탄 퍼짐(m_fInaccuracyAngle)에는 전혀 영향을 주지 않는다. WeaponRecoilKick 참고.
+    public Vector3 VisualKickback = new Vector3(0f, 0.01f, -0.05f); // 발사 1회당 로컬 위치 임펄스(주로 -Z 후퇴)
+    public Vector3 VisualRotKick = new Vector3(-4f, 0f, 0f);        // 발사 1회당 로컬 회전 임펄스(도) — X: 총구 상탄
+    public float VisualRotKickRandomYaw = 1.5f;                     // 좌우(Y) 흔들림 랜덤 범위(도)
+    public float VisualSpringStiffness = 180f;                      // 클수록 빨리/세게 원위치로 당겨짐
+    public float VisualSpringDamping = 18f;                         // 클수록 진동 없이 빨리 멈춤
+
     [Header("Targeting")]
     public LayerMask HitLayers = ~0;
 

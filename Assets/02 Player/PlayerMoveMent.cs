@@ -4,6 +4,7 @@ public class PlayerMovement : MonoBehaviour
 {
     [SerializeField] private Player m_refPlayer;
     [SerializeField] private CharacterController m_refCharCon;
+    [SerializeField] private Transform m_refCameraPitchTr; // 카메라 피벗(예: CameraPivot3D) — pitch는 몸이 아니라 여기에만 적용한다
 
     [SerializeField] private float m_fMaxUP = 60.0f;
     [SerializeField] private float m_fMaxDown = -60.0f;
@@ -42,8 +43,23 @@ public class PlayerMovement : MonoBehaviour
 
         m_fPitch = Mathf.Clamp(m_fPitch, m_fMaxDown, m_fMaxUP);
 
-        transform.rotation = Quaternion.Euler(m_fPitch, m_fYaw, 0f);
-      
+        // 몸(Player 루트)은 좌우로만 돈다 — 여기에 pitch까지 넣으면 이 트랜스폼의 자식인
+        // 캐릭터 전체(Visual/스켈레톤)가 시선 위아래를 따라 통째로 숙여진다.
+        transform.rotation = Quaternion.Euler(0f, m_fYaw, 0f);
+
+        if (m_refCameraPitchTr != null)
+            m_refCameraPitchTr.localRotation = Quaternion.Euler(m_fPitch, 0f, 0f);
+    }
+
+    // GameCameraManager.Shake()가 발사마다 호출 — 반동을 실제 조준 pitch/yaw에 직접 얹는다.
+    // 자동 회복이 없음: 플레이어가 마우스를 반대로 움직여 m_fPitch/m_fYaw를 되돌려야만 상쇄된다(스프레이 컨트롤).
+    public void AddRecoil(float _fAmount)
+    {
+        float fPitchKick = Mathf.Abs(_fAmount) * Random.Range(0.7f, 1f); // 반동은 항상 위쪽(부호 고정)
+        float fYawKick = Random.Range(-_fAmount, _fAmount) * 0.5f;
+
+        m_fPitch = Mathf.Clamp(m_fPitch - fPitchKick, m_fMaxDown, m_fMaxUP);
+        m_fYaw += fYawKick;
     }
 
     private void Move()
