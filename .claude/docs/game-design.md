@@ -67,7 +67,7 @@
    → 교전(플레이어 vs 봇) → 최종 자기장 → 승패 판정 → 결과 화면
 ```
 
-플레이어와 봇은 완전히 동일한 서브시스템(WeaponSystem, ZoneSystem, ItemPickupSystem)을 공유합니다 — 봇 전용 로직은 "무엇을 할지 결정하는" 의사결정 계층(ML-Agents)뿐이고, 실행 계층은 플레이어와 동일합니다. 이 재사용 구조가 10일 일정의 핵심 전제입니다.
+플레이어와 봇은 완전히 동일한 서브시스템(WeaponSystem, ZoneSystem, ItemPickupSystem)을 공유합니다 — 
 
 ---
 
@@ -128,7 +128,7 @@
 
 ## 6. 자기장 시스템
 
-작은 도보 맵(반경 200m) 기준 4단계 축소로 설계했습니다. 각 페이즈는 `ZonePhaseDefinition` ScriptableObject 리스트로 데이터화해 기획 조정이 쉽도록 합니다 ([§8.4](#84-데이터-scriptableobject) 참고).
+작은 도보 맵(반경 200m) 기준 4단계 축소로 설계했습니다. 각 페이즈는 `ZonePhaseDefinition` ScriptableObject 리스트로 데이터화해 기획 조정이 쉽도록 합니다 
 
 | 페이즈 | 경고 시작 | 축소 시간 | 최종 반경 | 초당 피해(자기장 밖) |
 |---|---:|---:|---:|---:|

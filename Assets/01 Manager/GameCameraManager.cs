@@ -20,11 +20,18 @@ public sealed class GameCameraManager : MonoBehaviour
 
     [SerializeField] private Transform m_refCamera;
     [SerializeField] private Transform m_refFirstPersonPivot;
-    [SerializeField] private Transform m_refThirdPersonPivot;
     [SerializeField] private PlayerMovement m_refPlayerMovement; // 반동을 실제 조준 pitch/yaw에 직접 얹기 위한 참조 — Shake() 참고
-    public Transform ThirdPersonPivot { get { return m_refThirdPersonPivot; } set { m_refThirdPersonPivot = value; } }
 
     [SerializeField] private float m_fBlendSpeed = 10f;
+
+    // 줌(ADS) 중 눈 위치에서 앞으로 살짝 당기는 거리 — 예전엔 무기의 ZoomTr(총의 조준경 지점)
+    // 위치로 카메라를 스냅시켰는데, Spine 조준 리그가 팔 전체를 조준 방향으로 크게 돌리게 되면서
+    // 그 지점이 더 이상 눈 근처에 고정되어 있지 않게 됐다(어깨를 크게 돌리면 손이 멀리 휩쓸리듯,
+    // 총도 조준 각도가 클수록 원래 자리에서 멀리 벗어남) — 그 지점을 카메라가 쫓아가면 조준 각도가
+    // 커질 때마다 카메라가 엉뚱한 곳으로 튄다. 그래서 카메라 위치는 항상 팔 회전과 무관한 고정
+    // 기준점(FirstPersonPivot)에서만 재고, 줌 느낌은 단순히 그 기준점에서 바라보는 방향으로 살짝
+    // 당기는 것만으로 낸다.
+    [SerializeField] private float m_fZoomDollyDistance = 0.15f;
 
     private bool m_bZoomed;
 
@@ -76,16 +83,22 @@ public sealed class GameCameraManager : MonoBehaviour
         if (m_refCamera == null || m_refFirstPersonPivot == null)
             return;
 
-        Transform refTarget = m_bZoomed ? m_refThirdPersonPivot : m_refFirstPersonPivot;
+        // 위치/회전 모두 항상 FirstPersonPivot(마우스 pitch/yaw) 기준이다. 줌 중엔 그 지점에서
+        // 바라보는 방향으로 살짝 당기기만 한다 — 팔/무기가 어디로 돌든 카메라는 항상 눈 근처에
+        // 안정적으로 남는다.
+        Vector3 vPosTarget = m_refFirstPersonPivot.position;
+           
         float fT = Time.deltaTime * m_fBlendSpeed;
 
-        m_refCamera.position = Vector3.Lerp(m_refCamera.position, refTarget.position, fT);
-        m_refCamera.rotation = Quaternion.Slerp(m_refCamera.rotation, refTarget.rotation, fT);
+        m_refCamera.position = Vector3.Lerp(m_refCamera.position, vPosTarget, fT);
+        m_refCamera.rotation = Quaternion.Slerp(m_refCamera.rotation, m_refFirstPersonPivot.rotation, fT);
     }
 
+    // 실제 카메라 회전은 항상 FirstPersonPivot 기준이므로(위 LateUpdate 참고), 카메라 상대
+    // 이동(PlayerMovement.Move())도 피벗이 아니라 실제 카메라 트랜스폼을 그대로 써야 줌 중
+    // 이동 방향이 화면과 어긋나지 않는다.
     public Transform GetCameraTranform()
     {
-        Transform refTarget = m_bZoomed ? m_refThirdPersonPivot : m_refFirstPersonPivot;
-        return refTarget;
+        return m_refCamera;
     }
 }

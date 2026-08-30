@@ -5,6 +5,7 @@ public class Player : MonoBehaviour
 {
     [SerializeField] private Aim m_refAim;
     [SerializeField] private Transform m_refWeaponSocket;
+    [SerializeField] private WeaponAimRig m_refWeaponAimRig;
 
     [SerializeField] private Weapon m_refWeapon = null; // 기본적으로 null — WeaponPickup을 통해 주워야 값이 채워진다
 
@@ -52,9 +53,12 @@ public class Player : MonoBehaviour
                 m_refAnimTable.SetSpeed(1.0f);
             }
 
-            GameCameraManager.m_Instance.SetZoomed(bRButn);
-            m_refAnimTable.SetBool(eEntityState.Fire, bRButn);
+            //GameCameraManager.m_Instance.SetZoomed(bRButn);
+            if (m_refWeaponAimRig != null)
+                m_refWeaponAimRig.SetZoomed(bRButn, m_refAim.TargetPosition);
 
+            m_refWeapon.SetAimCorrection(m_refAim.TargetPosition);
+            m_refAnimTable.SetBool(eEntityState.Fire, bRButn);
 
             if (bRButn && bLButton && m_refWeapon.CheckTime())
                 Fire();
@@ -63,11 +67,6 @@ public class Player : MonoBehaviour
 
     }
 
-
-    private void FixedUpdate()
-    {
-
-    }
 
     // WeaponPickup이 트리거 접촉 시 호출 — 무기를 손 소켓으로 옮기고 초기화한다.
     public void PickupWeapon(Weapon _refWeapon)
@@ -80,8 +79,6 @@ public class Player : MonoBehaviour
         TakeWeapon(_refWeapon);
 
         EquipWeapon(_refWeapon);
-
-        GameCameraManager.m_Instance.ThirdPersonPivot = _refWeapon.ZoomTr;
     }
 
     // 무기의 RightHandGripTr이 소켓(오른손) 위치/회전에 정확히 겹치도록 무기 자체를 배치한다.
@@ -110,7 +107,9 @@ public class Player : MonoBehaviour
         m_refWeapon.Init();
         m_refWeaponRigTarget.SetWeapon(
             m_refWeapon.LeftHandGripTr,
-            m_refWeaponRigTarget.LeftHint);
+            m_refWeaponRigTarget.LeftHint,
+            m_refWeapon.RightHandGripTr,
+            m_refWeaponRigTarget.RightHint);
 
         m_refAnimTable.SetBool(eEntityState.HasWeapon, true);
     }

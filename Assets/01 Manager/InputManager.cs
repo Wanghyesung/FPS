@@ -39,7 +39,6 @@ public class InputManager : MonoBehaviour
     [SerializeField] private List<InputActionReference> m_listFireAction;
     [SerializeField] private List<InputActionReference> m_listZoomAction;
 
-    AsyncOperationHandle handle;
 
     private bool m_isDeltaInitialized = false;
     private void Awake()

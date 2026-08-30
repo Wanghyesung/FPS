@@ -35,13 +35,15 @@ public class Weapon : MonoBehaviour
 
     [SerializeField] private Transform m_refRightHandGripTr; // 오른손이 닿아야 할 그립 포인트 — Player가 무기를 소켓에 배치할 때 참조
     [SerializeField] private Transform m_refLeftHandGripTr;  // 왼손 IK가 잡아야 할 그립 포인트 — WeaponRigTarget이 참조
-    [SerializeField] private Transform m_refZoomTr;  // 왼손 IK가 잡아야 할 그립 포인트 — WeaponRigTarget이 참조
+    [SerializeField] private Transform m_refZoomTr;  // 조준경(ADS) 지점 — WeaponAimDriver가 조준점 정렬의 기준으로 참조
     public Transform RightHandGripTr => m_refRightHandGripTr;
     public Transform LeftHandGripTr => m_refLeftHandGripTr;
     public Transform ZoomTr => m_refZoomTr;
-    
+    public Transform FireTr => m_refFireTr; // WeaponAimDriver가 ZoomTr 없는 무기에 대해 대신 참조하는 폴백
 
-    private WeaponRecoilKick m_refRecoilKick; // 사격 시 순수 연출용 스프링 반동 — 없으면 조용히 생략(선택 컴포넌트)
+
+    private WeaponRecoilKick m_refRecoilKick; // 사격 시 순수 연출용 스프링 반동 — RecoilPivot(자식)에 붙어있음, 없으면 조용히 생략(선택 컴포넌트)
+    private WeaponAimDriver m_refAimDriver;   // 조준경/총구를 조준점으로 상시 정렬 — 없으면 조용히 생략(선택 컴포넌트)
 
     private float m_fFireTime = 0.2f;
     private float m_fBaseCooldown = 0.2f;
@@ -80,9 +82,24 @@ public class Weapon : MonoBehaviour
 
         // TakeWeapon()이 그립 정렬을 이미 마친 뒤(Player.EquipWeapon()에서 Init()을 그
         // 다음에 호출함) — 이 시점의 로컬 포즈를 반동 스프링의 "원점"으로 캡처해야 한다.
-        m_refRecoilKick = GetComponent<WeaponRecoilKick>();
+        // WeaponRecoilKick은 무기 루트가 아니라 자식인 RecoilPivot에 붙어있다 —
+        // WeaponAimDriver가 매 프레임 덮어쓰는 루트 회전과 반동이 서로 기준 포즈를
+        // 덮어쓰며 싸우지 않도록 계층으로 분리했기 때문에 GetComponentInChildren로 찾는다.
+        // includeInactive: true — RecoilPivot이나 무기 오브젝트가 아직 비활성인 상태로 픽업/초기화되는
+        // 경우(월드에 비활성으로 놓여있다가 주워지는 무기)에도 반동이 조용히 사라지지 않도록 한다.
+        m_refRecoilKick = GetComponentInChildren<WeaponRecoilKick>(true);
         if (m_refRecoilKick != null)
             m_refRecoilKick.CaptureBasePose();
+
+        m_refAimDriver = GetComponent<WeaponAimDriver>();
+    }
+
+    // Player.Update()가 Aim의 탄착점(Hit Point)을 매 프레임 넘겨준다. 줌 여부와 무관하게
+    // 항상 정밀 조준한다(상세 이유는 WeaponAimDriver 참고).
+    public void SetAimCorrection(Vector3 _vTargetPos)
+    {
+        if (m_refAimDriver != null)
+            m_refAimDriver.SetTarget(_vTargetPos);
     }
 
     public void Fire(Vector3 _vTargetPos)
