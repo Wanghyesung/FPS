@@ -90,3 +90,62 @@
 시각적 반동(무기 모델 킥)과 조준 반동(`PlayerMovement.AddRecoil`가 담당하는 pitch/yaw 스프레이 컨트롤),
 실제 탄 퍼짐(`Weapon.m_fInaccuracyAngle`)은 서로 다른 세 개의 독립된 값/경로로 분리되어 있음 — 하나를
 키운다고 다른 게 같이 흔들리지 않는다.
+
+## [진단 완료 / 부분 수정] 왼손 Two Bone IK가 총(LeftHandGrip)을 안 따라가던 문제 (2026-08-31)
+
+### 증상
+총(Weapon_Rifle)이 회전해서 LeftHandGrip 위치가 바뀌어도 왼손(Hand_L)이 전혀 따라가지 않음.
+
+### 근본 원인 1 (수정 완료) — RigBuilder.Build()가 Animator 자체 초기화보다 먼저 실행됨
+`Player.Awake()`에서 씬에 미리 배치된 시작 무기를 장착하며 `EquipWeapon()` → `WeaponRigTarget.SetWeapon()`
+→ `RigBuilder.Build()`가 호출됐는데, 이 시점은 `Animator`가 자기 내부 PlayableGraph를 아직 초기화하기
+전이라 나중에 Animator가 자기 기본 그래프로 덮어써 버려 IK 계산 결과가 화면에 전혀 반영되지 않았다.
+`Player.cs`의 장착 로직을 `Awake()` → `Start()`로 이동해서 해결(Unity가 모든 Awake/OnEnable이 Start
+이전에 끝난다고 보장하므로 안전). 실측: 수정 전엔 그립을 45~60도 회전시켜도 Hand_L 위치가 480프레임
+넘게 전혀 안 움직였고(거리 0.55 유닛 고정), 수정 후엔 즉시 따라가서 기본 포즈 기준 오차 0.000004
+유닛(사실상 0)까지 줄었다.
+
+### 근본 원인 2 (수정 완료) — TwoBoneIKConstraint의 targetPositionWeight가 0
+`LeftHandIK` 컴포넌트의 `targetPositionWeight`가 인스펙터에 0으로 남아있어서, target 참조는 정확해도
+위치 자체가 전혀 반영되지 않고 있었다. `WeaponRigTarget.SetHand()`에서 `targetPositionWeight`를 1로
+강제하도록 수정(`targetRotationWeight`/`hintWeight`는 의도적으로 건드리지 않기로 함 — 위치 추적만
+필요하다는 요구사항).
+
+### 남은 문제 (미해결 — 원인 특정 못함, 재현 조건 확정)
+`WeaponSocket`을 **큰 각도로** 회전시키면 Two Bone IK가 아예 수렴하지 않고 고정된 상태로 멈추는
+증상이 재현됨. Play 모드에서 픽업 직후 깨끗한 상태(오차 0.000004 유닛, 사실상 완벽)로 시작해서
+단일 회전 조작만으로 반복 검증함:
+
+- 회전 45도(단일 축): 592프레임 뒤 오차 0.0000024 유닛 — **완벽하게 추적됨**
+- 회전 135도+20도(2축 복합, 단발): 683프레임 뒤 오차 0.455 유닛 — **전혀 안 붙고 고정**. 이후
+  2600프레임을 더 기다려도(재시작 없이) 오차가 정확히 그대로 유지됨(0.4553751 → 0.4553748,
+  6번째 유효숫자까지 불변) — 프레임 지연이 아니라 그 각도에서 아예 수렴을 포기한 상태로 정지.
+
+즉 **작은/중간 각도(대략 45~60도 이하)에서는 정상 작동하고, 그보다 큰 각도로 꺾으면 재현율 100%로
+깨진다.** 아래를 전부 실측으로 배제했지만 진짜 원인은 특정 못함 — 다음 세션에서 이어서 조사할 것:
+- target이 팔 최대 리치(rigid 계산 0.61 유닛, 이번 재현에서 shoulderToTarget=0.289) 안에 있음 —
+  reach 초과 아님. 이론상 law-of-cosines로 항상 해가 존재해야 하는 범위인데 못 찾는 것이 이상함.
+- `targetPositionWeight=1`, `weight=1`, RigLayer/Rig `weight=1`, `active=true` 모두 확인됨
+- `maintainTargetPositionOffset`/`maintainTargetRotationOffset` 둘 다 false
+- `hintWeight`를 0→1로 바꿔도(큰 각도 재현 케이스에서 직접 테스트) 오차 완전히 동일 — 힌트가
+  원인이 아님이 확실함
+- `RigBuilder.Build()`를 그 상태에서 다시 호출해도 오차 그대로 — 그래프 재빌드로도 안 풀림
+- `Animator.Update(0f)`를 수동으로 추가 호출하면 오히려 정상이던 상태(오차 ~0)가 즉시 0.26으로
+  깨짐 — MCP로 코드 실행하며 직접 `Animator.Update()`/`RigBuilder.Build()`를 수동 호출하는 진단
+  행위 자체가 상태를 오염시킬 수 있으므로, **다음에 이 문제를 다시 팔 때는 수동 Update/Build 호출을
+  섞지 말고 자연스러운 프레임 진행만으로 재현할 것** (이번 최종 재현은 그렇게 했음 — 위 135도
+  케이스는 회전 1회 호출 + 대기만으로 얻은 깨끗한 결과).
+
+다음에 조사할 방향 제안: (1) Elbow_L(mid)의 위치/회전 자체가 올바른 법선각으로 계산됐는지 —
+tip만 어긋난 건지 mid부터 어긋난 건지 아직 안 봤음. (2) LeftHint의 위치가 이 특정 회전 각도에서
+root-target 축과 거의 일직선이 되어 bend-plane 계산이 특이점(degenerate)에 빠지는지 — 다만
+hintWeight=0/1 둘 다 결과가 같았으므로 가능성은 낮아 보임. (3) Animation Rigging 패키지(1.2.0)의
+TwoBoneIKConstraintJob 자체 버그 여부를 Unity 공식 이슈 트래커에서 검색.
+
+위쪽 "Animation Rigging 패키지로 손 IK/조준 재구현" 항목에 이미 기록된 오른손 IK 자기참조 비수렴
+문제(62도 어긋남, 그래서 오른손은 IK 대신 리지드 페어런팅 유지)와 같은 계열의 증상일 가능성이 있다 —
+`LeftHandGrip`도 `Hand_R` 본 아래 `WeaponSocket`/`Weapon` 4단 깊이에 물려있어서, 애니메이션으로 계속
+움직이는 본 체인 아래 깊이 중첩된 타겟을 Two Bone IK가 큰 회전 상태에서 완전히 수렴시키지 못하는 게
+이 리그 구조 자체의 한계일 수 있다. 다만 자연스러운 조준 회전 범위(대략 ±20도 이내로 추정)에서는
+`(-28.0, 0.02, 5.0)` 기본 포즈 실측처럼 오차가 사실상 0이었으므로, 실전 조준 범위에서는 육안으로
+문제되지 않을 가능성이 높다 — 실제 게임 내 조준 범위로 먼저 테스트해보고 그래도 거슬리면 추가 조사할 것.

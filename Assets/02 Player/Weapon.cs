@@ -39,9 +39,10 @@ public class Weapon : MonoBehaviour
     public Transform RightHandGripTr => m_refRightHandGripTr;
     public Transform LeftHandGripTr => m_refLeftHandGripTr;
     public Transform ZoomTr => m_refZoomTr;
-    
+    public Transform FireTr => m_refFireTr; // WeaponAimAlign이 총구 방향(정렬 기준)을 읽기 위해 참조
 
     private WeaponRecoilKick m_refRecoilKick; // 사격 시 순수 연출용 스프링 반동 — 없으면 조용히 생략(선택 컴포넌트)
+    private WeaponAimAlign m_refAimAlign; //개머리판을 기준으로 회전 
 
     private float m_fFireTime = 0.2f;
     private float m_fBaseCooldown = 0.2f;
@@ -81,6 +82,7 @@ public class Weapon : MonoBehaviour
         // TakeWeapon()이 그립 정렬을 이미 마친 뒤(Player.EquipWeapon()에서 Init()을 그
         // 다음에 호출함) — 이 시점의 로컬 포즈를 반동 스프링의 "원점"으로 캡처해야 한다.
         m_refRecoilKick = GetComponent<WeaponRecoilKick>();
+        m_refAimAlign = GetComponent<WeaponAimAlign>();
         if (m_refRecoilKick != null)
             m_refRecoilKick.CaptureBasePose();
     }
@@ -245,6 +247,16 @@ public class Weapon : MonoBehaviour
     }
 
 
-  
+    public void Zoom()
+    {
+        if (m_refAimAlign != null)
+            m_refAimAlign.Zoom = true;
+    }
+
+    public void UnZoom()
+    {
+        if (m_refAimAlign != null)
+            m_refAimAlign.Zoom = false;
+    }
 }
 

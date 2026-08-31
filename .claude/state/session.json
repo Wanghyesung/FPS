@@ -1,19 +1,17 @@
 {
   "schema_version": 1,
-  "branch": "devel/Player",
+  "branch": "devel/Rig",
   "workflow_phase": "",
-  "modified_files": [
-    "C:\\Users\\user\\.claude\\plans\\lexical-swimming-sutton.md"
-  ],
+  "modified_files": [],
   "recent_commits": [
+    "1215ebe [Add] 무기 장착 리깅 · 반동 · 조준 애니메이션 시스템 구현",
     "8552340 [Add] 게임 기본 로직 구성",
-    "c74d107 [Backup] 스크립트/에디터 데이터 전체 재작업 전 백업 커밋",
-    "2cdf4f0 [Add] MVP 개발에 필요한 하네스 셋팅 추가"
+    "c74d107 [Backup] 스크립트/에디터 데이터 전체 재작업 전 백업 커밋"
   ],
-  "session_duration": "37m 19s",
+  "session_duration": "1m 4s",
   "tool_calls": 0,
-  "warnings_count": 10,
-  "saved_at": "2026-08-28T11:05:00Z",
+  "warnings_count": 12,
+  "saved_at": "2026-08-31T10:18:31Z",
   "plan": {},
   "verification": {},
   "agent_context": {}

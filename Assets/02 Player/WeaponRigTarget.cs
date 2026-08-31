@@ -16,15 +16,20 @@ public sealed class WeaponRigTarget : MonoBehaviour
     [SerializeField] private RigBuilder m_refRigBuilder;
 
     [SerializeField] private TwoBoneIKConstraint m_refLeftHandIK;
+    [SerializeField] private TwoBoneIKConstraint m_refRightHandIK;
 
-    [SerializeField] private Transform m_refLeftElbowHintTr;
+    [SerializeField] private Transform m_refLeftHintTr;
+    [SerializeField] private Transform m_refRightHintTr;
 
-    public Transform LeftHint => m_refLeftElbowHintTr;
+    public Transform LeftHint => m_refLeftHintTr;
+    public Transform RightHint => m_refRightHintTr;
+
     // Player.EquipWeapon()이 무기 장착 시점에 호출한다.
-    public void SetWeapon(Transform _refLeftGrip,Transform _refLeftHint = null)
+    public void SetWeapon(Transform _refLeftGrip,Transform _refLeftHint,
+        Transform _refRightGrip, Transform _refRightHint)
     {
         SetHand(m_refLeftHandIK, _refLeftGrip, _refLeftHint);
-        //SetHand(m_refRightHandIK, _refRightGrip, _refRightHint);
+        SetHand(m_refRightHandIK, _refRightGrip, _refRightHint);
 
         Rebuild();
     }
@@ -33,7 +38,7 @@ public sealed class WeaponRigTarget : MonoBehaviour
     public void ClearWeapon()
     {
         SetHand(m_refLeftHandIK, null, null);
-        //SetHand(m_refRightHandIK, null, null);
+        SetHand(m_refRightHandIK, null, null);
 
         Rebuild();
     }
@@ -58,6 +63,8 @@ public sealed class WeaponRigTarget : MonoBehaviour
 
         _refConstraint.data.target = _refGrip;
         _refConstraint.data.hint = _refHint;
+        _refConstraint.data.targetPositionWeight = 1f;
         _refConstraint.weight = 1f;
     }
+
 }

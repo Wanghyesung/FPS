@@ -365,3 +365,20 @@
 2026-08-28 15:37:58 | C:\\Users\\user\\Documents\\GitHub\\FPS\\Assets\\02 Player\\Weapon.cs | 1 file changed, 25 insertions(+), 2 deletions(-)
 2026-08-28 16:19:15 | C:\\Users\\user\\Documents\\GitHub\\FPS\\Assets\\02 Player\\WeaponRigTarget.cs | new file, 65 lines
 2026-08-28 18:35:49 | C:\\Users\\user\\Documents\\GitHub\\FPS\\Assets\\02 Player\\WeaponRigTarget.cs | new file, 63 lines
+2026-08-31 12:58:51 | C:\\Users\\user\\Documents\\GitHub\\FPS\\Assets\\02 Player\\WeaponRecoilKick.cs | 1 file changed, 5 insertions(+), 1 deletion(-)
+2026-08-31 13:16:05 | C:\\Users\\user\\Documents\\GitHub\\FPS\\Assets\\02 Player\\Player.cs | 1 file changed, 9 insertions(+), 1 deletion(-)
+2026-08-31 13:19:48 | C:\\Users\\user\\Documents\\GitHub\\FPS\\Assets\\02 Player\\WeaponRigTarget.cs | 1 file changed, 6 insertions(+)
+2026-08-31 13:36:13 | C:\\Users\\user\\Documents\\GitHub\\FPS\\.claude\\docs\\known-issues.md | 1 file changed, 38 insertions(+)
+2026-08-31 13:45:09 | C:\\Users\\user\\Documents\\GitHub\\FPS\\.claude\\docs\\known-issues.md | 1 file changed, 59 insertions(+)
+2026-08-31 16:24:35 | C:\\Users\\user\\Documents\\GitHub\\FPS\\Assets\\02 Player\\Weapon.cs | 1 file changed, 12 insertions(+), 1 deletion(-)
+2026-08-31 16:24:37 | C:\\Users\\user\\Documents\\GitHub\\FPS\\Assets\\02 Player\\Weapon.cs | 1 file changed, 11 insertions(+), 1 deletion(-)
+2026-08-31 16:24:41 | C:\\Users\\user\\Documents\\GitHub\\FPS\\Assets\\02 Player\\Weapon.cs | 1 file changed, 10 insertions(+), 1 deletion(-)
+2026-08-31 16:24:42 | C:\\Users\\user\\Documents\\GitHub\\FPS\\Assets\\02 Player\\Weapon.cs | 1 file changed, 3 deletions(-)
+2026-08-31 16:24:48 | C:\\Users\\user\\Documents\\GitHub\\FPS\\Assets\\02 Player\\Player.cs | 1 file changed, 13 insertions(+), 4 deletions(-)
+2026-08-31 16:24:49 | C:\\Users\\user\\Documents\\GitHub\\FPS\\Assets\\02 Player\\Player.cs | 1 file changed, 12 insertions(+), 4 deletions(-)
+2026-08-31 16:43:30 | C:\\Users\\user\\Documents\\GitHub\\FPS\\Assets\\02 Player\\Weapon.cs | 1 file changed, 1 insertion(+), 3 deletions(-)
+2026-08-31 16:43:45 | C:\\Users\\user\\Documents\\GitHub\\FPS\\Assets\\02 Player\\WeaponAimAlign.cs | new file, 60 lines
+2026-08-31 17:02:56 | C:\\Users\\user\\Documents\\GitHub\\FPS\\Assets\\02 Player\\Player.cs | 1 file changed, 16 insertions(+), 7 deletions(-)
+2026-08-31 17:03:07 | C:\\Users\\user\\Documents\\GitHub\\FPS\\Assets\\02 Player\\Weapon.cs | 1 file changed, 14 insertions(+), 2 deletions(-)
+2026-08-31 17:03:21 | C:\\Users\\user\\Documents\\GitHub\\FPS\\Assets\\02 Player\\WeaponAimAlign.cs | new file, 66 lines
+2026-08-31 17:15:24 | C:\\Users\\user\\Documents\\GitHub\\FPS\\Assets\\02 Player\\WeaponRigTarget.cs | 1 file changed, 12 insertions(+), 5 deletions(-)

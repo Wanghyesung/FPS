@@ -16,7 +16,6 @@ public class Player : MonoBehaviour
 
    
 
-    private bool m_bWaitFire = false;
     private void Awake()
     {
         m_refMovement = GetComponent<PlayerMovement>();
@@ -24,7 +23,15 @@ public class Player : MonoBehaviour
 
         m_refAnimTable = GetComponent<AnimationTable>();
         m_refWeaponRigTarget = GetComponent<WeaponRigTarget>();
+    }
 
+    // RigBuilder.Build()는 Awake가 아니라 Start에서 호출해야 한다 — Animator가 자기 내부
+    // PlayableGraph를 초기화하기 전에 Build()가 먼저 도니, Animator 자체 초기화가 나중에
+    // RigBuilder의 그래프를 자기 기본 그래프로 덮어써 버려 IK가 계산만 되고 화면엔 반영이
+    // 안 되는 현상이 생긴다. Start 시점엔 씬의 모든 Awake/OnEnable(Animator 포함)이 이미
+    // 끝났다고 Unity가 보장하므로 안전하다.
+    private void Start()
+    {
         // 씬에 미리 장착된 무기(WeaponPickup 트리거를 거치지 않은 시작 무기)도
         // 소켓 정렬 + Init + 왼손 IK 타겟 연결이 필요하다
         if (m_refWeapon != null)
@@ -43,13 +50,15 @@ public class Player : MonoBehaviour
             bool bLButton = InputManager.m_Instance.InputInfo.OnLButon;
             if (bRButn == true)
             {
-                m_bWaitFire = true;
                 m_refAnimTable.SetSpeed(0.0f);
+
+                m_refWeapon.Zoom();
             }
             else
             {
-                m_bWaitFire = false;
                 m_refAnimTable.SetSpeed(1.0f);
+
+                m_refWeapon.UnZoom();
             }
 
             GameCameraManager.m_Instance.SetZoomed(bRButn);
@@ -76,7 +85,7 @@ public class Player : MonoBehaviour
             return;
 
         Transform tSocket = m_refWeaponSocket != null ? m_refWeaponSocket : transform;
-        _refWeapon.transform.SetParent(tSocket, false);
+        _refWeapon.transform.SetParent(tSocket, true);
         TakeWeapon(_refWeapon);
 
         EquipWeapon(_refWeapon);
@@ -92,7 +101,7 @@ public class Player : MonoBehaviour
         Transform refWeapon = _refWeapon.transform;
         Transform refGrip = _refWeapon.RightHandGripTr;
         Transform refSocket = m_refWeaponSocket != null ? m_refWeaponSocket : transform;
-
+        
         if (refGrip == null)
         {
             refWeapon.localPosition = Vector3.zero;
@@ -109,8 +118,8 @@ public class Player : MonoBehaviour
         m_refWeapon = _refWeapon;
         m_refWeapon.Init();
         m_refWeaponRigTarget.SetWeapon(
-            m_refWeapon.LeftHandGripTr,
-            m_refWeaponRigTarget.LeftHint);
+            m_refWeapon.LeftHandGripTr,m_refWeaponRigTarget.LeftHint,
+            m_refWeapon.RightHandGripTr,m_refWeaponRigTarget.RightHint);
 
         m_refAnimTable.SetBool(eEntityState.HasWeapon, true);
     }
