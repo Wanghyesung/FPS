@@ -1,17 +1,25 @@
 {
   "schema_version": 1,
-  "branch": "devel/Rig",
+  "branch": "devel/Player",
   "workflow_phase": "",
-  "modified_files": [],
-  "recent_commits": [
-    "a0d167c [Add] 플레이어 점프 추가",
-    "418f867 [Fix] 오른손 무기 리그 자기참조 문제 해결 및 조준 정렬(WeaponAimAlign) 추가",
-    "1215ebe [Add] 무기 장착 리깅 · 반동 · 조준 애니메이션 시스템 구현"
+  "modified_files": [
+    "C:\\Users\\user\\.claude\\plans\\agile-riding-engelbart.md",
+    "C:\\Users\\user\\Documents\\GitHub\\FPS\\.claude\\docs\\known-issues.md",
+    "C:\\Users\\user\\Documents\\GitHub\\FPS\\Assets\\02 Player\\Aim.cs",
+    "C:\\Users\\user\\Documents\\GitHub\\FPS\\Assets\\02 Player\\AimTargetFollower.cs",
+    "C:\\Users\\user\\Documents\\GitHub\\FPS\\Assets\\02 Player\\Player.cs",
+    "C:\\Users\\user\\Documents\\GitHub\\FPS\\Assets\\02 Player\\WeaponAimAlign.cs",
+    "C:\\Users\\user\\Documents\\GitHub\\FPS\\Assets\\02 Player\\WeaponRigTarget.cs"
   ],
-  "session_duration": "36m 44s",
+  "recent_commits": [
+    "23084cf Merge branch 'devel/Rig' into devel/Player",
+    "dcc294a [Add] 히트 파티클 추가",
+    "a0d167c [Add] 플레이어 점프 추가"
+  ],
+  "session_duration": "140m 51s",
   "tool_calls": 0,
-  "warnings_count": 14,
-  "saved_at": "2026-09-01T06:06:06Z",
+  "warnings_count": 16,
+  "saved_at": "2026-09-01T09:26:44Z",
   "plan": {},
   "verification": {},
   "agent_context": {}

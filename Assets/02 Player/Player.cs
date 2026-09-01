@@ -123,6 +123,7 @@ public class Player : MonoBehaviour
         m_refWeapon = _refWeapon;
         m_refWeapon.Init();
         m_refWeaponRigTarget.SetWeapon(
+            m_refWeapon.transform,
             m_refWeapon.LeftHandGripTr,m_refWeaponRigTarget.LeftHint,
             m_refWeapon.RightHandGripTr,m_refWeaponRigTarget.RightHint);
 

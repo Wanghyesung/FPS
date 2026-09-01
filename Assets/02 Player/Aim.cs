@@ -10,22 +10,19 @@ using UnityEngine.UI;
 기능 : ray, claude플레이어가 쏠 방향을 제공하는 클래스
  *///////////////////////////////////////////
 
+// PlayerMovement.Look()이 이번 프레임 pitch/yaw를 CameraPivotTr에 먼저 확정해야
+// 아래 RayCast()가 최신 값을 쓴다. PlayerMovement는 기본 실행 순서(0)라 이 값보다
+// 큰 순서를 줘서 항상 그 다음에 실행되게 한다.
+[DefaultExecutionOrder(10)]
 public class Aim : MonoBehaviour
 {
+    [SerializeField] private Transform m_refCameraPitchTr; // PlayerMovement의 CameraPivot3D — 같은 프레임에 이미 확정된 pitch/yaw를 그대로 씀. Camera.main은 GameCameraManager.LateUpdate()에서만 갱신되어 한 프레임 지연된 값이라 쓰지 않는다.
     [SerializeField] private LayerMask m_tLayerMask;
     [SerializeField] private float m_fMaxLength;
 
     [SerializeField] private Image m_refAimImage;
     private Vector3 m_vTargetPosition = Vector3.zero;
     public Vector3 TargetPosition => m_vTargetPosition;
-
-    // Camera.main은 내부적으로 태그 검색(FindGameObjectsWithTag)을 돌기 때문에 매 프레임 호출하면 안 된다.
-    private Camera m_refMainCamera;
-
-    private void Awake()
-    {
-        m_refMainCamera = Camera.main;
-    }
 
     private void Update()
     {
@@ -34,14 +31,10 @@ public class Aim : MonoBehaviour
 
     public Vector3 RayCast()
     {
-        // 카메라가 나중에 생성/교체되는 경우에만 다시 찾는다 — 정상 흐름에서는 Awake의 캐시를 그대로 쓴다.
-        if (m_refMainCamera == null)
-            m_refMainCamera = Camera.main;
-
-        if (m_refMainCamera == null)
+        if (m_refCameraPitchTr == null)
             return m_vTargetPosition;
 
-        Ray tRay = m_refMainCamera.ScreenPointToRay(new Vector3(Screen.width * 0.5f, Screen.height * 0.5f, 0));
+        Ray tRay = new Ray(m_refCameraPitchTr.position, m_refCameraPitchTr.forward);
 
         RaycastHit hit;
         if(Physics.Raycast(tRay.origin, tRay.direction, out hit,  m_fMaxLength, m_tLayerMask) == true)

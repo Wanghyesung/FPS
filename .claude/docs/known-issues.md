@@ -149,3 +149,84 @@ TwoBoneIKConstraintJob 자체 버그 여부를 Unity 공식 이슈 트래커에�
 이 리그 구조 자체의 한계일 수 있다. 다만 자연스러운 조준 회전 범위(대략 ±20도 이내로 추정)에서는
 `(-28.0, 0.02, 5.0)` 기본 포즈 실측처럼 오차가 사실상 0이었으므로, 실전 조준 범위에서는 육안으로
 문제되지 않을 가능성이 높다 — 실제 게임 내 조준 범위로 먼저 테스트해보고 그래도 거슬리면 추가 조사할 것.
+
+(2026-09-01 갱신: 사용자 확인 결과 왼손/오른손 IK 모두 현재 잘 동작 중. 위 수렴 버그는 재현은 됐지만
+실전에서 막힌 적은 없는 것으로 보임 — 아래 새 항목의 재설계 작업 중 조준 각도가 커지면 다시 걸릴 수
+있으니 그때 가서 대응하기로 함.)
+
+## [완료] WeaponAimAlign을 RigBuilder 그래프 안으로 이전 (2026-09-01)
+
+### 진단
+`WeaponAimAlign.cs`(순수 Update() 스크립트, 무기를 pivot 기준 RotateAround로 직접 회전시킴)가
+무기의 부모 본(현재 확인된 소켓 기준 `Clavicle_R`/`Hand_R`, 즉 애니메이션으로 매 프레임 움직이는
+스켈레톤 체인)이 **이번 프레임 최종 포즈로 갱신되기 전에** 실행된다. Unity 프레임 순서는
+`Update → (Animator+Rig 평가) → LateUpdate`이므로, `WeaponAimAlign.Update()`가 읽는
+`refFireTr.forward`/무기 트랜스폼은 항상 지난 프레임 본 포즈 기준 — 총이 이동 애니메이션으로
+흔들리는 동안 조준 보정도 한 프레임 밀린 값으로 계산됨. Aim 튜토리얼([#04] Unity Animation
+Rigging - Aiming a weapon)이 경고하는 "부착 콘스트레인트가 조준 콘스트레인트보다 먼저 평가돼야
+한다"는 원칙을 정확히 거꾸로 밟고 있는 구조. `Aim.cs`가 `Camera.main`을 Update에서 읽어 카메라
+갱신(LateUpdate)보다 한 프레임 앞서는 문제까지 겹쳐서, 실질적으로 카메라 지연 + 본 지연 이중으로
+밀린 데이터를 쓰고 있음.
+
+관련 과거 기록: 이 프로젝트는 이미 한 번(2026-08-28) `AimRigTarget.cs`로 Multi-Aim Constraint 기반
+재설계를 시도했다가 코드까지 다 만들어놓고 중단된 이력이 있음(현재 `AimRigTarget.cs` 파일 없음 —
+삭제됨). 왜 중단됐는지는 기록에 없고, 사용자도 명확한 이유는 기억 못 함 — 다만 당시 걸림돌로 보였던
+왼손/오른손 IK는 현재(2026-09-01) 둘 다 정상 동작 확인됨.
+
+### 실제 구현한 방향 — 영상([#04] Aiming a weapon using Multi Aim Constraint) 그대로,
+### 커스텀 IAnimationJob 아님, 내장 Multi-Aim Constraint 사용 (UnityMCP로 직접 수행, 검증 완료)
+당초 계획했던 커스텀 `IAnimationJob` 대신, 영상이 실제로 쓰는 `com.unity.animation.rigging` 내장
+`MultiAimConstraint`로 구현 — 더 단순하고 코드도 덜 필요함.
+
+1. `AimTargetFollower.cs`(신규) — `Aim.TargetPosition`을 자기 위치로 복사만 하는 얇은
+   MonoBehaviour. `AimTargetPoint` GameObject에 부착.
+2. `WeaponAimAlign.cs` 축소 완료 — 트랜스폼 직접 조작 코드 전부 제거. 줌 여부에 따라 주입받은
+   `MultiAimConstraint`의 `weight`만 `MoveTowards`로 블렌딩.
+3. `WeaponRigTarget.cs`에 `m_refWeaponAimConstraint` 필드 추가. `SetWeapon()`이 장착 시점에
+   `constrainedObject`를 이번 무기 루트로 갈아끼우고, 그 무기의 `WeaponAimAlign`에
+   `SetAimConstraint()`로 콘스트레인트 참조를 주입.
+4. `Player.cs` `EquipWeapon()` → `WeaponRigTarget.SetWeapon()` 호출에 무기 루트 Transform 인자 추가.
+5. Unity 씬(UnityMCP `execute_code`/`manage_gameobject`/`manage_components`로 직접 수행):
+   - `Player/Visual` 밑에 `AimTargetPoint`(`AimTargetFollower` + `RigTransform`) 생성.
+   - `Player/Visual/RigLayer` 밑에 `WeaponAimIK`(`MultiAimConstraint`) 생성, **sibling index 0**으로
+     이동시켜 `LeftHandIK`/`RightHandIK`보다 먼저 평가되게 함(`transform.SetSiblingIndex(0)`).
+   - `sourceObjects`에 `AimTargetPoint` 등록(weight 1). `aimAxis`는 실측 결과 기본값 Z가 정확히
+     일치(FireTr.forward를 무기 루트 로컬 공간으로 변환하면 정확히 (0,0,1)) — 별도 설정 불필요.
+   - `WeaponRigTarget.m_refWeaponAimConstraint`, `Aim.m_refCameraPitchTr`(→CameraPivot3D),
+     `AimTargetFollower.m_refAim`(→Player의 Aim) 각각 배선.
+6. **회전 기준점은 무기 루트 자체**로 결정(사용자 확정) — 기존 `WeaponAimAlign.m_refPivotTr`이
+   가리키던 개머리판 안 `Pivot` 자식(무기 루트에서 약 0.26 유닛 떨어짐)은 더 이상 안 씀. Multi-Aim
+   Constraint는 Constrained Object 자신의 위치만 축으로 쓸 수 있어서 영상과 동일하게 감 — 프리팹
+   재구조화 없음. 시각적으로 회전 축이 살짝 달라지는 트레이드오프는 승인됨.
+7. (관련 이슈, 같이 처리) `Aim.cs`가 `Camera.main` 대신 `PlayerMovement`의 `CameraPivot3D`를
+   기준으로 레이캐스트하도록 변경 + `[DefaultExecutionOrder(10)]`로 `PlayerMovement`보다 항상
+   나중에 실행되도록 고정. 카메라 쪽 프레임 지연도 같이 제거됨.
+
+### 삽질 기록 — TransformStreamHandle cannot be resolved
+`AimTargetPoint`를 처음에 `Player` 루트 바로 밑(Visual 밖)에 만들었더니 Play 모드에서
+`System.InvalidOperationException: The TransformStreamHandle cannot be resolved.`가 매 프레임
+발생(Burst job, `RigSyncSceneToStreamJob.TransformSyncer.Sync`). `RigTransform` 컴포넌트를 추가해도
+그 자체로는 안 고쳐짐(런타임 로직이 없는 빈 마커라 이것만으론 스트림 바인딩이 해결 안 됨). 이미 잘
+동작하던 `LeftHint`/`RightHint`(TwoBoneIKConstraint의 hint로 쓰이는, 마찬가지로 SyncSceneToStream
+대상)가 전부 `Player/Visual` **밑**에 있는 걸 확인하고 `AimTargetPoint`도 `Player/Visual` 밑으로
+옮기니 즉시 해결됨. **결론: Rig 콘스트레인트가 참조하는 SyncSceneToStream 대상 Transform은
+Animator의 avatarRoot(`Visual`) 하위에 있어야 한다 — Player 루트 바로 밑은 안 됨.**
+
+### 검증 결과 (UnityMCP `execute_code`로 Play 모드 직접 측정, 2026-09-01)
+- `Player.PickupWeapon()`(리플렉션으로 강제 호출, 씬에 `GameCameraManager`/`InputManager`
+  부트스트랩이 없어 일부 경로는 우회) → 장착 후 `constrainedObject` = 정확히 장착된 무기 이름으로
+  확인됨(런타임 배선 정상).
+- `WeaponAimAlign.Zoom = true` 후 1초 대기 → `constraint.weight` 0→1.000 정상 블렌딩,
+  `FireTr.forward`와 "무기→AimTargetPoint 방향"의 각도차 **0.00도** (완전 정렬).
+- `Zoom = false` 후 1초 대기 → `weight` 1.000→0.000 정상 복귀.
+- 같은 상태에서 `Hand_L`과 `LeftHandGripTr`의 거리 **0.00001 유닛** — 왼손 Two-Bone IK가
+  WeaponAimIK보다 나중에 평가되면서도(순서 정상) 여전히 완벽하게 추적함, 회귀 없음.
+- 콘솔 에러 없음(단, 이 씬을 부트스트랩 씬 없이 단독 Play할 때 `InputManager.m_Instance`/
+  `GameCameraManager.m_Instance`가 null이라 `Player.Update()`/`PlayerMovement.Update()`가 매 프레임
+  NullReferenceException을 던지는 건 **이번 작업과 무관한 기존 갭** — 부트스트랩 씬과 함께 실행하면
+  발생 안 함, 별도 이슈로 남겨둠).
+
+### 남은 리스크 (해결 안 됨)
+조준 각도가 커질수록 위 "왼손 Two Bone IK가 총을 안 따라가던 문제" 항목의 미해결 수렴 버그
+(60~135도 이상에서 멈춤)에 걸릴 가능성은 여전히 있음 — 이번 검증은 정지 상태 기준 각도라 큰 회전
+상태에서의 수렴은 아직 실측 안 함. 실전 조준 범위로 플레이 테스트하며 지켜볼 것.

@@ -17,6 +17,7 @@ public sealed class WeaponRigTarget : MonoBehaviour
 
     [SerializeField] private TwoBoneIKConstraint m_refLeftHandIK;
     [SerializeField] private TwoBoneIKConstraint m_refRightHandIK;
+    [SerializeField] private MultiAimConstraint m_refWeaponAimConstraint; // WeaponAimIK — 장착된 무기가 바뀔 때마다 constrainedObject를 갈아끼워 재사용하는 공유 콘스트레인트
 
     [SerializeField] private Transform m_refLeftHintTr;
     [SerializeField] private Transform m_refRightHintTr;
@@ -25,11 +26,12 @@ public sealed class WeaponRigTarget : MonoBehaviour
     public Transform RightHint => m_refRightHintTr;
 
     // Player.EquipWeapon()이 무기 장착 시점에 호출한다.
-    public void SetWeapon(Transform _refLeftGrip,Transform _refLeftHint,
+    public void SetWeapon(Transform _refWeaponRoot, Transform _refLeftGrip, Transform _refLeftHint,
         Transform _refRightGrip, Transform _refRightHint)
     {
         SetHand(m_refLeftHandIK, _refLeftGrip, _refLeftHint);
         SetHand(m_refRightHandIK, _refRightGrip, _refRightHint);
+        SetAim(_refWeaponRoot);
 
         Rebuild();
     }
@@ -39,8 +41,26 @@ public sealed class WeaponRigTarget : MonoBehaviour
     {
         SetHand(m_refLeftHandIK, null, null);
         SetHand(m_refRightHandIK, null, null);
+        SetAim(null);
 
         Rebuild();
+    }
+
+    // WeaponAimIK(Multi-Aim Constraint)가 회전시킬 대상을 이번에 장착된 무기 루트로 갈아끼우고,
+    // 그 무기의 WeaponAimAlign에게 이 콘스트레인트 참조를 넘겨 weight 블렌딩을 맡긴다.
+    private void SetAim(Transform _refWeaponRoot)
+    {
+        if (m_refWeaponAimConstraint == null)
+            return;
+
+        m_refWeaponAimConstraint.data.constrainedObject = _refWeaponRoot;
+
+        if (_refWeaponRoot == null)
+            return;
+
+        WeaponAimAlign refAimAlign = _refWeaponRoot.GetComponent<WeaponAimAlign>();
+        if (refAimAlign != null)
+            refAimAlign.SetAimConstraint(m_refWeaponAimConstraint);
     }
 
     // target/hint 참조 변경을 실제 PlayableGraph에 반영하기 위해 재빌드한다.
