@@ -41,6 +41,7 @@ public class Player : MonoBehaviour
         }
     }
 
+  
 
     private void Update()
     {
@@ -50,24 +51,22 @@ public class Player : MonoBehaviour
             bool bLButton = InputManager.m_Instance.InputInfo.OnLButon;
             if (bRButn == true)
             {
-                m_refAnimTable.SetSpeed(0.0f);
 
                 m_refWeapon.Zoom();
             }
             else
             {
-                m_refAnimTable.SetSpeed(1.0f);
+               
 
                 m_refWeapon.UnZoom();
             }
 
             GameCameraManager.m_Instance.SetZoomed(bRButn);
-            m_refAnimTable.SetBool(eEntityState.Fire, bRButn);
+            //m_refAnimTable.SetBool(eEntityState.Fire, bRButn);
 
 
             if (bRButn && bLButton && m_refWeapon.CheckTime())
                 Fire();
-  
         }
 
     }
@@ -85,8 +84,17 @@ public class Player : MonoBehaviour
             return;
 
         Transform tSocket = m_refWeaponSocket != null ? m_refWeaponSocket : transform;
+        //_refWeapon.transform.SetParent(tSocket, true);
+
+        // 1. World 위치 유지하며 부모 설정
         _refWeapon.transform.SetParent(tSocket, true);
-        TakeWeapon(_refWeapon);
+
+        // 2. 강제로 부모 위치/회전/크기로 찰떡같이 밀착
+        _refWeapon.transform.localPosition = Vector3.zero;
+        _refWeapon.transform.localRotation = Quaternion.identity;
+        _refWeapon.transform.localScale = Vector3.one;
+
+        //TakeWeapon(_refWeapon);
 
         EquipWeapon(_refWeapon);
 
@@ -126,7 +134,6 @@ public class Player : MonoBehaviour
 
     private void Fire()
     {
-        m_refAnimTable.SetSpeed(1.0f);
         m_refWeapon.Fire(m_refAim.TargetPosition);
     }
 

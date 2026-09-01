@@ -12,6 +12,13 @@ using UnityEngine;
        발사 반동(Shake)은 카메라 자체를 건드리지 않는다 — PlayerMovement의 실제
        pitch/yaw에 직접 얹어서, 플레이어가 마우스로 눌러야만 상쇄되는 스프레이
        컨트롤로 동작한다(Shake 참고). 이 클래스는 그 결과 피벗을 그대로 따라갈 뿐이다.
+
+       회전은 위치와 분리해서 항상 m_refFirstPersonPivot(PlayerMovement가 pitch를
+       직접 적용하는 CameraPivot3D)에서만 가져온다 — 3인칭 줌 타겟(무기의 ZoomTr)은
+       스파인 본 체인의 자식이라 yaw만 물려받고 pitch가 전혀 없기 때문에, 회전까지
+       그쪽에서 가져오면 줌 상태에서 마우스 위/아래가 카메라에 반영되지 않는다.
+       위치만 모드별 피벗(1인칭 눈높이 / 3인칭 어깨 뒤)을 따라가고, 회전은 항상
+       pitch+yaw가 다 들어있는 CameraPivot3D 기준으로 고정한다.
  *///////////////////////////////////////////
 
 public sealed class GameCameraManager : MonoBehaviour
@@ -66,8 +73,6 @@ public sealed class GameCameraManager : MonoBehaviour
         if (m_bZoomed == true)
             _fAmount /= 4.0f;
 
-        if (m_refPlayerMovement != null)
-            m_refPlayerMovement.AddRecoil(_fAmount);
     }
 
 
@@ -76,16 +81,11 @@ public sealed class GameCameraManager : MonoBehaviour
         if (m_refCamera == null || m_refFirstPersonPivot == null)
             return;
 
-        Transform refTarget = m_bZoomed ? m_refThirdPersonPivot : m_refFirstPersonPivot;
+        bool bUseThirdPerson = m_bZoomed && m_refThirdPersonPivot != null;
+        Transform refPositionTarget = bUseThirdPerson ? m_refThirdPersonPivot : m_refFirstPersonPivot;
         float fT = Time.deltaTime * m_fBlendSpeed;
 
-        m_refCamera.position = Vector3.Lerp(m_refCamera.position, refTarget.position, fT);
-        m_refCamera.rotation = Quaternion.Slerp(m_refCamera.rotation, refTarget.rotation, fT);
-    }
-
-    public Transform GetCameraTranform()
-    {
-        Transform refTarget = m_bZoomed ? m_refThirdPersonPivot : m_refFirstPersonPivot;
-        return refTarget;
+        m_refCamera.position = Vector3.Lerp(m_refCamera.position, refPositionTarget.position, fT);
+        m_refCamera.rotation = Quaternion.Slerp(m_refCamera.rotation, m_refFirstPersonPivot.rotation, fT);
     }
 }

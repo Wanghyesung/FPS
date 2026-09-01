@@ -22,7 +22,13 @@ public enum eEntityState
     Fire = 2,
     FireWait = 3,
     HasWeapon = 4,
+
     Dead = 5,
+
+    MoveX = 6,
+    MoveZ = 7,
+    Jump = 8,
+
 }
 
 [Serializable]
@@ -168,11 +174,5 @@ public class AnimationTable : MonoBehaviour
             return tNode;
         return null;
     }
-
-    public void SetSpeed(float _fSpeed)
-    {
-        m_refAnimator.speed = _fSpeed;
-    }
-
 
 }

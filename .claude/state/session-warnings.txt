@@ -10,3 +10,5 @@ quality-gate: GetComponent/FindObjectOfType/Camera.main in Update method
 quality-gate: GetComponent/FindObjectOfType/Camera.main in Update method
 quality-gate: GetComponent/FindObjectOfType/Camera.main in Update method
 quality-gate: GetComponent/FindObjectOfType/Camera.main in Update method
+quality-gate: GetComponent/FindObjectOfType/Camera.main in Update method
+quality-gate: Debug.Log without conditional compilation
