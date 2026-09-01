@@ -16,16 +16,20 @@ public class Bullet : MonoBehaviour
     private AttackInfo m_refAttackInfo;
     private tShotInfo m_tShotInfo;
 
+
+    private Rigidbody m_refRigdbody;
     private void Awake()
     {
         m_refPoolObject = GetComponent<PoolObject>();
+        m_refRigdbody = GetComponent<Rigidbody>();
+
     }
 
     private void FixedUpdate()
     {
         float fStep = m_tShotInfo.Speed * Time.fixedDeltaTime;
 
-        transform.position += transform.forward * fStep;
+        m_refRigdbody.MovePosition(m_refRigdbody.position + transform.forward * fStep);
     }
 
     public static GameObject SpawnAttackObject(PoolObject _refPrefab, Vector3 _vPos, Quaternion _qRot, AttackInfo _refAttackInfo, tShotInfo _refShotInfo)
@@ -58,11 +62,16 @@ public class Bullet : MonoBehaviour
 
     protected virtual void Attack(Collider _refOther)
     {
+        int iOtherLayer = 1 << _refOther.gameObject.layer;
+
+        if( (iOtherLayer & m_refAttackInfo.HitLayers.value) == 0)
+            return;
+
         var iDamageable = _refOther.GetComponent<IDamageable>();
        
         if (iDamageable != null)
         {
-            ++m_tShotInfo.HitCount;//TestCode 
+            ++m_tShotInfo.HitCount;
             m_tShotInfo.HitPosition = transform.position;
             iDamageable.TakeDamage(m_refAttackInfo, m_tShotInfo);
           

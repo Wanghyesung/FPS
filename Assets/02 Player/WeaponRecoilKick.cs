@@ -47,7 +47,11 @@ public sealed class WeaponRecoilKick : MonoBehaviour
         m_fDamping = _fDamping;
     }
 
-    private void LateUpdate()
+    // LateUpdate가 아닌 Update: Animation Rigging의 TwoBoneIKConstraint(왼손 IK)는
+    // Update와 LateUpdate 사이의 Animation 단계에서 평가된다. 여기서 위치를 갱신해야
+    // 같은 프레임에 IK가 갱신된 LeftGrip 위치를 읽는다 — LateUpdate에 두면 IK가 항상
+    // 한 프레임 전 그립 위치를 쫓아가서 반동 중 손이 따로 노는 것처럼 보인다.
+    private void Update()
     {
         if (m_bBaseCaptured == false)
             return;

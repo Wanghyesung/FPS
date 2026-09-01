@@ -10,18 +10,18 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 30fde1cf18d52d1438d88d655ecde787, type: 3}
-  m_Name: SO_AttackInfo_Rifle
+  m_Name: SO_AttackInfo_TRG
   m_EditorClassIdentifier: 
   Description: "\uAE30\uBCF8 \uB77C\uC774\uD50C - \uC790\uB3D9\uC0AC\uACA9"
   WeaponType: 1
   PoolPrefab: {fileID: 1418374523975971251, guid: db0d3722fc84ee14e8c9d24fb9d60034,
     type: 3}
-  Damage: 12
+  Damage: 100
   AttackPower: 0
-  Cooldown: 0.12
-  Speed: 60
-  SpeedOffset: 2
-  AliveTime: 2
+  Cooldown: 1
+  Speed: 300
+  SpeedOffset: 40
+  AliveTime: 4
   HitCount: 1
   HitStep: 1
   KnockbackForce: 3
@@ -32,8 +32,13 @@ MonoBehaviour:
   RotationAccelRate: 0
   ProximityRadius: 1.5
   CriticalChance: 0
-  RecoilAmount: 0.5
+  RecoilAmount: 5
+  VisualKickback: {x: 0, y: 0.01, z: -0.05}
+  VisualRotKick: {x: -4, y: 0, z: 0}
+  VisualRotKickRandomYaw: 1.5
+  VisualSpringStiffness: 180
+  VisualSpringDamping: 18
   HitLayers:
     serializedVersion: 2
-    m_Bits: 4294967295
+    m_Bits: 4096
   HitSound: {fileID: 0}

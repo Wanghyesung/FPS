@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Threading.Tasks;
@@ -41,6 +42,8 @@ public class InputManager : MonoBehaviour
 
 
     private bool m_isDeltaInitialized = false;
+
+    public event Action OnSpacePressed;
     private void Awake()
     {
         if (m_Instance != null)
@@ -109,6 +112,8 @@ public class InputManager : MonoBehaviour
         {
             m_tInputInfo.OnSpace = m_listMoveSpaceAction[i].action.IsPressed();
         }
+        if (m_tInputInfo.OnSpace == true)
+            OnSpacePressed?.Invoke();
     }
 
     private void UpdateFireValue()
