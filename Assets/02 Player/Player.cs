@@ -56,13 +56,10 @@ public class Player : MonoBehaviour
             }
             else
             {
-               
-
                 m_refWeapon.UnZoom();
             }
 
             GameCameraManager.m_Instance.SetZoomed(bRButn);
-            //m_refAnimTable.SetBool(eEntityState.Fire, bRButn);
 
 
             if (bRButn && bLButton && m_refWeapon.CheckTime())

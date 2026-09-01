@@ -48,6 +48,7 @@ public class PlayerMovement : MonoBehaviour
     private void Update()
     {
         m_vDelta = InputManager.m_Instance.InputInfo.Delta;
+        m_vMoveDir = InputManager.m_Instance.InputInfo.MoveDir;
         Look();
     }
 
@@ -94,8 +95,7 @@ public class PlayerMovement : MonoBehaviour
         if (m_bLockMove == true)
             return;
 
-        Vector2 vMoveDir = InputManager.m_Instance.InputInfo.MoveDir;
-
+        Vector3 vMoveDir = m_vMoveDir;
         m_vMoveDir = transform.forward * vMoveDir.y + transform.right * vMoveDir.x;
 
         m_refPlayer.AnimationTable.SetFloat(eEntityState.Move, vMoveDir.magnitude);
@@ -108,7 +108,7 @@ public class PlayerMovement : MonoBehaviour
 
         // 중력 적용
         m_fVerticalVelocity += m_fGravity * Time.fixedDeltaTime;
-
+    
         Vector3 vHorizontal = m_vMoveDir * (m_fSpeed - m_fDecayMove);
         m_refRb.velocity = new Vector3(vHorizontal.x, m_fVerticalVelocity, vHorizontal.z);
     }
@@ -129,6 +129,8 @@ public class PlayerMovement : MonoBehaviour
 
         m_bLockMove = false;
         m_fDecayMove = 0.0f;
+        m_fVerticalVelocity = 0.0f;
+
     }
 
     private void RollFoward()

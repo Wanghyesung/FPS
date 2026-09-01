@@ -15,6 +15,7 @@ GameObject:
   - component: {fileID: 5231072598929369723}
   - component: {fileID: 6814543498308955644}
   - component: {fileID: 6516689618869759107}
+  - component: {fileID: 3086585665636547557}
   m_Layer: 10
   m_Name: Bullet
   m_TagString: Untagged
@@ -115,7 +116,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_refPoolObject: {fileID: 1418374523975971251}
-  m_refHitEffectObj: {fileID: 0}
+  m_refHitEffectObj: {fileID: 8883461540435108670, guid: c960c4b2e3e5fa64d8382ace061bff3d,
+    type: 3}
 --- !u!136 &6814543498308955644
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -243,3 +245,30 @@ TrailRenderer:
   m_Autodestruct: 0
   m_Emitting: 1
   m_ApplyActiveColorSpace: 1
+--- !u!54 &3086585665636547557
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1959093260556337612}
+  serializedVersion: 4
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: 0.05
+  m_CenterOfMass: {x: 0, y: 0, z: 0}
+  m_InertiaTensor: {x: 1, y: 1, z: 1}
+  m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ImplicitCom: 1
+  m_ImplicitTensor: 1
+  m_UseGravity: 0
+  m_IsKinematic: 0
+  m_Interpolate: 0
+  m_Constraints: 0
+  m_CollisionDetection: 0

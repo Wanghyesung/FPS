@@ -4,14 +4,14 @@
   "workflow_phase": "",
   "modified_files": [],
   "recent_commits": [
+    "a0d167c [Add] 플레이어 점프 추가",
     "418f867 [Fix] 오른손 무기 리그 자기참조 문제 해결 및 조준 정렬(WeaponAimAlign) 추가",
-    "1215ebe [Add] 무기 장착 리깅 · 반동 · 조준 애니메이션 시스템 구현",
-    "8552340 [Add] 게임 기본 로직 구성"
+    "1215ebe [Add] 무기 장착 리깅 · 반동 · 조준 애니메이션 시스템 구현"
   ],
-  "session_duration": "18m 9s",
+  "session_duration": "36m 44s",
   "tool_calls": 0,
   "warnings_count": 14,
-  "saved_at": "2026-09-01T05:47:31Z",
+  "saved_at": "2026-09-01T06:06:06Z",
   "plan": {},
   "verification": {},
   "agent_context": {}
