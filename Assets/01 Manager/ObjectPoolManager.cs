@@ -2,7 +2,6 @@ using System;
 using System.Collections.Generic;
 using System.Threading;
 using Cysharp.Threading.Tasks;
-using UnityEditor.Playables;
 using UnityEngine;
 using UnityEngine.AddressableAssets;
 using UnityEngine.ResourceManagement.AsyncOperations;
@@ -190,6 +189,8 @@ public class ObjectPoolManager : MonoBehaviour
 
     public GameObject GetObject(PoolObject _refPrefabPoolObj)
     {
+        //return GameObject.Instantiate(_refPrefabPoolObj).gameObject;
+
         if (_refPrefabPoolObj == null)
             return null;
 

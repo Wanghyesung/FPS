@@ -62,6 +62,9 @@ public class BlackBoard
     [Header("EntityInfo")]
     public ObjectInfo ObjInfo;
 
+    [Header("PatrolIdx")]
+    public int PatrolIdx; //임시로 넣은 데이터 (나중에 가중치 맵을 읽고 찾는 구조로 변경)
+    public List<Transform> PatrolList;
 
     [Header("Trace")]
     public float CurrentTime;

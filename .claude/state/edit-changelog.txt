@@ -419,3 +419,11 @@
 2026-09-02 09:43:07 | C:\\Users\\user\\Documents\\GitHub\\FPS\\.claude\\skills\\feature-intake\\SKILL.md | new file, 104 lines
 2026-09-02 10:07:39 | C:\\Users\\user\\Documents\\GitHub\\FPS\\.claude\\skills\\feature-intake\\example-prd.md | new file, 72 lines
 2026-09-02 10:07:56 | C:\\Users\\user\\Documents\\GitHub\\FPS\\.claude\\skills\\feature-intake\\SKILL.md | new file, 75 lines
+2026-09-02 10:24:17 | C:\\Users\\user\\Documents\\GitHub\\FPS\\.claude\\docs\\game-design.md | 1 file changed, 4 insertions(+)
+2026-09-02 10:27:24 | C:\\Users\\user\\Documents\\GitHub\\FPS\\.claude\\docs\\game-design.md | 1 file changed, 5 insertions(+), 1 deletion(-)
+2026-09-02 10:27:35 | C:\\Users\\user\\Documents\\GitHub\\FPS\\.claude\\docs\\game-design.md | 1 file changed, 6 insertions(+), 2 deletions(-)
+2026-09-02 11:33:03 | C:\\Users\\user\\Documents\\GitHub\\FPS\\Assets\\05 Enemy\\Enemy.cs | 1 file changed, 1 insertion(+)
+2026-09-02 11:33:14 | C:\\Users\\user\\Documents\\GitHub\\FPS\\Assets\\05 Enemy\\Node\\NodeScript\\SOWaitCheckPointNode.cs | new file, 22 lines
+2026-09-02 11:33:25 | C:\\Users\\user\\Documents\\GitHub\\FPS\\Assets\\05 Enemy\\Node\\NodeScript\\SOCheckPointNode.cs | new file, 20 lines
+2026-09-02 12:49:24 | C:\\Users\\user\\Documents\\GitHub\\FPS\\Assets\\05 Enemy\\Enemy.cs | 1 file changed, 5 insertions(+), 3 deletions(-)
+2026-09-02 14:25:16 | C:\\Users\\user\\Documents\\GitHub\\FPS\\.claude\\docs\\how-to-play.md | new file, 44 lines

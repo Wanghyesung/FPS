@@ -3,18 +3,17 @@
   "branch": "devel/Enemy-AI",
   "workflow_phase": "",
   "modified_files": [
-    "C:\\Users\\user\\Documents\\GitHub\\FPS\\.claude\\skills\\feature-intake\\SKILL.md",
-    "C:\\Users\\user\\Documents\\GitHub\\FPS\\.claude\\skills\\feature-intake\\example-prd.md"
+    "C:\\Users\\user\\Documents\\GitHub\\FPS\\.claude\\docs\\how-to-play.md"
   ],
   "recent_commits": [
+    "693b86d [Add] 적 navmesh, BehaviorTree 추가",
     "7004da1 [Add] 플레이어 수류탄 기본 로직 추가 (포물선 예고선)",
-    "526f22c [Fix] WeaponAimAlign을 Multi-Aim Constraint 기반으로 재구성 — 프레임 지연 제거",
-    "23084cf Merge branch 'devel/Rig' into devel/Player"
+    "526f22c [Fix] WeaponAimAlign을 Multi-Aim Constraint 기반으로 재구성 — 프레임 지연 제거"
   ],
-  "session_duration": "7m 30s",
+  "session_duration": "5m 33s",
   "tool_calls": 0,
   "warnings_count": 16,
-  "saved_at": "2026-09-02T01:08:03Z",
+  "saved_at": "2026-09-02T05:25:25Z",
   "plan": {},
   "verification": {},
   "agent_context": {}
