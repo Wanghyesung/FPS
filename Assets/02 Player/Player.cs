@@ -1,4 +1,15 @@
+using System;
 using UnityEngine;
+
+
+[Serializable]
+public class ObjectInfo
+{
+    public eEntityState State;
+    public float CurrentHP;
+    public float Speed;
+    
+}
 
 [RequireComponent(typeof(WeaponRigTarget))]
 public class Player : MonoBehaviour

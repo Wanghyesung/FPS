@@ -54,12 +54,14 @@ public abstract class SOListNode : SONode
 public class BlackBoard
 {
     [Header("Component")]
-    //public Monster Owner;
+    public Enemy Owner;
     public Transform OwnerOffset;
     public Transform TargetTr;
+    public NavMeshAgent Agent;
 
     [Header("EntityInfo")]
-    //public ObjectInfo ObjInfo;
+    public ObjectInfo ObjInfo;
+
 
     [Header("Trace")]
     public float CurrentTime;
@@ -81,9 +83,12 @@ public class BlackBoard
 public class BehaviorTree : MonoBehaviour
 {
     [SerializeField] private SONode m_refRootNode = null;
+    [SerializeField] private Enemy m_refOwner;
 
-    //[SerializeField] private Monster m_refOwner;
+    [SerializeField] private BlackBoard m_refBB = new();
 
+
+    public BlackBoard BlackBoard => m_refBB;
     private bool m_bRunning = true;
     private readonly List<SONode> m_listClonedNodes = new List<SONode>();
 
@@ -120,10 +125,10 @@ public class BehaviorTree : MonoBehaviour
     public bool StopBT() => m_bRunning = false;
     public bool StartBT() => m_bRunning = true;
 
-    public void Evaluate(BlackBoard _refBB)
+    public void Evaluate()
     {
         if (m_bRunning == true)
-            m_refRootNode?.Execute(_refBB);
+            m_refRootNode?.Execute(m_refBB);
     }
 
 }

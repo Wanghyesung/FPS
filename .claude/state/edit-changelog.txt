@@ -416,3 +416,6 @@
 2026-09-01 20:27:47 | C:\\Users\\user\\Documents\\GitHub\\FPS\\Assets\\02 Player\\GrenadeThrower.cs | new file, 132 lines
 2026-09-01 20:32:17 | C:\\Users\\user\\Documents\\GitHub\\FPS\\Assets\\01 Manager\\PlayerControls.inputactions | 1 file changed, 9 insertions(+)
 2026-09-01 20:32:26 | C:\\Users\\user\\Documents\\GitHub\\FPS\\Assets\\01 Manager\\PlayerControls.inputactions | 1 file changed, 20 insertions(+)
+2026-09-02 09:43:07 | C:\\Users\\user\\Documents\\GitHub\\FPS\\.claude\\skills\\feature-intake\\SKILL.md | new file, 104 lines
+2026-09-02 10:07:39 | C:\\Users\\user\\Documents\\GitHub\\FPS\\.claude\\skills\\feature-intake\\example-prd.md | new file, 72 lines
+2026-09-02 10:07:56 | C:\\Users\\user\\Documents\\GitHub\\FPS\\.claude\\skills\\feature-intake\\SKILL.md | new file, 75 lines

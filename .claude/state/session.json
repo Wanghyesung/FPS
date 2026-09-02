@@ -1,17 +1,20 @@
 {
   "schema_version": 1,
-  "branch": "devel/Player",
+  "branch": "devel/Enemy-AI",
   "workflow_phase": "",
-  "modified_files": [],
-  "recent_commits": [
-    "526f22c [Fix] WeaponAimAlign을 Multi-Aim Constraint 기반으로 재구성 — 프레임 지연 제거",
-    "23084cf Merge branch 'devel/Rig' into devel/Player",
-    "dcc294a [Add] 히트 파티클 추가"
+  "modified_files": [
+    "C:\\Users\\user\\Documents\\GitHub\\FPS\\.claude\\skills\\feature-intake\\SKILL.md",
+    "C:\\Users\\user\\Documents\\GitHub\\FPS\\.claude\\skills\\feature-intake\\example-prd.md"
   ],
-  "session_duration": "29m 7s",
+  "recent_commits": [
+    "7004da1 [Add] 플레이어 수류탄 기본 로직 추가 (포물선 예고선)",
+    "526f22c [Fix] WeaponAimAlign을 Multi-Aim Constraint 기반으로 재구성 — 프레임 지연 제거",
+    "23084cf Merge branch 'devel/Rig' into devel/Player"
+  ],
+  "session_duration": "7m 30s",
   "tool_calls": 0,
   "warnings_count": 16,
-  "saved_at": "2026-09-02T00:17:37Z",
+  "saved_at": "2026-09-02T01:08:03Z",
   "plan": {},
   "verification": {},
   "agent_context": {}
