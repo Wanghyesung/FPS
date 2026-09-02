@@ -17,6 +17,11 @@ MonoBehaviour:
     m_SerializedData: []
   m_GUID: 4581d07ac003d1f4d95a660b7ca64e2a
   m_SerializeEntries:
+  - m_GUID: b831e1fe744b681468811ae1f22ed36c
+    m_Address: Assets/03 Data/Prefabs/Grenade.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: c960c4b2e3e5fa64d8382ace061bff3d
     m_Address: Assets/03 Data/Prefabs/Blood.prefab
     m_ReadOnly: 0

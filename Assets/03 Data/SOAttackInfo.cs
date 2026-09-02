@@ -48,6 +48,9 @@ public class SOAttackInfo : ScriptableObject
     [Header("Recoil")]
     public float RecoilAmount = 2f; // 발사 1회당 카메라에 가할 반동 각도(도)
 
+    [Header("Explosion")]
+    public float ExplosionRadius = 3f; // 수류탄류 광역 폭발 판정 반경(Grenade.cs가 사용)
+
     [Header("Visual Recoil (Spring)")]
     // 무기 모델(Weapon.transform)에만 얹히는 순수 연출용 반동 — 조준(pitch/yaw)이나
     // 실제 탄 퍼짐(m_fInaccuracyAngle)에는 전혀 영향을 주지 않는다. WeaponRecoilKick 참고.
@@ -86,6 +89,7 @@ public class SOAttackInfo : ScriptableObject
 
         refAttackInfo.HitLayers = HitLayers;
         refAttackInfo.RecoilAmount = RecoilAmount;
+        refAttackInfo.ExplosionRadius = ExplosionRadius;
         return refAttackInfo;
     }
 }
@@ -130,6 +134,9 @@ public class AttackInfo
 
     [Header("Recoil")]
     public float RecoilAmount;
+
+    [Header("Explosion")]
+    public float ExplosionRadius;
 }
 
 /*///////////////////////////////////////////

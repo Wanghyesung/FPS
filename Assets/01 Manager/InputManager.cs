@@ -23,6 +23,7 @@ public struct tInputInfo
     public bool OnSpace;
     public bool OnLButon;
     public bool OnRButton;
+    public bool OnThrow;
 }
 
 public class InputManager : MonoBehaviour
@@ -39,6 +40,7 @@ public class InputManager : MonoBehaviour
     [SerializeField] private List<InputActionReference> m_listMoveSpaceAction;
     [SerializeField] private List<InputActionReference> m_listFireAction;
     [SerializeField] private List<InputActionReference> m_listZoomAction;
+    [SerializeField] private List<InputActionReference> m_listThrowAction;
 
 
     private bool m_isDeltaInitialized = false;
@@ -73,6 +75,9 @@ public class InputManager : MonoBehaviour
         for (int i = 0; i < m_listZoomAction.Count; ++i)
             m_listZoomAction[i].action.Enable();
 
+        for (int i = 0; i < m_listThrowAction.Count; ++i)
+            m_listThrowAction[i].action.Enable();
+
     }
 
     private void Start()
@@ -94,7 +99,8 @@ public class InputManager : MonoBehaviour
 
         UpdateZoomValue();
 
-        
+        UpdateThrowValue();
+
     }
 
     private void UpdateMoveValue()
@@ -129,6 +135,14 @@ public class InputManager : MonoBehaviour
         for (int i = 0; i < m_listZoomAction.Count; ++i)
         {
             m_tInputInfo.OnRButton = m_listZoomAction[i].action.IsPressed();
+        }
+    }
+
+    private void UpdateThrowValue()
+    {
+        for (int i = 0; i < m_listThrowAction.Count; ++i)
+        {
+            m_tInputInfo.OnThrow = m_listThrowAction[i].action.IsPressed();
         }
     }
 

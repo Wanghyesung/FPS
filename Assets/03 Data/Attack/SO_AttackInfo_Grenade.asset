@@ -1,0 +1,46 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 30fde1cf18d52d1438d88d655ecde787, type: 3}
+  m_Name: SO_AttackInfo_Grenade
+  m_EditorClassIdentifier: 
+  Description: "\uC218\uB958\uD0C4 \u2014 \uD4E8\uC988 \uD0C0\uC774\uBA38 \uBC29\uC2DD
+    \uAD11\uC5ED \uD3ED\uBC1C"
+  WeaponType: 0
+  PoolPrefab: {fileID: 3146388827916132834, guid: b831e1fe744b681468811ae1f22ed36c,
+    type: 3}
+  Damage: 60
+  AttackPower: 0
+  Cooldown: 0.5
+  Speed: 12
+  SpeedOffset: 4
+  AliveTime: 3
+  HitCount: 1
+  HitStep: 1
+  KnockbackForce: 3
+  KnockbackDuration: 0.2
+  StunDuration: 0
+  BaseRotationSpeed: 90
+  MaxRotationSpeed: 180
+  RotationAccelRate: 0
+  ProximityRadius: 1.5
+  CriticalChance: 0
+  RecoilAmount: 2
+  ExplosionRadius: 4
+  VisualKickback: {x: 0, y: 0.01, z: -0.05}
+  VisualRotKick: {x: -4, y: 0, z: 0}
+  VisualRotKickRandomYaw: 1.5
+  VisualSpringStiffness: 180
+  VisualSpringDamping: 18
+  HitLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  HitSound: {fileID: 0}

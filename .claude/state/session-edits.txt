@@ -1,9 +1,0 @@
-C:\Users\user\Documents\GitHub\FPS\.claude\docs\known-issues.md
-C:\Users\user\.claude\plans\agile-riding-engelbart.md
-C:\Users\user\Documents\GitHub\FPS\Assets\02 Player\AimTargetFollower.cs
-C:\Users\user\Documents\GitHub\FPS\Assets\02 Player\WeaponAimAlign.cs
-C:\Users\user\Documents\GitHub\FPS\Assets\02 Player\WeaponRigTarget.cs
-C:\Users\user\Documents\GitHub\FPS\Assets\02 Player\Player.cs
-C:\Users\user\Documents\GitHub\FPS\Assets\02 Player\Aim.cs
-C:\Users\user\Documents\GitHub\FPS\.claude\docs\known-issues.md
-C:\Users\user\Documents\GitHub\FPS\.claude\docs\known-issues.md
