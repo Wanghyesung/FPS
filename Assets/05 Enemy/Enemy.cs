@@ -20,6 +20,9 @@ public class Enemy : MonoBehaviour, IDamageable
     [SerializeField] private WeaponRigTarget m_refWeaponRigTarget;
     private Weapon m_refWeapon = null;
 
+    // ObjInfo.State는 CheckMoveState가 매 프레임 Idle/Move로 덮어쓰므로 사망 판정에 쓸 수 없다
+    private bool m_bIsDead;
+
     private void Awake()
     {
         m_refAnimTable = GetComponent<AnimationTable>();
@@ -54,13 +57,42 @@ public class Enemy : MonoBehaviour, IDamageable
             m_refRigBuilder.Build();
     }
 
+    // BlackBoard.ObjInfo는 m_refObjInfo와 같은 인스턴스를 참조하므로, 여기서 HP를 깎으면
+    // 다음 Evaluate에서 SOCheckHPNode가 바로 도주(Escape) 분기로 넘어간다
     public void TakeDamage(AttackInfo _refAttackInfo, tShotInfo _tShotInfo)
     {
-        
+        if (_refAttackInfo == null || m_bIsDead == true)
+            return;
+
+        m_refObjInfo.CurrentHP -= _refAttackInfo.Damage;
+
+        if (m_refObjInfo.CurrentHP > 0.0f)
+            return;
+
+        m_refObjInfo.CurrentHP = 0.0f;
+        Die();
+    }
+
+    private void Die()
+    {
+        m_bIsDead = true;
+        m_refObjInfo.State = eEntityState.Dead;
+
+        // Dead 파라미터가 AnimationTable에 등록돼 있지 않으면 조용히 무시된다
+        m_refAnimTable.SetTrigger(eEntityState.Dead);
+
+        m_refBT.StopBT();
+
+        if (m_refAgent != null && m_refAgent.isOnNavMesh == true)
+            m_refAgent.isStopped = true;
     }
 
     private void Update()
     {
+        // 사망 후에도 CheckMoveState가 돌면 State를 Idle로 되돌려 Dead 상태가 지워진다
+        if (m_bIsDead == true)
+            return;
+
         //어떠한 기능, 목적을 수행
         m_refBT.Evaluate();
 

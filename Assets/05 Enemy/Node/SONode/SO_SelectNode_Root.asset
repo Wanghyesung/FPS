@@ -13,5 +13,6 @@ MonoBehaviour:
   m_Name: SO_SelectNode_Root
   m_EditorClassIdentifier: 
   listNode:
+  - {fileID: 11400000, guid: 2943ddb70ce20df768c3285c8ee74b37, type: 2}
   - {fileID: 11400000, guid: b22161b54aa804541a125460f1e4326a, type: 2}
   - {fileID: 11400000, guid: 90c59096bfa47f145a1a42b7c60cd283, type: 2}

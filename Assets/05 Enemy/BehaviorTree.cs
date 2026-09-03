@@ -80,6 +80,13 @@ public class BlackBoard
     [Header("Wait")]
     public float WaitTimer;
 
+    [Header("Escape")]
+    // 도주 목표는 리프 노드(SOEscapeNode)가 아니라 여기에 둔다 — 리프 액션 SO는 클론되지
+    // 않고 여러 몬스터가 같은 원본 에셋을 공유하므로, 노드가 상태를 들면 즉시 오염된다
+    public bool IsEscaping;    // 도주 목표 지점을 이미 잡아둔 상태인지
+    public Vector3 EscapePos; // 현재 도주 목표 지점 (NavMesh 위로 스냅된 좌표)
+    public float NextEscapeTime; // 이 시각(Time.time) 전까지는 HP가 낮아도 재도주하지 않음 — 도주 직후 한동안 교전하게 함
+
 }
 
 
