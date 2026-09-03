@@ -12,7 +12,7 @@ using UnityEngine;
 
 public class SOCheckAngleNode : SONode
 {
-    [Description("각도 차이가 적어야하나")]
+    [Description("각도 차이가 적어야 하나")]
     [SerializeField] private float m_fRotateDiff = 3.0f;
 
     public override eNodeState Execute(BlackBoard _refBB)

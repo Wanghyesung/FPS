@@ -26,7 +26,8 @@ public class Aim : MonoBehaviour
     private Vector3 m_vTargetPosition = Vector3.zero;
     public Vector3 TargetPosition => m_vTargetPosition;
 
-  
+    private int m_iCurrentHitLayer = -1;
+    public int CurrentHitLayer => m_iCurrentHitLayer;
     public void ChangePivot(Transform _refPivot)
     {
         m_refSecondCameraTr = _refPivot;
@@ -43,7 +44,10 @@ public class Aim : MonoBehaviour
 
         RaycastHit hit;
         if(Physics.Raycast(tRay.origin, tRay.direction, out hit,  m_fMaxLength, m_tLayerMask) == true)
+        {
+            m_iCurrentHitLayer = hit.collider.gameObject.layer;
             return hit.point;
+        }
 
         return tRay.origin + tRay.direction * m_fMaxLength;
     }

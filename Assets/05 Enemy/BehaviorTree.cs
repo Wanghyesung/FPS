@@ -61,6 +61,7 @@ public class BlackBoard
 
     [Header("Weapon")]
     public Weapon Weapon;
+    public Aim Aim;
 
     [Header("EntityInfo")]
     public ObjectInfo ObjInfo;

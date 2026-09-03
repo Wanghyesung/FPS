@@ -431,3 +431,4 @@
 2026-09-03 11:52:19 | C:\\Users\\user\\Documents\\GitHub\\FPS\\Assets\\05 Enemy\\Node\\NodeScript\\SORotateNode.cs | 1 file changed, 23 insertions(+), 13 deletions(-)
 2026-09-03 12:52:20 | C:\\Users\\user\\Documents\\GitHub\\FPS\\Assets\\05 Enemy\\Enemy.cs | 1 file changed, 11 insertions(+)
 2026-09-03 12:53:50 | C:\\Users\\user\\Documents\\GitHub\\FPS\\Assets\\05 Enemy\\Node\\NodeScript\\SOCheckPointNode.cs | 1 file changed, 3 insertions(+)
+2026-09-03 15:39:34 | C:\\Users\\user\\Documents\\GitHub\\FPS\\Assets\\05 Enemy\\Node\\NodeScript\\SOCheckRayNode.cs | 1 file changed, 27 insertions(+), 9 deletions(-)

@@ -31,6 +31,7 @@ public class Enemy : MonoBehaviour, IDamageable
         m_refBT.BlackBoard.Owner = this;
         m_refBT.BlackBoard.Agent = m_refAgent;
         m_refBT.BlackBoard.ObjInfo = m_refObjInfo;
+        m_refBT.BlackBoard.Aim = GetComponent<Aim>();
 
         // 씬에 하나뿐인 Player를 교전 타겟으로 캐싱 — 매 프레임이 아니라 Awake에서 한 번만
         Player refPlayer = FindObjectOfType<Player>();
@@ -38,7 +39,6 @@ public class Enemy : MonoBehaviour, IDamageable
             m_refBT.BlackBoard.TargetTr = refPlayer.transform;
 
         m_refBT.BlackBoard.POV = 80.0f;
-
         m_refObjInfo.State = eEntityState.Idle;
         m_refObjInfo.CurrentHP = 100.0f;
         m_refObjInfo.Speed = 4.0f;

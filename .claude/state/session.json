@@ -3,19 +3,17 @@
   "branch": "devel/Enemy-AI",
   "workflow_phase": "",
   "modified_files": [
-    "C:\\Users\\user\\Documents\\GitHub\\FPS\\Assets\\05 Enemy\\Enemy.cs",
-    "C:\\Users\\user\\Documents\\GitHub\\FPS\\Assets\\05 Enemy\\Node\\NodeScript\\SOCheckPointNode.cs",
-    "C:\\Users\\user\\Documents\\GitHub\\FPS\\Assets\\05 Enemy\\Node\\NodeScript\\SORotateNode.cs"
+    "C:\\Users\\user\\Documents\\GitHub\\FPS\\Assets\\05 Enemy\\Node\\NodeScript\\SOCheckRayNode.cs"
   ],
   "recent_commits": [
+    "01a9979 [Add] 적 교전(Attack) 행동 트리 구현 — 사거리/시야각 체크 → 회전 → 줌 → 발사",
     "a1dc504 [Add] Enemy 전투 BT 노드 및 무기 장착 시스템 추가",
-    "7bce0a2 [Add] Enemy 순찰 추가",
-    "693b86d [Add] 적 navmesh, BehaviorTree 추가"
+    "7bce0a2 [Add] Enemy 순찰 추가"
   ],
-  "session_duration": "269m 23s",
+  "session_duration": "16m 57s",
   "tool_calls": 0,
   "warnings_count": 16,
-  "saved_at": "2026-09-03T05:18:28Z",
+  "saved_at": "2026-09-03T06:55:45Z",
   "plan": {},
   "verification": {},
   "agent_context": {}
