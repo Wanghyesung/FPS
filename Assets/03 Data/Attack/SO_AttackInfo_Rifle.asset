@@ -33,6 +33,7 @@ MonoBehaviour:
   ProximityRadius: 1.5
   CriticalChance: 0
   RecoilAmount: 0.5
+  ExplosionRadius: 3
   VisualKickback: {x: 0, y: 0.01, z: -0.05}
   VisualRotKick: {x: -4, y: 0, z: 0}
   VisualRotKickRandomYaw: 1.5
@@ -40,5 +41,5 @@ MonoBehaviour:
   VisualSpringDamping: 18
   HitLayers:
     serializedVersion: 2
-    m_Bits: 4096
+    m_Bits: 12544
   HitSound: {fileID: 0}

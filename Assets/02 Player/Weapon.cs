@@ -1,21 +1,27 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 
+/*///////////////////////////////////////////
+                Weapon
+목적 : 장착된 무기 한 자루. 발사 '의도'를 접수(RequestFire)하고, 실제 투사체 스폰은
+       LateUpdate에서만 수행한다.
 
+       총구(FireTr)는 Spine_02/Spine_03의 MultiAimConstraint와 Clavicle_R 아래 소켓에
+       매달려 있어서, Animator + RigBuilder가 평가된 뒤에야(모든 Update 이후 ~ LateUpdate
+       직전) 최종 위치가 확정된다. 그래서 Update에서 FireTr을 읽으면 한 프레임 전 포즈의
+       총구를 읽게 된다. 이 규칙을 발사자(Player 입력 / Enemy BT)마다 지키게 하는 대신
+       Weapon이 혼자 책임지도록 모아서, 누가 언제 요청하든 총구는 항상 LateUpdate에서만 읽는다.
+ *///////////////////////////////////////////
 
 public class Weapon : MonoBehaviour
 {
 
     public enum eWeaponType
     {
-        None,
-        Bullet,
-        Trace,
-        MissileBullet,
-        Missile,
-        Laser,
-        ShotGun,
+        AK,
+        TRG,
         End,
     }
 
@@ -35,7 +41,7 @@ public class Weapon : MonoBehaviour
 
     [SerializeField] private Transform m_refRightHandGripTr; // 오른손이 닿아야 할 그립 포인트 — Player가 무기를 소켓에 배치할 때 참조
     [SerializeField] private Transform m_refLeftHandGripTr;  // 왼손 IK가 잡아야 할 그립 포인트 — WeaponRigTarget이 참조
-    [SerializeField] private Transform m_refZoomTr;  // 왼손 IK가 잡아야 할 그립 포인트 — WeaponRigTarget이 참조
+    [SerializeField] private Transform m_refZoomTr;          // 왼손 IK가 잡아야 할 그립 포인트 — WeaponRigTarget이 참조
     public Transform RightHandGripTr => m_refRightHandGripTr;
     public Transform LeftHandGripTr => m_refLeftHandGripTr;
     public Transform ZoomTr => m_refZoomTr;
@@ -48,7 +54,7 @@ public class Weapon : MonoBehaviour
     private float m_fBaseCooldown = 0.2f;
     private float m_fLastFireTime = -Mathf.Infinity;
 
-    private eWeaponType m_eWeapoonType = eWeaponType.None;
+    private eWeaponType m_eWeapoonType = eWeaponType.AK;
     public eWeaponType WeaponType => m_eWeapoonType;
 
     public PoolObject FireBulletPrefab => m_SOAttackInfo.PoolPrefab;
@@ -65,8 +71,32 @@ public class Weapon : MonoBehaviour
 
     private const float GOLDEN_ANGLE_DEG = 137.50776f;
 
-    // Player.PickupWeapon()이 무기를 손에 넣는 시점에 호출한다 — 무기는 기본적으로
-    // 아무도 소지하지 않은 상태(월드에 놓인 상태)로 존재하므로 픽업 시점에만 초기화된다.
+
+    //예약 시스템으로 변경 Update -> 리깅 -> LateUpdate 순서에서 총구 위치가 확정되므로, 발사 요청은 Update에서 받아서 예약만 해두기
+    private bool m_bFireRequested;
+    private Vector3 m_vRequestedTarget;
+    private float m_fRequestTime;
+
+    private const float REQUEST_BUFFER = 0.1f; // 해당 시간이 지나면 예약 철회
+
+    // Animator + RigBuilder 평가가 끝난 뒤 = 총구가 최종 확정된 뒤
+    private void LateUpdate()
+    {
+
+        if (CheckTime() == false || m_bFireRequested == false)
+            return;
+
+        // 너무 오래된 요청은 폐기 — 큐처럼 무한히 쌓이지 않게
+        if (Time.time - m_fRequestTime > REQUEST_BUFFER)
+        {
+            m_bFireRequested = false;
+            return;
+        }
+
+        m_bFireRequested = false;
+        Fire(m_vRequestedTarget);
+    }
+
     public void Init()
     {
 
@@ -84,7 +114,16 @@ public class Weapon : MonoBehaviour
             m_refRecoilKick.CaptureBasePose(); //처음 위치를 캐싱해두기 (총을 다 쏘고 원래 위치로 돌아오게_
     }
 
-    public void Fire(Vector3 _vTargetPos)
+    public void RequestFire(Vector3 _vTargetPos)
+    {
+        m_bFireRequested = true;
+        m_vRequestedTarget = _vTargetPos;  // 최신 요청이 덮어씀
+        m_fRequestTime = Time.time;
+    }
+
+    
+
+    private void Fire(Vector3 _vTargetPos)
     {
         tShotInfo refShotInfo = new tShotInfo();
         refShotInfo.TargetPos = _vTargetPos;
@@ -101,10 +140,12 @@ public class Weapon : MonoBehaviour
             ? Quaternion.LookRotation(vLookDir) : m_refFireTr.rotation;
         qRot = ApplyInaccuracy(qRot);
 
+
         GameObject refObj = Bullet.SpawnAttackObject(m_SOAttackInfo.PoolPrefab, m_refFireTr.position, qRot, m_refAttackInfo, refShotInfo);
         if (refObj == null)
             return;
 
+        
         OnBulletFired();
     }
 

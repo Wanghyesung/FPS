@@ -8,7 +8,6 @@ public class ObjectInfo
     public eEntityState State;
     public float CurrentHP;
     public float Speed;
-    
 }
 
 [RequireComponent(typeof(WeaponRigTarget))]
@@ -27,6 +26,9 @@ public class Player : MonoBehaviour
 
     private bool m_bOnFire;
 
+    [SerializeField] private Transform m_refBodyTr;
+    public Transform BodyTr => m_refBodyTr;
+
     private void Awake()
     {
         m_refMovement = GetComponent<PlayerMovement>();
@@ -44,9 +46,10 @@ public class Player : MonoBehaviour
         InputManager.m_Instance.OnRButtonPressed += Zoom;
         InputManager.m_Instance.OnRButtonRelease += UnZoom;
 
-        InputManager.m_Instance.OnLButtonPressed += Fire;
-    }
+        InputManager.m_Instance.OnLButtonPressed += RequestFire;
 
+    }
+    
     // WeaponPickup이 트리거 접촉 시 호출 — 무기를 손 소켓으로 옮기고 초기화한다.
     public void PickupWeapon(Weapon _refWeapon)
     {
@@ -77,13 +80,13 @@ public class Player : MonoBehaviour
         m_refAnimTable.SetBool(eEntityState.HasWeapon, true);
     }
 
-    private void Fire()
+    private void RequestFire()
     {
         if(m_refWeapon == null)
             return;
 
-        if (m_bOnFire&& m_refWeapon.CheckTime())
-            m_refWeapon.Fire(m_refAim.TargetPosition);
+        if (m_bOnFire == true)
+            m_refWeapon.RequestFire(m_refAim.TargetPosition);
     }
 
     private void Zoom()

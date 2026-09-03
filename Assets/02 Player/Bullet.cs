@@ -1,3 +1,4 @@
+using UnityEditor;
 using UnityEngine;
 
 /*///////////////////////////////////////////
@@ -49,6 +50,7 @@ public class Bullet : MonoBehaviour
 
     private void Fire(AttackInfo _refAttackInfo, tShotInfo _refShotInfo)
     {
+
         m_refAttackInfo = _refAttackInfo;
         m_tShotInfo = _refShotInfo;
         m_refPoolObject.SetAliveTime(_refAttackInfo.AliveTime);

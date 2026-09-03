@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using UnityEditor;
 using UnityEngine;
 
 /*///////////////////////////////////////////
@@ -20,7 +21,8 @@ public class SOAttackNode : SONode
         if (_refBB.Weapon.CheckTime() == false)
             return eNodeState.Running;
 
-        _refBB.Weapon.Fire(_refBB.TargetTr.position);
+        _refBB.Weapon.RequestFire(_refBB.TargetTr.position);
+
         return eNodeState.Success;
     }
 }

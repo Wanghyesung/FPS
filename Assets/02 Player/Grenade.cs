@@ -76,9 +76,7 @@ public class Grenade : MonoBehaviour
 
         if (m_refExplosionEffectObj != null)
         {
-            GameObject refEffect = ObjectPoolManager.m_Instance.GetObject(m_refExplosionEffectObj);
-            if (refEffect != null)
-                refEffect.transform.position = transform.position;
+            ObjectPoolManager.m_Instance.GetObject(m_refExplosionEffectObj, transform.position);
         }
     }
 }

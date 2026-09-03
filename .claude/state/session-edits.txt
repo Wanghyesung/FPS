@@ -1,1 +1,7 @@
-C:\Users\user\Documents\GitHub\FPS\Assets\05 Enemy\Node\NodeScript\SOCheckRayNode.cs
+C:\Users\user\Documents\GitHub\FPS\Assets\01 Manager\ObjectPoolManager.cs
+C:\Users\user\Documents\GitHub\FPS\Assets\02 Player\Bullet.cs
+C:\Users\user\Documents\GitHub\FPS\Assets\02 Player\Bullet.cs
+C:\Users\user\Documents\GitHub\FPS\Assets\02 Player\Bullet.cs
+C:\Users\user\Documents\GitHub\FPS\Assets\02 Player\Grenade.cs
+C:\Users\user\Documents\GitHub\FPS\Assets\02 Player\Player.cs
+C:\Users\user\Documents\GitHub\FPS\Assets\02 Player\Weapon.cs
