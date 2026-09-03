@@ -39,10 +39,10 @@ public class Weapon : MonoBehaviour
     public Transform RightHandGripTr => m_refRightHandGripTr;
     public Transform LeftHandGripTr => m_refLeftHandGripTr;
     public Transform ZoomTr => m_refZoomTr;
-    public Transform FireTr => m_refFireTr; // WeaponAimAlign이 총구 방향(정렬 기준)을 읽기 위해 참조
+    public Transform FireTr => m_refFireTr;   // WeaponAimAlign이 총구 방향(정렬 기준)을 읽기 위해 참조
 
     private WeaponRecoilKick m_refRecoilKick; // 사격 시 순수 연출용 스프링 반동 — 없으면 조용히 생략(선택 컴포넌트)
-    private WeaponAimAlign m_refAimAlign; //개머리판을 기준으로 회전 
+    private WeaponAimAlign m_refAimAlign;     // 리깅 가중치를 높여서 총구가 앞으로 가게 
 
     private float m_fFireTime = 0.2f;
     private float m_fBaseCooldown = 0.2f;
@@ -60,7 +60,7 @@ public class Weapon : MonoBehaviour
     [SerializeField] private float m_fInaccuracyAngle = 0f; // 조준 방향에서 좌우/상하로 흔들리는 오차 각도
 
     [Header("Circular Sector Shot")]
-    [SerializeField] private int m_iBulletCount = 1; // 1이면 기존처럼 단발
+    [SerializeField] private int m_iBulletCount = 1;     // 1이면 기존처럼 단발
     [SerializeField] private float m_fSpreadAngle = 30f; // 부채꼴(원뿔) 전체 각도
 
     private const float GOLDEN_ANGLE_DEG = 137.50776f;
@@ -195,9 +195,6 @@ public class Weapon : MonoBehaviour
         if (m_refEffectObject != null)
             m_refEffectObject.Play();
 
-        if (GameCameraManager.m_Instance != null)
-            GameCameraManager.m_Instance.Shake(m_refAttackInfo.RecoilAmount);
-
         if (m_refRecoilKick != null)
         {
             Vector3 vRotKick = m_SOAttackInfo.VisualRotKick;
@@ -217,7 +214,6 @@ public class Weapon : MonoBehaviour
         return (Time.time - m_fLastFireTime) > m_fFireTime;
     }
 
-    // 기존 배율에 누적 곱하지 않고 매번 기본 쿨다운 기준으로 재계산 (Repeatable 기능 재적용 시 드리프트 방지)
     public void SetCooldown(float _fValue)
     {
         float fClamped = Mathf.Max(_fValue, 0.1f);
@@ -226,7 +222,6 @@ public class Weapon : MonoBehaviour
         m_fFireTime = m_refAttackInfo.CoolDown;
     }
 
-    // Player.UpAttack()에서 레벨업 시점에 호출. m_refAttackInfo는 이 무기가 만든 모든 총알이
 
     public void AddAttackDamage(int _iValue)
     {

@@ -8,7 +8,7 @@ using UnityEngine;
              SOCheckAngleNode
 기능 : 플레이어가 바라보는 방향과 내 방향이 얼마나 맞는지 체크하는 노드
  *///////////////////////////////////////////
-[CreateAssetMenu(fileName = "SO_RotateNode", menuName = "Game/Monster/ActionNode/RotateNode")]
+[CreateAssetMenu(fileName = "SO_CheckAngleNode", menuName = "Game/Monster/ActionNode/CheckAngleNode")]
 
 public class SOCheckAngleNode : SONode
 {

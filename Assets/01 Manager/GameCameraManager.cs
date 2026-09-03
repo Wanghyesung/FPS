@@ -2,23 +2,7 @@ using UnityEngine;
 
 /*///////////////////////////////////////////
                 GameCameraManager
-목적 : 메인 카메라를 관리하는 싱글톤. 카메라는 Player의 자식이 아니다 —
-       CharacterController 이동 + PlayerMovement의 회전과 같은 프레임에서
-       부모-자식으로 얽히면 업데이트 순서 차이로 흔들림(jitter)이 생기기
-       때문에, LateUpdate에서 카메라를 목표 피벗(1인칭/3인칭)의 월드 위치로
-       그냥 따라가게(Lerp/Slerp)만 한다.
-       줌 여부는 이 클래스가 직접 입력을 읽지 않는다 — Player가 입력을 읽고
-       SetZoomed()를 호출해서 알려준다.
-       발사 반동(Shake)은 카메라 자체를 건드리지 않는다 — PlayerMovement의 실제
-       pitch/yaw에 직접 얹어서, 플레이어가 마우스로 눌러야만 상쇄되는 스프레이
-       컨트롤로 동작한다(Shake 참고). 이 클래스는 그 결과 피벗을 그대로 따라갈 뿐이다.
-
-       회전은 위치와 분리해서 항상 m_refFirstPersonPivot(PlayerMovement가 pitch를
-       직접 적용하는 CameraPivot3D)에서만 가져온다 — 3인칭 줌 타겟(무기의 ZoomTr)은
-       스파인 본 체인의 자식이라 yaw만 물려받고 pitch가 전혀 없기 때문에, 회전까지
-       그쪽에서 가져오면 줌 상태에서 마우스 위/아래가 카메라에 반영되지 않는다.
-       위치만 모드별 피벗(1인칭 눈높이 / 3인칭 어깨 뒤)을 따라가고, 회전은 항상
-       pitch+yaw가 다 들어있는 CameraPivot3D 기준으로 고정한다.
+목적 : 메인 카메라를 관리하는 싱글톤
  *///////////////////////////////////////////
 
 public sealed class GameCameraManager : MonoBehaviour
@@ -32,8 +16,6 @@ public sealed class GameCameraManager : MonoBehaviour
     public Transform ThirdPersonPivot { get { return m_refThirdPersonPivot; } set { m_refThirdPersonPivot = value; } }
 
     [SerializeField] private float m_fBlendSpeed = 10f;
-
-    private bool m_bZoomed;
 
     private void Awake()
     {
@@ -55,34 +37,13 @@ public sealed class GameCameraManager : MonoBehaviour
             m_Instance = null;
     }
 
-    // Player.Update()가 우클릭 여부를 판단해서 매 프레임 호출한다 — 여기서는 입력을 읽지 않는다.
-    public void SetZoomed(bool _bZoomed)
-    {
-        m_bZoomed = _bZoomed;
-    }
-
-    // Weapon.OnBulletFired()가 발사마다 호출한다. _fAmount는 무기별 반동 각도(도, SOAttackInfo.RecoilAmount).
-    // 반동 자체는 더 이상 카메라 쪽 오프셋이 아니라 PlayerMovement의 실제 pitch/yaw에 얹는다 —
-    // 그래야 마우스로 직접 눌러서 상쇄하는 스프레이 컨트롤이 되고, 카메라 쪽 별도 상태가 없어져
-    // 이전에 있었던 반동 누적(되먹임) 버그도 구조적으로 사라진다.
-    public void Shake(float _fAmount)
-    {
-        if (_fAmount <= 0f)
-            return;
-
-        if (m_bZoomed == true)
-            _fAmount /= 4.0f;
-
-    }
-
 
     private void LateUpdate()
     {
         if (m_refCamera == null || m_refFirstPersonPivot == null)
             return;
 
-        bool bUseThirdPerson = m_bZoomed && m_refThirdPersonPivot != null;
-        Transform refPositionTarget = bUseThirdPerson ? m_refThirdPersonPivot : m_refFirstPersonPivot;
+        Transform refPositionTarget = m_refThirdPersonPivot != null ? m_refThirdPersonPivot : m_refFirstPersonPivot;
         float fT = Time.deltaTime * m_fBlendSpeed;
 
         m_refCamera.position = Vector3.Lerp(m_refCamera.position, refPositionTarget.position, fT);

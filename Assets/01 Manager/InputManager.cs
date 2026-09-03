@@ -46,6 +46,14 @@ public class InputManager : MonoBehaviour
     private bool m_isDeltaInitialized = false;
 
     public event Action OnSpacePressed;
+
+    public event Action OnRButtonPressed;
+    public event Action OnRButtonRelease;
+
+    public event Action OnLButtonPressed;
+
+
+
     private void Awake()
     {
         if (m_Instance != null)
@@ -128,14 +136,23 @@ public class InputManager : MonoBehaviour
         {
             m_tInputInfo.OnLButon = m_listFireAction[i].action.IsPressed();
         }
+        if(m_tInputInfo.OnLButon == true)
+            OnLButtonPressed?.Invoke();
     }
 
     private void UpdateZoomValue()
     {
+        bool bPrevButton = m_tInputInfo.OnRButton;
         for (int i = 0; i < m_listZoomAction.Count; ++i)
         {
             m_tInputInfo.OnRButton = m_listZoomAction[i].action.IsPressed();
         }
+
+        if(m_tInputInfo.OnRButton == true)
+            OnRButtonPressed?.Invoke();
+
+        if(bPrevButton == true && m_tInputInfo.OnRButton == false)
+            OnRButtonRelease?.Invoke();
     }
 
     private void UpdateThrowValue()

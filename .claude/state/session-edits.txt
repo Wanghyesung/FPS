@@ -1,0 +1,3 @@
+C:\Users\user\Documents\GitHub\FPS\Assets\05 Enemy\Node\NodeScript\SORotateNode.cs
+C:\Users\user\Documents\GitHub\FPS\Assets\05 Enemy\Enemy.cs
+C:\Users\user\Documents\GitHub\FPS\Assets\05 Enemy\Node\NodeScript\SOCheckPointNode.cs

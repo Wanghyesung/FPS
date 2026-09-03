@@ -12,8 +12,13 @@ public class SOAttackNode : SONode
 {
     public override eNodeState Execute(BlackBoard _refBB)
     {
-        if(_refBB == null)
+        if (_refBB == null || _refBB.Weapon == null || _refBB.TargetTr == null)
             return eNodeState.Failure;
+
+        // 쿨다운 중이면 Sequence를 Running으로 붙잡아둔다 — Failure로 반환하면
+        // Selector가 곧장 Chase/Patrol로 넘어가 버려 사격 텀마다 상태가 튄다
+        if (_refBB.Weapon.CheckTime() == false)
+            return eNodeState.Running;
 
         _refBB.Weapon.Fire(_refBB.TargetTr.position);
         return eNodeState.Success;

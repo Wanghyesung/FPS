@@ -428,3 +428,6 @@
 2026-09-02 12:49:24 | C:\\Users\\user\\Documents\\GitHub\\FPS\\Assets\\05 Enemy\\Enemy.cs | 1 file changed, 5 insertions(+), 3 deletions(-)
 2026-09-02 14:25:16 | C:\\Users\\user\\Documents\\GitHub\\FPS\\.claude\\docs\\how-to-play.md | new file, 44 lines
 2026-09-03 09:08:22 | C:\\Users\\user\\Documents\\GitHub\\FPS\\Assets\\05 Enemy\\Enemy.cs | 1 file changed, 50 insertions(+)
+2026-09-03 11:52:19 | C:\\Users\\user\\Documents\\GitHub\\FPS\\Assets\\05 Enemy\\Node\\NodeScript\\SORotateNode.cs | 1 file changed, 23 insertions(+), 13 deletions(-)
+2026-09-03 12:52:20 | C:\\Users\\user\\Documents\\GitHub\\FPS\\Assets\\05 Enemy\\Enemy.cs | 1 file changed, 11 insertions(+)
+2026-09-03 12:53:50 | C:\\Users\\user\\Documents\\GitHub\\FPS\\Assets\\05 Enemy\\Node\\NodeScript\\SOCheckPointNode.cs | 1 file changed, 3 insertions(+)
