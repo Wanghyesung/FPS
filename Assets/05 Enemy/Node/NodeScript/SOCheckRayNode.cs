@@ -11,9 +11,11 @@ using UnityEngine;
 
 public class SOCheckRayNode : SONode
 {
-    [Description("레이가 충돌 검사할 레이어 (장애물 + Player 둘 다 포함해야 함)")]
+    [Description("레이가 충돌 검사할 레이어")]
     [SerializeField] private LayerMask m_tCollideMask;
-    [SerializeField] private Vector3 m_vEyeOffset = new Vector3(0f, 1.5f, 0f); // 가슴/눈높이
+
+    //[Description("Owner 기준 눈높이.")]
+    //[SerializeField] private Vector3 m_vEyeOffset = new Vector3(0f, 1.5f, 0f);
     [SerializeField] private float m_fRayRadius = 0.2f;
 
     public override eNodeState Execute(BlackBoard _refBB)
@@ -22,15 +24,19 @@ public class SOCheckRayNode : SONode
             return eNodeState.Failure;
 
         Transform refOwnerTr = _refBB.OwnerOffset != null ? _refBB.OwnerOffset : _refBB.Owner.transform;
-        Vector3 vOrigin = refOwnerTr.position + m_vEyeOffset;
-        Vector3 vDelta = (_refBB.TargetTr.position + m_vEyeOffset) - vOrigin;
+        Vector3 vOrigin = refOwnerTr.position;/* + m_vEyeOffset;*/
 
-        if (Physics.SphereCast(vOrigin, m_fRayRadius, vDelta.normalized, out RaycastHit tHit, vDelta.magnitude, m_tCollideMask) == true)
-        {
-            // 맨 처음 맞은 게 벽이 아니라 실제로 내가 찾는 타겟인지 확인
-            if (tHit.transform == _refBB.TargetTr || tHit.transform.IsChildOf(_refBB.TargetTr))
-                return eNodeState.Success;
-        }
-        return eNodeState.Failure;
+        Vector3 vDelta = _refBB.TargetTr.position - vOrigin;
+        float fDistance = vDelta.magnitude;
+
+        if (fDistance < 0.001f)
+            return eNodeState.Success;
+
+        if (Physics.SphereCast(vOrigin, m_fRayRadius, vDelta / fDistance, out RaycastHit tHit,
+                fDistance, m_tCollideMask, QueryTriggerInteraction.Ignore) == false)
+            return eNodeState.Failure;
+
+        // 맨 처음 맞은 게 벽이 아니라 실제로 내가 찾는 타겟인지 확인.
+        return tHit.transform.root == _refBB.TargetTr.root ? eNodeState.Success : eNodeState.Failure;
     }
 }
