@@ -9,9 +9,6 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0778083c5e593164da70ea9c8005cf4a, type: 3}
-  m_Name: SO_SequenceNode_Patrol
+  m_Script: {fileID: 11500000, guid: 17c278f0d0f19da4b9210a4960cc6505, type: 3}
+  m_Name: SO_IsArrivePoint
   m_EditorClassIdentifier: 
-  listNode:
-  - {fileID: 11400000, guid: 0eed5e544ae158c498850ef00c2152d7, type: 2}
-  - {fileID: 11400000, guid: 6241a31483d5fc6428ef5f0f283947fc, type: 2}

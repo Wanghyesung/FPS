@@ -47,7 +47,7 @@ public class Player : MonoBehaviour
         // 소켓 정렬 + Init + 왼손 IK 타겟 연결이 필요하다
         if (m_refWeapon != null)
         {
-            TakeWeapon(m_refWeapon);
+            //TakeWeapon(m_refWeapon);
             EquipWeapon(m_refWeapon);
         }
     }

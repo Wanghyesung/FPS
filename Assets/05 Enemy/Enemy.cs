@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
+using UnityEngine.Animations.Rigging;
 
 
 [RequireComponent(typeof(WeaponRigTarget))]
@@ -13,11 +14,17 @@ public class Enemy : MonoBehaviour, IDamageable
 
     private AnimationTable m_refAnimTable;
     private NavMeshAgent m_refAgent;
+    private RigBuilder m_refRigBuilder;
+
+    [SerializeField] private Transform m_refWeaponSocket;
+    [SerializeField] private WeaponRigTarget m_refWeaponRigTarget;
+    private Weapon m_refWeapon = null;
 
     private void Awake()
     {
         m_refAnimTable = GetComponent<AnimationTable>();
         m_refAgent = GetComponent<NavMeshAgent>();
+        m_refRigBuilder = GetComponent<RigBuilder>();
 
         m_refBT = GetComponent<BehaviorTree>();
 
@@ -29,6 +36,14 @@ public class Enemy : MonoBehaviour, IDamageable
         m_refObjInfo.Speed = 4.0f;
 
         m_refAgent.speed = m_refObjInfo.Speed;
+    }
+
+    // RigBuilder는 자기 Awake에서 한 번 자동으로 Build()를 도는데, 이 시점은 Animator가
+    // Humanoid PlayableGraph를 아직 다 짜기 전이라 Start에서 한 번 더 Build해 바로잡는다.
+    private void Start()
+    {
+        if (m_refRigBuilder != null)
+            m_refRigBuilder.Build();
     }
 
     public void TakeDamage(AttackInfo _refAttackInfo, tShotInfo _tShotInfo)
@@ -44,11 +59,56 @@ public class Enemy : MonoBehaviour, IDamageable
         CheckMoveState();
     }
 
-    // NavMeshAgent가 updateRotation으로 항상 이동 방향을 바라보므로(스트레이프 없음)
-    // 로컬 좌/우 성분은 의미가 없다 — 속도 크기 하나만 0~1로 정규화해서 넘긴다
+    //기본적인 State값을 전달하기 위해서
     private void CheckMoveState()
     {
         float fSpeed01 = m_refAgent.speed > 0f ? m_refAgent.velocity.magnitude / m_refAgent.speed : 0f;
+        if(fSpeed01 < 0.01f)
+            m_refObjInfo.State = eEntityState.Idle;
+        else
+        {
+            Vector3 vWorldDir = m_refAgent.velocity;
+
+            Vector3 vForward = transform.forward.normalized;
+            Vector3 vRight = Vector3.Cross(Vector3.up, vForward).normalized;
+
+            //월드의 방향과 내 방향을 정사영시켜서 얼마나 비슷한 각으로 보는지
+            float fLocalX = Vector3.Dot(vWorldDir, vRight);
+            float fLocalZ = Vector3.Dot(vWorldDir, vForward);
+            m_refAnimTable.SetFloat(eEntityState.MoveX, fLocalX);
+            m_refAnimTable.SetFloat(eEntityState.MoveZ, fLocalZ);
+        }
+
         m_refAnimTable.SetFloat(eEntityState.Move, fSpeed01);
     }
+
+
+    public void PickupWeapon(Weapon _refWeapon)
+    {
+        if (_refWeapon == null)
+            return;
+
+        Transform tSocket = m_refWeaponSocket != null ? m_refWeaponSocket : transform;
+
+        _refWeapon.transform.SetParent(tSocket, true);
+
+        _refWeapon.transform.localPosition = Vector3.zero;
+        _refWeapon.transform.localRotation = Quaternion.identity;
+        _refWeapon.transform.localScale = Vector3.one;
+
+        EquipWeapon(_refWeapon);
+    }
+
+    private void EquipWeapon(Weapon _refWeapon)
+    {
+        m_refWeapon = _refWeapon;
+        m_refWeapon.Init();
+        m_refWeaponRigTarget.SetWeapon(
+            m_refWeapon.transform,
+            m_refWeapon.LeftHandGripTr, m_refWeaponRigTarget.LeftHint,
+            m_refWeapon.RightHandGripTr, m_refWeaponRigTarget.RightHint);
+
+        m_refAnimTable.SetBool(eEntityState.HasWeapon, true);
+    }
+
 }

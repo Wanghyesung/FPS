@@ -59,6 +59,9 @@ public class BlackBoard
     public Transform TargetTr;
     public NavMeshAgent Agent;
 
+    [Header("Weapon")]
+    public Weapon Weapon;
+
     [Header("EntityInfo")]
     public ObjectInfo ObjInfo;
 

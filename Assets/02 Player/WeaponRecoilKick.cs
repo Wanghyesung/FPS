@@ -3,13 +3,7 @@ using UnityEngine;
 /*///////////////////////////////////////////
                 WeaponRecoilKick
 목적 : 사격 시 무기 모델(이 컴포넌트가 붙은 transform)에만 얹히는 순수 연출용
-       스프링-댐퍼 반동. Weapon.Init()이 그립 정렬 직후 CaptureBasePose()를 호출해
-       "반동이 없는 기준 로컬 포즈"를 잡아두고, 그 위에 위치/회전 오프셋을 스프링으로
-       튕겼다가 감쇠시킨다.
-
-       조준(PlayerMovement의 pitch/yaw)이나 실제 탄 퍼짐(Weapon.m_fInaccuracyAngle)과는
-       완전히 분리되어 있다 — 이 컴포넌트는 transform.localPosition/localRotation만
-       건드리고, Aim.TargetPosition/Weapon.Fire()의 조준 계산에는 전혀 관여하지 않는다.
+       스프링-댐퍼 반동.
  *///////////////////////////////////////////
 
 public sealed class WeaponRecoilKick : MonoBehaviour
@@ -26,8 +20,6 @@ public sealed class WeaponRecoilKick : MonoBehaviour
     private float m_fStiffness = 180f;
     private float m_fDamping = 18f;
 
-    // Weapon.Init()이 TakeWeapon() 직후에 호출한다 — 매 프레임 캡처하면
-    // 반동으로 밀린 위치를 새 기준점으로 착각해서 원점이 계속 밀려나는(드리프트) 버그가 생긴다.
     public void CaptureBasePose()
     {
         m_vBaseLocalPos = transform.localPosition;
@@ -35,7 +27,7 @@ public sealed class WeaponRecoilKick : MonoBehaviour
         m_bBaseCaptured = true;
     }
 
-    // Weapon.OnBulletFired()가 발사마다 호출 — 위치/회전에 즉각적인 임펄스를 준다.
+   
     public void Kick(Vector3 _vPosImpulse, Vector3 _vRotImpulseDeg, float _fStiffness, float _fDamping)
     {
         if (m_bBaseCaptured == false)

@@ -52,8 +52,8 @@ public class SOAttackInfo : ScriptableObject
     public float ExplosionRadius = 3f; // 수류탄류 광역 폭발 판정 반경(Grenade.cs가 사용)
 
     [Header("Visual Recoil (Spring)")]
-    // 무기 모델(Weapon.transform)에만 얹히는 순수 연출용 반동 — 조준(pitch/yaw)이나
-    // 실제 탄 퍼짐(m_fInaccuracyAngle)에는 전혀 영향을 주지 않는다. WeaponRecoilKick 참고.
+   
+
     public Vector3 VisualKickback = new Vector3(0f, 0.01f, -0.05f); // 발사 1회당 로컬 위치 임펄스(주로 -Z 후퇴)
     public Vector3 VisualRotKick = new Vector3(-4f, 0f, 0f);        // 발사 1회당 로컬 회전 임펄스(도) — X: 총구 상탄
     public float VisualRotKickRandomYaw = 1.5f;                     // 좌우(Y) 흔들림 랜덤 범위(도)

@@ -3,7 +3,6 @@ using UnityEngine;
 /*///////////////////////////////////////////
                 WeaponPickup
 목적 : 월드에 놓인 무기에 플레이어가 접촉하면 Player.PickupWeapon으로 넘겨준다.
-       이 GameObject의 Collider는 Is Trigger로 설정돼야 한다(수동 설정 필요).
  *///////////////////////////////////////////
 
 [RequireComponent(typeof(Weapon))]
@@ -17,16 +16,23 @@ public sealed class WeaponPickup : MonoBehaviour
         m_refWeapon = GetComponent<Weapon>();
     }
 
-    private void OnTriggerEnter(Collider _tOther)
+    //TODO : 나중에 통합된 구조로 잡기
+    private void OnTriggerEnter(Collider _refOther)
     {
         if (m_bPicked)
             return;
 
-        Player refPlayer = _tOther.GetComponentInParent<Player>();
-        if (refPlayer == null)
-            return;
-
-        m_bPicked = true;
-        refPlayer.PickupWeapon(m_refWeapon);
+        if(_refOther.gameObject.layer == LayerMask.NameToLayer("Player"))
+        {
+            m_bPicked = true;
+            Player refPlayer = _refOther.GetComponentInParent<Player>();
+            refPlayer.PickupWeapon(m_refWeapon);
+        }
+        else if(_refOther.gameObject.layer == LayerMask.NameToLayer("Enemy"))
+        {
+            m_bPicked = true;
+            Enemy refEnemy = _refOther.GetComponentInParent<Enemy>();
+            refEnemy.PickupWeapon(m_refWeapon);
+        }
     }
 }

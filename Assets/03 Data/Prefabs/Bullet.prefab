@@ -115,7 +115,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b2124df85bbdfe641b933d032db4e684, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_refPoolObject: {fileID: 1418374523975971251}
+  m_refPoolObject: {fileID: 0}
   m_refHitEffectObj: {fileID: 8883461540435108670, guid: c960c4b2e3e5fa64d8382ace061bff3d,
     type: 3}
 --- !u!136 &6814543498308955644

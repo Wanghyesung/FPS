@@ -26,9 +26,7 @@ public sealed class WeaponAimRig : MonoBehaviour
 
 
 
-    // 줌이 풀렸을 때도(m_bZoomed == false) weight를 0으로 되돌리는 블렌드는 계속 돌아야 한다 —
-    // 예전엔 여기서 바로 return해버려서 한 번 줌하면 weight가 끝까지 1에 고정된 채 상체가
-    // 영원히 조준 방향으로 꺾여있는 버그가 있었다.
+    // 줌이 풀렸을 때도(m_bZoomed == false) weight를 0으로 되돌리는 블렌드는 계속 돌아야 한다
     private void Update()
     {
         if (m_refAimConstraint == null || m_refIKTarget == null)

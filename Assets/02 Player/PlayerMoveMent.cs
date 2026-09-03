@@ -52,18 +52,13 @@ public class PlayerMovement : MonoBehaviour
         Look();
     }
 
-    // 물리(Rigidbody)에 관여하는 것은 전부 FixedUpdate에서 처리한다 — Update에서
-    // transform.rotation이나 Rigidbody.velocity를 직접 건드리면 물리 스텝과 주기가
-    // 어긋나서(프레임레이트 의존) 떨림/끊김이 생긴다.
+ 
     private void FixedUpdate()
     {
         ApplyYaw();
         Move();
     }
 
-    // 마우스 델타 → pitch/yaw 누적과 카메라 pitch 반영은 매 프레임(Update)에서 해야
-    // 시야 회전이 뚝뚝 끊기지 않는다. yaw는 여기서 값만 누적하고, 실제 몸 회전 적용은
-    // FixedUpdate의 ApplyYaw()가 담당한다.
     private void Look()
     {
         m_fPitch -= m_vDelta.y * Time.deltaTime * m_fRotSpeed;
@@ -75,15 +70,6 @@ public class PlayerMovement : MonoBehaviour
             m_refCameraPitchTr.localRotation = Quaternion.Euler(m_fPitch, 0f, 0f);
     }
 
-    // 몸(Player 루트)은 좌우로만 돈다 — 여기에 pitch까지 넣으면 이 트랜스폼의 자식인
-    // 캐릭터 전체(Visual/스켈레톤)가 시선 위아래를 따라 통째로 숙여진다.
-    // Rigidbody가 붙은 transform은 직접 rotation을 대입하지 않고 MoveRotation으로
-    // 돌려야 물리 스텝과 충돌 처리가 안정적으로 맞물린다.
-    // MoveRotation은 논-키네마틱 Rigidbody에서 목표 회전에 도달하기 위한 각속도를
-    // 내부적으로 계산해서 남기는데, 회전을 100% 스크립트로만 제어할 거라면 이 각속도가
-    // 다음 스텝에도 관성으로 남아 카메라가 미세하게 계속 흔들리는 원인이 된다(실측:
-    // 마우스를 안 움직이는데도 angularVelocity.y가 0으로 안 떨어지고 남아있었음).
-    // 매 스텝 명시적으로 0으로 지워서 순수하게 스크립트가 정한 값만 반영되게 한다.
     private void ApplyYaw()
     {
         m_refRb.MoveRotation(Quaternion.Euler(0f, m_fYaw, 0f));
@@ -115,8 +101,7 @@ public class PlayerMovement : MonoBehaviour
 
     private void Jump()
     {
-        //if(m_vMoveDir.y > 0.1f || m_vMoveDir.x < 0.1f)
-        //    RollFoward();
+       
         m_refPlayer.AnimationTable.SetBool(eEntityState.Jump, true);
 
         m_fDecayMove = m_fSpeed * 0.8f;
@@ -133,11 +118,6 @@ public class PlayerMovement : MonoBehaviour
 
     }
 
-    private void RollFoward()
-    {
-        m_fVerticalVelocity += Mathf.Sqrt(m_fRollHeight * -2f * m_fGravity);
-        m_bIsGrounded = false;
-    }
 
     private void OnCollisionEnter(Collision collision)
     {
@@ -148,16 +128,12 @@ public class PlayerMovement : MonoBehaviour
                 m_refPlayer.AnimationTable.SetBool(eEntityState.Jump, false);
                 m_bIsGrounded = true;
                 m_bLockMove = true; //착지 모션이 끝날 때 까지 대기
-                Debug.Log("착지");
             }
         }
 
     }
 
-    // CharacterController.isGrounded는 매 프레임 자동으로 갱신되지만, Rigidbody는
-    // 그런 게 없다 — OnCollisionEnter로 착지만 잡으면 점프 없이 낭떠러지를 걸어서
-    // 벗어날 때 m_bIsGrounded가 true로 고정된 채 남아 중력이 다시 안 붙는다.
-    // Ground 콜라이더에서 벗어나는 순간을 여기서 풀어줘야 한다.
+    
     private void OnCollisionExit(Collision collision)
     {
         if (collision.gameObject.CompareTag("Ground"))

@@ -2,17 +2,17 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class SOFindWeapon : MonoBehaviour
-{
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
 
-    // Update is called once per frame
-    void Update()
+/*///////////////////////////////////////////
+              SOFindWeaponNode
+기능 : 
+ *///////////////////////////////////////////
+[CreateAssetMenu(fileName = "SO_CheckLength", menuName = "Game/Monster/ActionNode/CheckLength")]
+
+public class SOFindWeaponNode : SONode
+{
+    public override eNodeState Execute(BlackBoard _refBB)
     {
-        
+        throw new System.NotImplementedException();
     }
 }

@@ -427,3 +427,4 @@
 2026-09-02 11:33:25 | C:\\Users\\user\\Documents\\GitHub\\FPS\\Assets\\05 Enemy\\Node\\NodeScript\\SOCheckPointNode.cs | new file, 20 lines
 2026-09-02 12:49:24 | C:\\Users\\user\\Documents\\GitHub\\FPS\\Assets\\05 Enemy\\Enemy.cs | 1 file changed, 5 insertions(+), 3 deletions(-)
 2026-09-02 14:25:16 | C:\\Users\\user\\Documents\\GitHub\\FPS\\.claude\\docs\\how-to-play.md | new file, 44 lines
+2026-09-03 09:08:22 | C:\\Users\\user\\Documents\\GitHub\\FPS\\Assets\\05 Enemy\\Enemy.cs | 1 file changed, 50 insertions(+)

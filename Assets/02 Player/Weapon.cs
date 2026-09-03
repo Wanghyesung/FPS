@@ -66,8 +66,7 @@ public class Weapon : MonoBehaviour
     private const float GOLDEN_ANGLE_DEG = 137.50776f;
 
     // Player.PickupWeapon()이 무기를 손에 넣는 시점에 호출한다 — 무기는 기본적으로
-    // 아무도 소지하지 않은 상태(월드에 놓인 상태)로 존재하므로, Awake/Start가 아니라
-    // 픽업 시점에만 초기화된다.
+    // 아무도 소지하지 않은 상태(월드에 놓인 상태)로 존재하므로 픽업 시점에만 초기화된다.
     public void Init()
     {
 
@@ -79,12 +78,10 @@ public class Weapon : MonoBehaviour
         m_fFireTime = m_refAttackInfo.CoolDown;
         m_fLastFireTime = Time.time;
 
-        // TakeWeapon()이 그립 정렬을 이미 마친 뒤(Player.EquipWeapon()에서 Init()을 그
-        // 다음에 호출함) — 이 시점의 로컬 포즈를 반동 스프링의 "원점"으로 캡처해야 한다.
         m_refRecoilKick = GetComponent<WeaponRecoilKick>();
         m_refAimAlign = GetComponent<WeaponAimAlign>();
         if (m_refRecoilKick != null)
-            m_refRecoilKick.CaptureBasePose();
+            m_refRecoilKick.CaptureBasePose(); //처음 위치를 캐싱해두기 (총을 다 쏘고 원래 위치로 돌아오게_
     }
 
     public void Fire(Vector3 _vTargetPos)
@@ -192,6 +189,7 @@ public class Weapon : MonoBehaviour
     }
 
 
+    // 무기 모델(transform)에만 스프링 오프셋을 얹는다
     private void OnBulletFired()
     {
         if (m_refEffectObject != null)
@@ -200,8 +198,6 @@ public class Weapon : MonoBehaviour
         if (GameCameraManager.m_Instance != null)
             GameCameraManager.m_Instance.Shake(m_refAttackInfo.RecoilAmount);
 
-        // 순수 연출용 반동 — 조준(pitch/yaw)이나 실제 탄 퍼짐(m_fInaccuracyAngle)과는
-        // 완전히 별개로, 무기 모델(transform)에만 스프링 오프셋을 얹는다.
         if (m_refRecoilKick != null)
         {
             Vector3 vRotKick = m_SOAttackInfo.VisualRotKick;
