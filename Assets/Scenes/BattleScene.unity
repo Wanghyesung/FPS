@@ -16798,7 +16798,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 418143674}
-  m_Layer: 0
+  m_Layer: 14
   m_Name: FirTr
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -56145,8 +56145,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1296769062}
-  m_Layer: 0
-  m_Name: RightHandGrip
+  m_Layer: 14
+  m_Name: LeftHandGrip
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -56160,8 +56160,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1296769061}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0.501}
+  m_LocalRotation: {x: -0.15038538, y: 0.027534312, z: 0.9882352, w: 0.004172184}
+  m_LocalPosition: {x: -0.0613, y: 0, z: 0.4819}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -60246,7 +60246,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1380153881}
-  m_Layer: 0
+  m_Layer: 14
   m_Name: ZoomTr
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -88493,6 +88493,37 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 2052773547}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &2053569731
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2053569732}
+  m_Layer: 14
+  m_Name: RightHandGrip
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &2053569732
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2053569731}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0.39781427, y: 0.46101663, z: -0.46484086, w: -0.6427523}
+  m_LocalPosition: {x: 0.01, y: -0.131, z: -0.146}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 5835168634618869267}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &2054186993
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -94777,7 +94808,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &4381000868970496786
 Transform:
   m_ObjectHideFlags: 0
@@ -95593,7 +95624,7 @@ GameObject:
   - component: {fileID: 5835106372747831003}
   - component: {fileID: 5806182693432549805}
   - component: {fileID: 5816811117739458071}
-  m_Layer: 0
+  m_Layer: 14
   m_Name: SM_Wep_Sniper_Heavy_Bipod_02
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -95611,7 +95642,7 @@ GameObject:
   - component: {fileID: 5835168634618869267}
   - component: {fileID: 5806183135975937243}
   - component: {fileID: 5818435390604421399}
-  m_Layer: 0
+  m_Layer: 14
   m_Name: SM_Wep_Sniper_Heavy_Trigger_01
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -95629,7 +95660,7 @@ GameObject:
   - component: {fileID: 5835358374169671405}
   - component: {fileID: 5808552957282427003}
   - component: {fileID: 5818517824372277025}
-  m_Layer: 0
+  m_Layer: 14
   m_Name: SM_Wep_Sniper_Heavy_Slide_01
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -95647,7 +95678,7 @@ GameObject:
   - component: {fileID: 5828977875322006635}
   - component: {fileID: 5806058507504670221}
   - component: {fileID: 5818374584203376253}
-  m_Layer: 0
+  m_Layer: 14
   m_Name: SM_Wep_Sniper_Heavy_Bipod_01
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -95665,7 +95696,7 @@ GameObject:
   - component: {fileID: 5835172193045415641}
   - component: {fileID: 5808873036601793851}
   - component: {fileID: 5818648967544308741}
-  m_Layer: 0
+  m_Layer: 14
   m_Name: SM_Wep_Sniper_Heavy_Mag_01
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -95683,7 +95714,7 @@ GameObject:
   - component: {fileID: 5829157464304975725}
   - component: {fileID: 5806111033317070011}
   - component: {fileID: 5818125646543879515}
-  m_Layer: 0
+  m_Layer: 14
   m_Name: SM_Wep_Sniper_Heavy_Scope_01
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -95704,13 +95735,16 @@ GameObject:
   - component: {fileID: 5835488391189923580}
   - component: {fileID: 5835488391189923579}
   - component: {fileID: 5835488391189923578}
-  m_Layer: 0
+  - component: {fileID: 5835488391189923583}
+  - component: {fileID: 5835488391189923582}
+  - component: {fileID: 5835488391189923581}
+  m_Layer: 14
   m_Name: TRG
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &5835106372747831003
 Transform:
   m_ObjectHideFlags: 0
@@ -95738,7 +95772,8 @@ Transform:
   m_LocalPosition: {x: -0.00010196402, y: 0.03678589, z: 0.056748636}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
-  m_Children: []
+  m_Children:
+  - {fileID: 2053569732}
   m_Father: {fileID: 5835488391189923577}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &5835172193045415641
@@ -95780,7 +95815,7 @@ Transform:
   m_GameObject: {fileID: 5832159789107713035}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -25.277775, y: 0.11566417, z: 4.2258005}
+  m_LocalPosition: {x: 50.42, y: 0.11566417, z: -45.33}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -95840,16 +95875,53 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ddab1e62832dc8a4a9513c4a81cb79cf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_SOAttackInfo: {fileID: 11400000, guid: 1d64346d567254742bbba4a82d759290, type: 2}
+  m_SOAttackInfo: {fileID: 11400000, guid: a5d80e4418f85d4458ea776732d5a135, type: 2}
   m_refFireTr: {fileID: 418143674}
   m_refEffectObject: {fileID: 0}
-  m_refRightHandGripTr: {fileID: 1296769062}
-  m_refLeftHandGripTr: {fileID: 0}
+  m_refRightHandGripTr: {fileID: 2053569732}
+  m_refLeftHandGripTr: {fileID: 1296769062}
   m_refZoomTr: {fileID: 1380153881}
   m_bLookTarget: 1
   m_fInaccuracyAngle: 0
   m_iBulletCount: 1
   m_fSpreadAngle: 30
+--- !u!114 &5835488391189923581
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5832159789107713035}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 48948dfe9d76b07488dacd46a7955fa1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &5835488391189923582
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5832159789107713035}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0b4b56f219c20e249a69e4074e2ae217, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_fBlendSpeed: 8
+--- !u!114 &5835488391189923583
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5832159789107713035}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 24739ec75ad4f0c44a8f545533040045, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!4 &5839729440758195583
 Transform:
   m_ObjectHideFlags: 0
@@ -96901,7 +96973,7 @@ Transform:
   m_GameObject: {fileID: 7558595343187611739}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0.7071068, w: 0.7071068}
-  m_LocalPosition: {x: 50.56183, y: 0.722, z: -44.916782}
+  m_LocalPosition: {x: 51.276, y: 0.722, z: -44.916782}
   m_LocalScale: {x: 0.9, y: 0.9, z: 0.9}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -96987,7 +97059,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!23 &7563988905358801202
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -98176,6 +98248,7 @@ SceneRoots:
   - {fileID: 45103588}
   - {fileID: 465623191}
   - {fileID: 7518378349019072367}
+  - {fileID: 5835488391189923577}
   - {fileID: 1421301420}
   - {fileID: 89979906}
   - {fileID: 824439565}
@@ -98184,6 +98257,5 @@ SceneRoots:
   - {fileID: 95847846}
   - {fileID: 597719995}
   - {fileID: 21536881}
-  - {fileID: 5835488391189923577}
   - {fileID: 1665673493}
   - {fileID: 1572647531}
