@@ -14,6 +14,11 @@ public class SOWaitCheckPointNode : SONode
         if (_refBB.Agent.isStopped == true)
             return eNodeState.Failure;
 
+        // SetDestination 직후 경로 계산이 끝나기 전(pathPending)엔 remainingDistance가
+        // 아직 갱신되지 않아 0으로 읽혀, 도착하지도 않았는데 바로 Success로 오판한다
+        if (_refBB.Agent.pathPending == true)
+            return eNodeState.Running;
+
         if(_refBB.Agent.remainingDistance <= 1.0f)
         {
             _refBB.PatrolIdx += 1;

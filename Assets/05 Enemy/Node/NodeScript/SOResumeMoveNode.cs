@@ -29,17 +29,16 @@ public class SOResumeMoveNode : SONode
 
         // NavMesh 밖에서는 isStopped 대입만으로도 매 프레임 에러가 찍히므로 건드리지 않는다
         if (refAgent == null || refAgent.isOnNavMesh == false)
+        {
+#if UNITY_EDITOR
+            Debug.Log($"[ResumeMoveNode] 실패 - isOnNavMesh: {(refAgent == null ? "Agent 없음" : refAgent.isOnNavMesh.ToString())}", _refBB.Owner);
+#endif
             return eNodeState.Failure;
+        }
 
         refAgent.isStopped = false;
-
-        // SORotateNode가 조준하려고 꺼둔 회전 — 켜주지 않으면 순찰로 돌아와도
-        // 마지막 조준 방향을 향한 채 옆걸음으로 이동해버린다
         refAgent.updateRotation = true;
-
-        // SOEscapeNode가 올려둔 도주 속도 배율을 원본 속도로 되돌린다
-        if (_refBB.ObjInfo != null && _refBB.ObjInfo.Speed > 0.0f)
-            refAgent.speed = _refBB.ObjInfo.Speed;
+        refAgent.speed = _refBB.ObjInfo.Speed;
 
         if (m_bResetEscape == true)
             _refBB.IsEscaping = false;

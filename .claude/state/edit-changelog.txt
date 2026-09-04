@@ -448,3 +448,9 @@
 2026-09-03 18:06:15 | C:\\Users\\user\\Documents\\GitHub\\FPS\\Assets\\02 Player\\Grenade.cs | 1 file changed, 1 insertion(+), 3 deletions(-)
 2026-09-03 18:06:27 | C:\\Users\\user\\Documents\\GitHub\\FPS\\Assets\\02 Player\\Player.cs | 1 file changed, 17 insertions(+), 1 deletion(-)
 2026-09-03 18:28:18 | C:\\Users\\user\\Documents\\GitHub\\FPS\\Assets\\02 Player\\Weapon.cs | 1 file changed, 13 insertions(+), 1 deletion(-)
+2026-09-04 12:54:07 | C:\\Users\\user\\Documents\\GitHub\\FPS\\Assets\\01 Manager\\PlayerHeatmapRecorder.cs | new file, 158 lines
+2026-09-04 12:54:11 | C:\\Users\\user\\Documents\\GitHub\\FPS\\Assets\\02 Player\\PlayerHeatmapTracker.cs | new file, 34 lines
+2026-09-04 15:41:53 | C:\\Users\\user\\Documents\\GitHub\\FPS\\Assets\\05 Enemy\\Node\\NodeScript\\SOResumeMoveNode.cs | 1 file changed, 6 insertions(+), 7 deletions(-)
+2026-09-04 15:41:56 | C:\\Users\\user\\Documents\\GitHub\\FPS\\Assets\\05 Enemy\\Node\\NodeScript\\SOCheckPointNode.cs | 1 file changed, 11 insertions(+), 3 deletions(-)
+2026-09-04 16:16:42 | C:\\Users\\user\\Documents\\GitHub\\FPS\\Assets\\05 Enemy\\Node\\NodeScript\\SOWaitCheckPointNode.cs | 1 file changed, 5 insertions(+)
+2026-09-04 16:17:06 | C:\\Users\\user\\Documents\\GitHub\\FPS\\Assets\\05 Enemy\\Node\\NodeScript\\SOIsArrivePointNode.cs | 1 file changed, 5 insertions(+)

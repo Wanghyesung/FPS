@@ -71298,7 +71298,7 @@ Transform:
   m_GameObject: {fileID: 1665673492}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 51.8, y: 0, z: -39.5}
+  m_LocalPosition: {x: 51.8, y: 2.07, z: -39.5}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -97877,12 +97877,11 @@ MonoBehaviour:
     - {fileID: 46403133}
     - {fileID: 2066835715}
     - {fileID: 1368178761}
-    CurrentTime: 0
-    TraceTime: 0
-    TraceMaxDistance: 0
-    TraceMinDistance: 0
+    FindTarget: 0
     POV: 0
-    WaitTimer: 0
+    IsEscaping: 0
+    EscapePos: {x: 0, y: 0, z: 0}
+    NextEscapeTime: 0
 --- !u!195 &8873425333713805855
 NavMeshAgent:
   m_ObjectHideFlags: 0

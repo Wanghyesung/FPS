@@ -55,6 +55,7 @@ public class Enemy : MonoBehaviour, IDamageable
     {
         if (m_refRigBuilder != null)
             m_refRigBuilder.Build();
+
     }
 
     // BlackBoard.ObjInfo는 m_refObjInfo와 같은 인스턴스를 참조하므로, 여기서 HP를 깎으면
@@ -69,6 +70,7 @@ public class Enemy : MonoBehaviour, IDamageable
         if (m_refObjInfo.CurrentHP > 0.0f)
             return;
 
+        Debug.Log(m_refObjInfo.CurrentHP);
         m_refObjInfo.CurrentHP = 0.0f;
         Die();
     }

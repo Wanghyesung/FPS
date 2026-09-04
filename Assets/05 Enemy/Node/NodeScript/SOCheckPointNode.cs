@@ -18,9 +18,17 @@ public class SOCheckPointNode : SONode
         _refBB.PatrolIdx %= _refBB.PatrolList.Count;
         Transform refMovePoint = _refBB.PatrolList[_refBB.PatrolIdx];
 
-        // 이동 상태 복구(updateRotation / isStopped / speed / Zoom)는 순찰 시퀀스 맨 앞의
-        // SOResumeMoveNode가 전담한다 — 이 노드는 목표 지점 지정만 담당
-        _refBB.Agent.SetDestination(refMovePoint.position);
+        // 반환값을 안 보면 목표 지점이 NavMesh 밖이라 실패해도 Success로 보고돼, 다음
+        // WaitCheckPointNode가 절대 줄지 않는 remainingDistance를 기다리며 영원히 Running에 갇힌다
+        bool bSetOk = _refBB.Agent.SetDestination(refMovePoint.position);
+
+#if UNITY_EDITOR
+        Debug.Log($"[CheckPointNode] Idx:{_refBB.PatrolIdx} Target:{refMovePoint.position} SetDestination:{bSetOk} pathStatus:{_refBB.Agent.pathStatus} isStopped:{_refBB.Agent.isStopped} updateRotation:{_refBB.Agent.updateRotation}", _refBB.Owner);
+#endif
+
+        if (bSetOk == false)
+            return eNodeState.Failure;
+
         return eNodeState.Success;
     }
 }

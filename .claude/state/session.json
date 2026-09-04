@@ -1,22 +1,20 @@
 {
   "schema_version": 1,
-  "branch": "devel/Test",
+  "branch": "devel/Enemy-AI",
   "workflow_phase": "",
   "modified_files": [
-    "C:\\Users\\user\\Documents\\GitHub\\FPS\\Assets\\01 Manager\\ObjectPoolManager.cs",
-    "C:\\Users\\user\\Documents\\GitHub\\FPS\\Assets\\02 Player\\Bullet.cs",
-    "C:\\Users\\user\\Documents\\GitHub\\FPS\\Assets\\02 Player\\Grenade.cs",
-    "C:\\Users\\user\\Documents\\GitHub\\FPS\\Assets\\02 Player\\Player.cs"
+    "C:\\Users\\user\\Documents\\GitHub\\FPS\\Assets\\05 Enemy\\Node\\NodeScript\\SOIsArrivePointNode.cs",
+    "C:\\Users\\user\\Documents\\GitHub\\FPS\\Assets\\05 Enemy\\Node\\NodeScript\\SOWaitCheckPointNode.cs"
   ],
   "recent_commits": [
-    "a342179 [Add] Test Branch 등록",
-    "01a9979 [Add] 적 교전(Attack) 행동 트리 구현 — 사거리/시야각 체크 → 회전 → 줌 → 발사",
-    "a1dc504 [Add] Enemy 전투 BT 노드 및 무기 장착 시스템 추가"
+    "e3d178d [Fix] Enemy 시야 체크 레이가 근거리에서도 타겟을 못 맞히던 문제 해결",
+    "e11d2ec [Add] 순찰 재개 및 HP 30 이하 도주 행동 트리 구현",
+    "3f0b36d [Fix] 총알 생성 오류 해결"
   ],
-  "session_duration": "50m 41s",
+  "session_duration": "2m 9s",
   "tool_calls": 0,
   "warnings_count": 17,
-  "saved_at": "2026-09-03T09:25:52Z",
+  "saved_at": "2026-09-04T07:17:21Z",
   "plan": {},
   "verification": {},
   "agent_context": {}

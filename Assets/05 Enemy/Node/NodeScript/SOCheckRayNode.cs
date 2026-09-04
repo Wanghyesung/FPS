@@ -14,8 +14,6 @@ public class SOCheckRayNode : SONode
     [Description("레이가 충돌 검사할 레이어")]
     [SerializeField] private LayerMask m_tCollideMask;
 
-    //[Description("Owner 기준 눈높이.")]
-    //[SerializeField] private Vector3 m_vEyeOffset = new Vector3(0f, 1.5f, 0f);
     [SerializeField] private float m_fRayRadius = 0.2f;
 
     public override eNodeState Execute(BlackBoard _refBB)
@@ -37,6 +35,12 @@ public class SOCheckRayNode : SONode
             return eNodeState.Failure;
 
         // 맨 처음 맞은 게 벽이 아니라 실제로 내가 찾는 타겟인지 확인.
-        return tHit.transform.root == _refBB.TargetTr.root ? eNodeState.Success : eNodeState.Failure;
+        bool bSuccess = tHit.transform.root == _refBB.TargetTr.root ? true : false;
+        if(bSuccess == true)
+        {
+            _refBB.FindTarget = true;
+            return eNodeState.Success;
+        }
+        return eNodeState.Failure;
     }
 }
