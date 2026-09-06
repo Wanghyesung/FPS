@@ -458,3 +458,13 @@
 2026-09-06 18:51:00 | C:\\Users\\왕혜성\\Documents\\GitHub\\FPS\\Assets\\05 Enemy\\BehaviorTree.cs | 1 file changed, 17 insertions(+), 1 deletion(-)
 2026-09-06 18:51:07 | C:\\Users\\왕혜성\\Documents\\GitHub\\FPS\\Assets\\05 Enemy\\BehaviorTree.cs | 1 file changed, 25 insertions(+), 1 deletion(-)
 2026-09-06 19:09:21 | C:\\Users\\왕혜성\\Documents\\GitHub\\FPS\\Assets\\05 Enemy\\Enemy.cs | 1 file changed, 40 insertions(+), 1 deletion(-)
+2026-09-06 23:55:19 | C:\\Users\\왕혜성\\Documents\\GitHub\\FPS\\Assets\\02 Player\\Aim.cs | 1 file changed, 24 insertions(+), 26 deletions(-)
+2026-09-06 23:55:24 | C:\\Users\\왕혜성\\Documents\\GitHub\\FPS\\Assets\\02 Player\\AimTargetFollower.cs | 1 file changed, 6 insertions(+), 1 deletion(-)
+2026-09-06 23:55:33 | C:\\Users\\왕혜성\\Documents\\GitHub\\FPS\\Assets\\02 Player\\AimTargetFollower.cs | 1 file changed, 7 insertions(+), 2 deletions(-)
+2026-09-07 00:19:50 | C:\\Users\\왕혜성\\Documents\\GitHub\\FPS\\Assets\\03 Data\\SOAttackInfo.cs | 1 file changed, 20 insertions(+), 25 deletions(-)
+2026-09-07 00:20:01 | C:\\Users\\왕혜성\\Documents\\GitHub\\FPS\\Assets\\03 Data\\SOAttackInfo.cs | 1 file changed, 22 insertions(+), 25 deletions(-)
+2026-09-07 00:20:16 | C:\\Users\\왕혜성\\Documents\\GitHub\\FPS\\Assets\\02 Player\\Weapon.cs | 1 file changed, 58 insertions(+), 80 deletions(-)
+2026-09-07 00:20:25 | C:\\Users\\왕혜성\\Documents\\GitHub\\FPS\\Assets\\02 Player\\Weapon.cs | 1 file changed, 58 insertions(+), 80 deletions(-)
+2026-09-07 00:21:06 | C:\\Users\\왕혜성\\Documents\\GitHub\\FPS\\Assets\\01 Manager\\GameCameraManager.cs | 1 file changed, 21 insertions(+), 2 deletions(-)
+2026-09-07 00:21:18 | C:\\Users\\왕혜성\\Documents\\GitHub\\FPS\\Assets\\01 Manager\\GameCameraManager.cs | 1 file changed, 33 insertions(+), 4 deletions(-)
+2026-09-07 00:22:14 | C:\\Users\\왕혜성\\Documents\\GitHub\\FPS\\Assets\\02 Player\\ScopeController.cs | new file, 134 lines

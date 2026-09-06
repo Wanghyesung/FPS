@@ -13,7 +13,7 @@ public sealed class WeaponRigTarget : MonoBehaviour
 
     [SerializeField] private TwoBoneIKConstraint m_refLeftHandIK;
     [SerializeField] private TwoBoneIKConstraint m_refRightHandIK;
-    [SerializeField] private MultiAimConstraint m_refWeaponAimConstraint; // WeaponAimIK — 장착된 무기가 바뀔 때마다 constrainedObject를 갈아끼워 재사용하는 공유 콘스트레인트
+    [SerializeField] private MultiAimConstraint m_refWeaponAimConstraint; 
 
     [SerializeField] private Transform m_refLeftHintTr;
     [SerializeField] private Transform m_refRightHintTr;

@@ -40,13 +40,11 @@ public class SOEscapeNode : SONode
 
         NavMeshAgent refAgent = _refBB.Agent;
 
-        // NavMesh 밖(스폰 직후·추락 등)에서는 isStopped 대입과 SetDestination이 매 프레임
-        // 에러를 뱉으므로 아예 건드리지 않고 실패로 넘긴다
+        
         if (refAgent == null || refAgent.isOnNavMesh == false)
             return eNodeState.Failure;
 
         // 이미 도착해 은신 중이면 목표를 다시 뽑지 않고 그대로 통과시켜 SOHideNode에게 넘긴다.
-        // Sequence가 매 틱 0번부터 재평가하므로 이 가드가 없으면 매 프레임 새 지점으로 다시 달린다
         if (_refBB.EscapePhase == eEscapePhase.Hiding)
             return eNodeState.Success;
 

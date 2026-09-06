@@ -14,6 +14,7 @@ public class ObjectInfo
 public class Player : MonoBehaviour
 {
     [SerializeField] private Aim m_refAim;
+    [SerializeField] private ScopeController m_refScope;
     [SerializeField] private Transform m_refWeaponSocket;
 
     [SerializeField] private Weapon m_refWeapon = null; 
@@ -78,6 +79,9 @@ public class Player : MonoBehaviour
             m_refWeapon.RightHandGripTr,m_refWeaponRigTarget.RightHint);
 
         m_refAnimTable.SetBool(eEntityState.HasWeapon, true);
+
+        if (m_refScope != null)
+            m_refScope.SetWeapon(m_refWeapon);
     }
 
     private void RequestFire()
@@ -89,21 +93,27 @@ public class Player : MonoBehaviour
             m_refWeapon.RequestFire(m_refAim.TargetPosition);
     }
 
+    // 카메라는 CameraPivot3D에 고정한 채 FOV만 좁힌다.
+    // 만약 무기 조준 위치로 이동  시키고 싶다면 아이언사이트 모드에서만 GameCameraManager.SetAimPivot을 호출한다.
     private void Zoom()
     {
-        m_bOnFire = true;
-        m_refWeapon.Zoom();
+        if (m_refWeapon == null)
+            return;
 
-        //내가 바라보는 시점이 아니라, 무기에서 바라보는 시점으로 카메라 피벗을 바꾼다.
-        m_refAim.ChangePivot(m_refWeapon.ZoomTr);
-        GameCameraManager.m_Instance.ThirdPersonPivot = m_refWeapon.ZoomTr;
+        m_bOnFire = true;
+        m_refWeapon.Zoom(); //리깅
+
+        if (m_refScope != null)
+            m_refScope.Enter();
     }
     private void UnZoom()
     {
         m_bOnFire = false;
-        m_refWeapon.UnZoom();
 
-        m_refAim.ChangePivot(null);
-        GameCameraManager.m_Instance.ThirdPersonPivot = null;
+        if (m_refWeapon != null)
+            m_refWeapon.UnZoom();
+
+        if (m_refScope != null)
+            m_refScope.Exit();
     }
 }

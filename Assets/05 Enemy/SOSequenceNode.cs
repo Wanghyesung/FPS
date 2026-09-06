@@ -26,8 +26,7 @@ public class SOSequenceNode : SOListNode
 
             if (eState == eNodeState.Failure)
             {
-                // 이번 틱에 이미 실행된 앞 자식(i - 1)과 직전 틱까지 진행됐던 범위 중 넓은 쪽을 되돌린다
-                Unwind(_refBB, iRanIdx > i - 1 ? iRanIdx : i - 1);
+                AbortRange(_refBB, iRanIdx > i - 1 ? iRanIdx : i - 1);
                 return eNodeState.Failure;
             }
 
@@ -44,11 +43,11 @@ public class SOSequenceNode : SOListNode
 
     public override void Abort(BlackBoard _refBB)
     {
-        Unwind(_refBB, iRanIdx);
+        AbortRange(_refBB, iRanIdx);
     }
 
     // Zoom처럼 Success를 반환하고 끝나는 자식도 상태를 되돌려야 하므로 참여한 범위 전체를 역순으로 정리
-    private void Unwind(BlackBoard _refBB, int _iFromIdx)
+    private void AbortRange(BlackBoard _refBB, int _iFromIdx)
     {
         for (int i = _iFromIdx; i >= 0; --i)
             listNode[i].Abort(_refBB);

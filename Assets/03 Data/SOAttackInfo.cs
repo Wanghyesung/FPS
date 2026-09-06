@@ -3,7 +3,16 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+using UnityEngine.Serialization;
 using static Weapon;
+
+
+public enum eAimMode
+{
+    None,       // 조준해도 시점 변화 없음(수류탄 등)
+    IronSight,  // 카메라를 무기의 ZoomTr(조준선)로 이동
+    Scope,      // 카메라는 눈에 고정 + 강한 FOV 줌 + 풀스크린 스코프 오버레이
+}
 
 [CreateAssetMenu(fileName = "SO_Attack_Info", menuName = "Game/Attack Info")]
 
@@ -28,25 +37,16 @@ public class SOAttackInfo : ScriptableObject
     public float HitStep = 1.0f;
 
 
-    [Header("Knockback / Stun")]
-    public float KnockbackForce = 3f;
-    public float KnockbackDuration = 0.2f;
-    public float StunDuration = 0f;
-
-
-    [Header("Homing")]
-    public float BaseRotationSpeed = 90f;
-    public float MaxRotationSpeed = 180f;
-    public float RotationAccelRate = 0f;
-    public float ProximityRadius = 1.5f;
-
-
-    [Header("Critical / Misc")]
-    [Range(0f, 1f)]
-    public float CriticalChance = 0f;
-
     [Header("Recoil")]
     public float RecoilAmount = 2f; // 발사 1회당 카메라에 가할 반동 각도(도)
+
+    [Header("Aim / Scope")]
+    public eAimMode AimMode = eAimMode.None; // 조준 시 시점 처리 방식
+    public float ZoomFov = 45f;              // 조준 시 카메라 수직 FOV(도). 배율 = tan(기본FOV/2) / tan(ZoomFov/2)
+    public float ZoomBlendTime = 0.12f;      // 기본 FOV ↔ ZoomFov 보간 시간(초)
+
+    [FormerlySerializedAs("HideWeaponOnScope")]
+    public bool HideWeaponOnAim = false;     // 조준 중 무기 메쉬 렌더러를 끌지(스코프는 보통 true)
 
     [Header("Explosion")]
     public float ExplosionRadius = 3f; // 수류탄류 광역 폭발 판정 반경(Grenade.cs가 사용)
@@ -78,14 +78,6 @@ public class SOAttackInfo : ScriptableObject
         refAttackInfo.AliveTime = AliveTime;
         refAttackInfo.CoolDown = Cooldown;
         refAttackInfo.Speed = Speed;
-
-        refAttackInfo.RotationSpeed = BaseRotationSpeed;
-        refAttackInfo.MaxRotationSpeed = MaxRotationSpeed;
-        refAttackInfo.RotateSpeedRate = RotationAccelRate;
-        refAttackInfo.ProximityRadius = ProximityRadius;
-
-        refAttackInfo.KnockbackForce = KnockbackForce;
-        refAttackInfo.KnockbackDuration = KnockbackDuration;
 
         refAttackInfo.HitLayers = HitLayers;
         refAttackInfo.RecoilAmount = RecoilAmount;

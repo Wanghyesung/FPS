@@ -43,6 +43,7 @@ public class SOSelectNode : SOListNode
 
     public override void Abort(BlackBoard _refBB)
     {
+        // Execute가 자식 전부 실패했을 때도 여기로 오므로 -1 가드가 없으면 listNode[-1]이 된다
         if (iRanIdx == -1)
             return;
 

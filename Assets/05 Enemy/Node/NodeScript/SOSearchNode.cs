@@ -4,14 +4,7 @@ using UnityEngine.AI;
 /*///////////////////////////////////////////
                SOSearchNode
 기능 : 마지막으로 본 위치까지 가서 주변을 둘러보는 노드. "어디 갔지" 행동.
-
-       이동 → 도착 → 좌우로 시야를 훑기 → 기억 소거 후 순찰 복귀 순으로 진행한다.
-       SOLookAtHitNode와 같은 원리로, 두리번거리는 것 자체가 탐지 수단이다 —
-       훑는 동안 시야 콘에 플레이어가 들어오면 SOPerceptionNode가 잡아내고
-       우선순위가 높은 교전 브랜치가 이 브랜치를 밀어낸다(Abort).
-
        단계와 타이머는 전부 BlackBoard에 둔다. leaf 노드는 클론되지 않아
-       모든 몬스터가 원본 에셋을 공유하므로 여기에 상태를 두면 즉시 오염된다.
  *///////////////////////////////////////////
 [CreateAssetMenu(fileName = "SO_SearchNode", menuName = "Game/Monster/ActionNode/SearchNode")]
 
@@ -132,7 +125,6 @@ public class SOSearchNode : SONode
 
     public override void Abort(BlackBoard _refBB)
     {
-        // HasLastSeen은 건드리지 않는다 — 도주 등으로 밀려난 것뿐이라면
         // 상황이 끝난 뒤 남은 기억으로 수색을 이어가는 게 맞다
         EndSearch(_refBB, _refBB.Agent);
     }

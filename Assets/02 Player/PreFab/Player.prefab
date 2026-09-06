@@ -1490,6 +1490,7 @@ GameObject:
   - component: {fileID: 6730320490893319628}
   - component: {fileID: 4227308012756341180}
   - component: {fileID: 7114330621721123687}
+  - component: {fileID: 3911441808251293807}
   m_Layer: 8
   m_Name: Player
   m_TagString: Untagged
@@ -1528,8 +1529,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_refAim: {fileID: 8442644703237762403}
+  m_refScope: {fileID: 3911441808251293807}
   m_refWeaponSocket: {fileID: 7974974626929075862}
   m_refWeapon: {fileID: 0}
+  m_refBodyTr: {fileID: 0}
 --- !u!114 &2599404117077891066
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1641,12 +1644,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 81b0b955c159b4b4bb88acc3b4182d1b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_refCameraPitchTr: {fileID: 8213064580015537637}
+  m_refMainCameraTr: {fileID: 8213064580015537637}
   m_tLayerMask:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 14848
   m_fMaxLength: 200
-  m_refAimImage: {fileID: 0}
 --- !u!114 &6638885962796279078
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1757,6 +1759,20 @@ MonoBehaviour:
   m_tLineBlockMask:
     serializedVersion: 2
     m_Bits: 4294967295
+--- !u!114 &3911441808251293807
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4376760755971415143}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ca64bc79cc27ba94595cc9e53b76cfd2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_refMovement: {fileID: 2599404117077891066}
+  m_fHideWeaponAt: 0.5
 --- !u!1 &4445180479217563701
 GameObject:
   m_ObjectHideFlags: 0

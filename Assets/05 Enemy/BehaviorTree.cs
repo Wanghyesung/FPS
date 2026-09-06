@@ -102,6 +102,11 @@ public class BlackBoard
     public float BlockedSinceTime; // 보이다가 시야가 끊긴 시각 (0 = 안 끊김)
 
 
+    [Header("Combat")]
+
+    public float CombatEndTime; // 이번 교전을 끊고 도주할 시각 (0 = 교전 중이 아님)
+
+
     [Header("Search")]
 
     public eSearchPhase SearchPhase; // 수색의 현재 단계

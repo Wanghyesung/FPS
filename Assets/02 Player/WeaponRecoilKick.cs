@@ -14,7 +14,7 @@ public sealed class WeaponRecoilKick : MonoBehaviour
 
     private Vector3 m_vPosOffset;
     private Vector3 m_vPosVelocity;
-    private Vector3 m_vRotOffset; // Euler(도) 기준 오프셋
+    private Vector3 m_vRotOffset; 
     private Vector3 m_vRotVelocity;
 
     private float m_fStiffness = 180f;
@@ -30,9 +30,7 @@ public sealed class WeaponRecoilKick : MonoBehaviour
    
     public void Kick(Vector3 _vPosImpulse, Vector3 _vRotImpulseDeg, float _fStiffness, float _fDamping)
     {
-        if (m_bBaseCaptured == false)
-            CaptureBasePose();
-
+      
         m_vPosOffset += _vPosImpulse;
         m_vRotOffset += _vRotImpulseDeg;
         m_fStiffness = _fStiffness;
@@ -41,8 +39,7 @@ public sealed class WeaponRecoilKick : MonoBehaviour
 
     // LateUpdate가 아닌 Update: Animation Rigging의 TwoBoneIKConstraint(왼손 IK)는
     // Update와 LateUpdate 사이의 Animation 단계에서 평가된다. 여기서 위치를 갱신해야
-    // 같은 프레임에 IK가 갱신된 LeftGrip 위치를 읽는다 — LateUpdate에 두면 IK가 항상
-    // 한 프레임 전 그립 위치를 쫓아가서 반동 중 손이 따로 노는 것처럼 보인다.
+    // 같은 프레임에 IK가 갱신된 LeftGrip 위치를 읽는다 
     private void Update()
     {
         if (m_bBaseCaptured == false)

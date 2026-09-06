@@ -5,17 +5,24 @@ using UnityEngine;
 목적 : 메인 카메라를 관리하는 싱글톤
  *///////////////////////////////////////////
 
+[DefaultExecutionOrder(100)] // CameraZoom(90)이 FOV를 확정한 뒤 카메라를 옮긴다
 public sealed class GameCameraManager : MonoBehaviour
 {
     public static GameCameraManager m_Instance { get; private set; }
 
     [SerializeField] private Transform m_refCamera;
+    [SerializeField] private CameraZoom m_refCameraZoom; // 같은 오브젝트(System/Camera)의 컴포넌트
     [SerializeField] private Transform m_refFirstPersonPivot;
-    [SerializeField] private Transform m_refThirdPersonPivot;
-    [SerializeField] private PlayerMovement m_refPlayerMovement; // 반동을 실제 조준 pitch/yaw에 직접 얹기 위한 참조 — Shake() 참고
-    public Transform ThirdPersonPivot { get { return m_refThirdPersonPivot; } set { m_refThirdPersonPivot = value; } }
+    public CameraZoom CameraZoom => m_refCameraZoom;
 
-    [SerializeField] private float m_fBlendSpeed = 10f;
+
+    // 아이언사이트 조준 시 카메라가 다가갈 지점
+    private Transform m_refAimPivot;
+
+    public void SetAimPivot(Transform _refPivot)
+    {
+        m_refAimPivot = _refPivot;
+    }
 
     private void Awake()
     {
@@ -43,10 +50,12 @@ public sealed class GameCameraManager : MonoBehaviour
         if (m_refCamera == null || m_refFirstPersonPivot == null)
             return;
 
-        Transform refPositionTarget = m_refThirdPersonPivot != null ? m_refThirdPersonPivot : m_refFirstPersonPivot;
-        float fT = Time.deltaTime * m_fBlendSpeed;
+        Vector3 vPos = m_refFirstPersonPivot.position;
 
-        m_refCamera.position = Vector3.Lerp(m_refCamera.position, refPositionTarget.position, fT);
-        m_refCamera.rotation = Quaternion.Slerp(m_refCamera.rotation, m_refFirstPersonPivot.rotation, fT);
+        // 아이언사이트 조준 중이면 조준선 쪽으로 진행도만큼 다가간다
+        if (m_refAimPivot != null && m_refCameraZoom != null)
+            vPos = Vector3.Lerp(vPos, m_refAimPivot.position, m_refCameraZoom.ZoomProgress);
+
+        m_refCamera.SetPositionAndRotation(vPos, m_refFirstPersonPivot.rotation);
     }
 }

@@ -36,7 +36,7 @@ public class SOPerceptionNode : SONode
             return eNodeState.Success;
         }
 
-        // 보이다가 막 놓친 순간만 기록한다 - 재배치 판정이 이 시각으로 차단 지속시간을 잰다
+        // 처음으로 보인 시간을 기록 재배치 판정이 이 시각으로 차단 지속시간을 잰다
         if (_refBB.FindTarget == true)
             _refBB.BlockedSinceTime = Time.time;
 
