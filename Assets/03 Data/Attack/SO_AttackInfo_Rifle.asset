@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: SO_AttackInfo_Rifle
   m_EditorClassIdentifier: 
   Description: "\uAE30\uBCF8 \uB77C\uC774\uD50C - \uC790\uB3D9\uC0AC\uACA9"
-  WeaponType: 1
+  WeaponType: 0
   PoolPrefab: {fileID: 1418374523975971251, guid: db0d3722fc84ee14e8c9d24fb9d60034,
     type: 3}
   Damage: 12
@@ -24,15 +24,11 @@ MonoBehaviour:
   AliveTime: 2
   HitCount: 1
   HitStep: 1
-  KnockbackForce: 3
-  KnockbackDuration: 0.2
-  StunDuration: 0
-  BaseRotationSpeed: 90
-  MaxRotationSpeed: 180
-  RotationAccelRate: 0
-  ProximityRadius: 1.5
-  CriticalChance: 0
   RecoilAmount: 0.5
+  AimMode: 1
+  ZoomFov: 20
+  ZoomBlendTime: 0.12
+  HideWeaponOnAim: 0
   ExplosionRadius: 3
   VisualKickback: {x: 0, y: 0.01, z: -0.05}
   VisualRotKick: {x: -4, y: 0, z: 0}

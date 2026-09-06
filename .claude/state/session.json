@@ -3,18 +3,22 @@
   "branch": "devel/Enemy-AI",
   "workflow_phase": "",
   "modified_files": [
-    "C:\\Users\\user\\Documents\\GitHub\\FPS\\Assets\\05 Enemy\\Node\\NodeScript\\SOIsArrivePointNode.cs",
-    "C:\\Users\\user\\Documents\\GitHub\\FPS\\Assets\\05 Enemy\\Node\\NodeScript\\SOWaitCheckPointNode.cs"
+    "C:\\Users\\왕혜성\\Documents\\GitHub\\FPS\\Assets\\01 Manager\\GameCameraManager.cs",
+    "C:\\Users\\왕혜성\\Documents\\GitHub\\FPS\\Assets\\02 Player\\Aim.cs",
+    "C:\\Users\\왕혜성\\Documents\\GitHub\\FPS\\Assets\\02 Player\\AimTargetFollower.cs",
+    "C:\\Users\\왕혜성\\Documents\\GitHub\\FPS\\Assets\\02 Player\\ScopeController.cs",
+    "C:\\Users\\왕혜성\\Documents\\GitHub\\FPS\\Assets\\02 Player\\Weapon.cs",
+    "C:\\Users\\왕혜성\\Documents\\GitHub\\FPS\\Assets\\03 Data\\SOAttackInfo.cs"
   ],
   "recent_commits": [
-    "e3d178d [Fix] Enemy 시야 체크 레이가 근거리에서도 타겟을 못 맞히던 문제 해결",
-    "e11d2ec [Add] 순찰 재개 및 HP 30 이하 도주 행동 트리 구현",
-    "3f0b36d [Fix] 총알 생성 오류 해결"
+    "3dfc145 [Add] 적 피격 반응·수색 브랜치 및 사망 애니메이션 연결",
+    "8fdb8c1 [Add] 적 BT 반응형 재설계 — 지각 통합 및 교전·은신 브랜치 구현",
+    "52566ad Update BattleScene.unity"
   ],
-  "session_duration": "2m 9s",
+  "session_duration": "93m 59s",
   "tool_calls": 0,
   "warnings_count": 17,
-  "saved_at": "2026-09-04T07:17:21Z",
+  "saved_at": "2026-09-06T15:26:44Z",
   "plan": {},
   "verification": {},
   "agent_context": {}

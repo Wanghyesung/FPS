@@ -9,14 +9,13 @@ using UnityEngine.Animations.Rigging;
 
 public sealed class WeaponAimAlign : MonoBehaviour
 {
-    [SerializeField] private float m_fBlendSpeed = 8f; // 초당 가중치 변화량 — 줌 On/Off 시 즉시 스냅되지 않고 이 속도로 부드럽게 붙었다 떨어짐
+    [SerializeField] private float m_fBlendSpeed = 8f; // 초당 가중치 변화량 이 속도로 부드럽게 붙었다 떨어짐
 
     private MultiAimConstraint m_refAimConstraint;
-    private float m_fWeight; // 0 = 정렬 미적용, 1 = 완전 정렬 — Zoom을 향해 매 프레임 보간됨
+    private float m_fWeight; // 0 = 정렬 미적용, 1 = 완전 정렬 
 
     public bool Zoom { get; set; }
 
-    // WeaponRigTarget.SetWeapon()이 장착 시점에 호출한다.
     public void SetAimConstraint(MultiAimConstraint _refConstraint)
     {
         m_refAimConstraint = _refConstraint;

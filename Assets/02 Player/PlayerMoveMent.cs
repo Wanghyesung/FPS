@@ -22,6 +22,8 @@ public class PlayerMovement : MonoBehaviour
     private bool m_bLockMove = false;
     private bool m_bIsGrounded = true;
 
+    private float m_fRotSpeedScale = 1.0f; // 스코프 배율에 맞춰 ScopeController가 낮춰준다
+
     private float m_fDecayMove = 0.0f;
 
     public float m_fGravity = -9.81f;
@@ -59,10 +61,18 @@ public class PlayerMovement : MonoBehaviour
         Move();
     }
 
+    // 화면상 커서 이동량을 줌 전후 동일하게 유지하기 위한 감도 배율(0.05~1).
+    public void SetLookScale(float _fScale)
+    {
+        m_fRotSpeedScale = Mathf.Clamp(_fScale, 0.05f, 1.0f);
+    }
+
     private void Look()
     {
-        m_fPitch -= m_vDelta.y * Time.deltaTime * m_fRotSpeed;
-        m_fYaw += m_vDelta.x * Time.deltaTime * m_fRotSpeed;
+        float fRotSpeed = m_fRotSpeed * m_fRotSpeedScale;
+
+        m_fPitch -= m_vDelta.y * Time.deltaTime * fRotSpeed;
+        m_fYaw += m_vDelta.x * Time.deltaTime * fRotSpeed;
 
         m_fPitch = Mathf.Clamp(m_fPitch, m_fMaxDown, m_fMaxUP);
 

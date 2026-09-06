@@ -1,2 +1,10 @@
-C:\Users\user\Documents\GitHub\FPS\Assets\05 Enemy\Node\NodeScript\SOWaitCheckPointNode.cs
-C:\Users\user\Documents\GitHub\FPS\Assets\05 Enemy\Node\NodeScript\SOIsArrivePointNode.cs
+C:\Users\왕혜성\Documents\GitHub\FPS\Assets\02 Player\Aim.cs
+C:\Users\왕혜성\Documents\GitHub\FPS\Assets\02 Player\AimTargetFollower.cs
+C:\Users\왕혜성\Documents\GitHub\FPS\Assets\02 Player\AimTargetFollower.cs
+C:\Users\왕혜성\Documents\GitHub\FPS\Assets\03 Data\SOAttackInfo.cs
+C:\Users\왕혜성\Documents\GitHub\FPS\Assets\03 Data\SOAttackInfo.cs
+C:\Users\왕혜성\Documents\GitHub\FPS\Assets\02 Player\Weapon.cs
+C:\Users\왕혜성\Documents\GitHub\FPS\Assets\02 Player\Weapon.cs
+C:\Users\왕혜성\Documents\GitHub\FPS\Assets\01 Manager\GameCameraManager.cs
+C:\Users\왕혜성\Documents\GitHub\FPS\Assets\01 Manager\GameCameraManager.cs
+C:\Users\왕혜성\Documents\GitHub\FPS\Assets\02 Player\ScopeController.cs

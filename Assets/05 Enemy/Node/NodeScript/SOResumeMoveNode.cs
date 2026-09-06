@@ -7,7 +7,7 @@ using UnityEngine.AI;
        다시 NavMeshAgent로 정상 순찰 이동을 할 수 있게 만드는 노드.
 
        되돌리는 것 : isStopped(정지) / updateRotation(회전 잠금)
-                     Agent.speed(도주 속도 배율) / IsEscaping(도주 플래그) / Zoom(조준 자세)
+                     Agent.speed(도주 속도 배율) / EscapePhase(도주 단계) / Zoom(조준 자세)
 
        순찰 시퀀스 맨 앞에 두어 "순찰 전 이동 복구" 책임을 한 곳으로 모은다 —
        예전엔 SOCheckPointNode가 updateRotation만 슬쩍 되돌리고 있어서
@@ -17,7 +17,7 @@ using UnityEngine.AI;
 
 public class SOResumeMoveNode : SONode
 {
-    [Tooltip("도주 상태 플래그(BlackBoard.IsEscaping)를 함께 초기화할지")]
+    [Tooltip("도주 단계(BlackBoard.EscapePhase)를 함께 초기화할지")]
     [SerializeField] private bool m_bResetEscape = true;
 
     [Tooltip("교전 중 올려둔 조준(Zoom) 자세를 함께 내릴지")]
@@ -36,12 +36,21 @@ public class SOResumeMoveNode : SONode
             return eNodeState.Failure;
         }
 
-        refAgent.isStopped = false;
-        refAgent.updateRotation = true;
-        refAgent.speed = _refBB.ObjInfo.Speed;
+        // Sequence가 매 틱 재평가하므로, 값이 실제로 다를 때만 쓴다
+        if (refAgent.isStopped == true)
+            refAgent.isStopped = false;
 
-        if (m_bResetEscape == true)
-            _refBB.IsEscaping = false;
+        if (refAgent.updateRotation == false)
+            refAgent.updateRotation = true;
+
+        if (refAgent.speed != _refBB.ObjInfo.Speed)
+            refAgent.speed = _refBB.ObjInfo.Speed;
+
+        if (m_bResetEscape == true && _refBB.EscapePhase != eEscapePhase.None)
+        {
+            _refBB.EscapePhase = eEscapePhase.None;
+            _refBB.HideEndTime = 0.0f;
+        }
 
         if (m_bUnZoom == true && _refBB.Weapon != null)
             _refBB.Weapon.UnZoom();

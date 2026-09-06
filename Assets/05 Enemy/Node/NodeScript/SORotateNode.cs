@@ -42,4 +42,10 @@ public class SORotateNode : SONode
 
         return eNodeState.Success;
     }
+
+    public override void Abort(BlackBoard _refBB)
+    {
+        if (_refBB.Agent != null)
+            _refBB.Agent.updateRotation = true;
+    }
 }

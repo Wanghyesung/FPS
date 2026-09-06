@@ -7,12 +7,6 @@ using UnityEngine;
                 Weapon
 목적 : 장착된 무기 한 자루. 발사 '의도'를 접수(RequestFire)하고, 실제 투사체 스폰은
        LateUpdate에서만 수행한다.
-
-       총구(FireTr)는 Spine_02/Spine_03의 MultiAimConstraint와 Clavicle_R 아래 소켓에
-       매달려 있어서, Animator + RigBuilder가 평가된 뒤에야(모든 Update 이후 ~ LateUpdate
-       직전) 최종 위치가 확정된다. 그래서 Update에서 FireTr을 읽으면 한 프레임 전 포즈의
-       총구를 읽게 된다. 이 규칙을 발사자(Player 입력 / Enemy BT)마다 지키게 하는 대신
-       Weapon이 혼자 책임지도록 모아서, 누가 언제 요청하든 총구는 항상 LateUpdate에서만 읽는다.
  *///////////////////////////////////////////
 
 public class Weapon : MonoBehaviour
@@ -48,7 +42,22 @@ public class Weapon : MonoBehaviour
     public Transform FireTr => m_refFireTr;   // WeaponAimAlign이 총구 방향(정렬 기준)을 읽기 위해 참조
 
     private WeaponRecoilKick m_refRecoilKick; // 사격 시 순수 연출용 스프링 반동 — 없으면 조용히 생략(선택 컴포넌트)
-    private WeaponAimAlign m_refAimAlign;     // 리깅 가중치를 높여서 총구가 앞으로 가게 
+    private WeaponAimAlign m_refAimAlign;     // 리깅 가중치를 높여서 총구가 앞으로 가게
+
+    private Renderer[] m_arrRenderers;        // 스코프 진입 시 렌더를 통째로 끄기 위해
+    private bool m_bRenderersVisible = true;
+    private bool m_bZoomed;                   // 이 무기 자신의 조준 상태(적 무기도 자기 상태를 쓰게 하기 위함)
+
+    // 조준 설정 — SO는 정적 데이터이므로 Init에서 값만 복사해 둔다
+    private eAimMode m_eAimMode = eAimMode.None;
+    private float m_fZoomFov;
+    private float m_fZoomBlendTime;
+    private bool m_bHideWeaponOnAim;
+
+    public eAimMode AimMode => m_eAimMode;
+    public float ZoomFov => m_fZoomFov;
+    public float ZoomBlendTime => m_fZoomBlendTime;
+    public bool HideWeaponOnAim => m_bHideWeaponOnAim;
 
     private float m_fFireTime = 0.2f;
     private float m_fBaseCooldown = 0.2f;
@@ -63,13 +72,11 @@ public class Weapon : MonoBehaviour
     [SerializeField] private bool m_bLookTarget = true;
 
     [Header("Inaccuracy")]
-    [SerializeField] private float m_fInaccuracyAngle = 0f; // 조준 방향에서 좌우/상하로 흔들리는 오차 각도
+    [SerializeField] private float m_fInaccuracyAngle = 2f; // 조준 방향에서 좌우/상하로 흔들리는 오차 각도
 
     [Header("Circular Sector Shot")]
     [SerializeField] private int m_iBulletCount = 1;     // 1이면 기존처럼 단발
     [SerializeField] private float m_fSpreadAngle = 30f; // 부채꼴(원뿔) 전체 각도
-
-    private const float GOLDEN_ANGLE_DEG = 137.50776f;
 
 
     //예약 시스템으로 변경 Update -> 리깅 -> LateUpdate 순서에서 총구 위치가 확정되므로, 발사 요청은 Update에서 받아서 예약만 해두기
@@ -111,7 +118,34 @@ public class Weapon : MonoBehaviour
         m_refRecoilKick = GetComponent<WeaponRecoilKick>();
         m_refAimAlign = GetComponent<WeaponAimAlign>();
         if (m_refRecoilKick != null)
-            m_refRecoilKick.CaptureBasePose(); //처음 위치를 캐싱해두기 (총을 다 쏘고 원래 위치로 돌아오게_
+            m_refRecoilKick.CaptureBasePose(); //처음 위치를 캐싱해두기 (총을 다 쏘고 원래 위치로 돌아오게)
+
+        m_eAimMode = m_SOAttackInfo.AimMode;
+        m_fZoomFov = m_SOAttackInfo.ZoomFov;
+        m_fZoomBlendTime = m_SOAttackInfo.ZoomBlendTime;
+        m_bHideWeaponOnAim = m_SOAttackInfo.HideWeaponOnAim;
+
+        // 비활성 자식(머즐 파티클 등)까지 포함해서 잡아둔다 — 스코프 중에는 총구 화염도 같이 숨어야 한다
+        m_arrRenderers = GetComponentsInChildren<Renderer>(true);
+        m_bRenderersVisible = true;
+    }
+
+    // 무기 루트를 SetActive(false)로 끄면 LateUpdate가 멈춰 발사가 안 되고,
+    // WeaponRigTarget이 넘긴 IK 타겟이 비활성 트랜스폼이 되어 리그가 깨진다. 렌더링만 끈다.
+    public void SetRenderersVisible(bool _bVisible)
+    {
+        if (m_bRenderersVisible == _bVisible || m_arrRenderers == null)
+            return;
+
+        m_bRenderersVisible = _bVisible;
+
+        for (int i = 0; i < m_arrRenderers.Length; ++i)
+        {
+            if (m_arrRenderers[i] == null)
+                continue;
+
+            m_arrRenderers[i].enabled = _bVisible;
+        }
     }
 
     public void RequestFire(Vector3 _vTargetPos)
@@ -129,12 +163,6 @@ public class Weapon : MonoBehaviour
         refShotInfo.TargetPos = _vTargetPos;
         refShotInfo.Speed = RollSpeed();
 
-        if (m_iBulletCount > 1)
-        {
-            FireCircularSector(_vTargetPos, refShotInfo);
-            return;
-        }
-
         Vector3 vLookDir = _vTargetPos - m_refFireTr.position;
         Quaternion qRot = (m_bLookTarget == true && vLookDir.sqrMagnitude > 0.0001f)
             ? Quaternion.LookRotation(vLookDir) : m_refFireTr.rotation;
@@ -149,42 +177,6 @@ public class Weapon : MonoBehaviour
         OnBulletFired();
     }
 
-    // 조준 방향(_vTargetPos)을 중심축으로, 반각 m_fSpreadAngle/2인 원뿔 단면에 m_iBulletCount발을
-    // 골든 앵글 스파이럴로 균등 분포시켜 3D 부채꼴(샷건 콘) 형태로 발사
-    private void FireCircularSector(Vector3 _vTargetPos, tShotInfo _refShotInfo)
-    {
-        Vector3 vBaseDir = (_vTargetPos - m_refFireTr.position).normalized;
-        Vector3 vSpokeAxis = Vector3.Cross(vBaseDir, m_refFireTr.up);
-        vSpokeAxis.Normalize();
-
-        float fHalfAngle = m_fSpreadAngle * 0.5f;
-
-        for (int i = 0; i < m_iBulletCount; ++i)
-        {
-            // fConeAngle: 중심축에서 얼마나 벌어지는지 (sqrt 분포로 원뿔 단면에 균등하게 채움)
-            // fSpinAngle: 중심축을 기준으로 몇 도 회전한 스포크에 놓을지 (골든 앵글로 겹치지 않게 배치)
-            float fRatio = (i + 0.5f) / m_iBulletCount;
-            float fConeAngle = Mathf.Sqrt(fRatio) * fHalfAngle;
-            float fSpinAngle = i * GOLDEN_ANGLE_DEG; //i가 증가할 때마다 황금각만큼 계속 회전시키기
-
-            Vector3 vAxis = Quaternion.AngleAxis(fSpinAngle, vBaseDir) * vSpokeAxis;//실제로 회전시킬 대상인 3D 화살표
-            Vector3 vDir = Quaternion.AngleAxis(fConeAngle, vAxis) * vBaseDir;
-
-            if (vDir.sqrMagnitude < 0.0001f)
-                vDir = vBaseDir;
-
-            Quaternion qRot = ApplyInaccuracy(Quaternion.LookRotation(vDir));
-
-            tShotInfo refPelletShotInfo = _refShotInfo;
-            refPelletShotInfo.Speed = RollSpeed();
-
-            GameObject refObj = Bullet.SpawnAttackObject(m_SOAttackInfo.PoolPrefab, m_refFireTr.position, qRot, m_refAttackInfo, refPelletShotInfo);
-            if (refObj == null)
-                continue;
-
-            OnBulletFired();
-        }
-    }
 
 
     public void FireAndRotate(Vector3 _vDir, float _fFowardOffset)
@@ -211,12 +203,12 @@ public class Weapon : MonoBehaviour
         return UnityEngine.Random.Range(fSpeed - m_SOAttackInfo.SpeedOffset, fSpeed + m_SOAttackInfo.SpeedOffset);
     }
 
-    // 줌(우클릭 ADS) 중에는 정확히 조준점으로 나가고, 3인칭(줌 아님)일 때만 무기의
-    // m_fInaccuracyAngle만큼 랜덤하게 흩어진다.
+
     private Quaternion ApplyInaccuracy(Quaternion _qBase)
     {
-        bool bZoomed = InputManager.m_Instance != null && InputManager.m_Instance.InputInfo.OnRButton;
-        float fAngle = bZoomed ? 0f : m_fInaccuracyAngle;
+        // 이 무기 자신의 조준 상태를 본다 — 예전처럼 InputManager를 직접 읽으면
+        // 플레이어가 우클릭을 누르는 동안 모든 적의 사격까지 100% 정확해진다.
+        float fAngle = m_bZoomed ? 0f : m_fInaccuracyAngle;
 
         if (fAngle <= 0f)
             return _qBase;
@@ -255,38 +247,18 @@ public class Weapon : MonoBehaviour
         return (Time.time - m_fLastFireTime) > m_fFireTime;
     }
 
-    public void SetCooldown(float _fValue)
-    {
-        float fClamped = Mathf.Max(_fValue, 0.1f);
-
-        m_refAttackInfo.CoolDown = m_fBaseCooldown * fClamped;
-        m_fFireTime = m_refAttackInfo.CoolDown;
-    }
-
-
-    public void AddAttackDamage(int _iValue)
-    {
-        m_refAttackInfo.Damage += _iValue;
-    }
-
-    public void AddBulletSpeed(float _fValue)
-    {
-        m_refAttackInfo.Speed += _fValue;
-    }
-    public void DownBulletSpeed(float _fValue)
-    {
-        m_refAttackInfo.Speed -= _fValue;
-    }
-
-
     public void Zoom()
     {
+        m_bZoomed = true;
+
         if (m_refAimAlign != null)
             m_refAimAlign.Zoom = true;
     }
 
     public void UnZoom()
     {
+        m_bZoomed = false;
+
         if (m_refAimAlign != null)
             m_refAimAlign.Zoom = false;
     }

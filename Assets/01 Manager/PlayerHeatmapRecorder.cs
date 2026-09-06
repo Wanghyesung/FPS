@@ -8,9 +8,7 @@ using UnityEngine;
 /*///////////////////////////////////////////
                PlayerHeatmapRecorder
 목적 : 플레이어 위치를 별도 스레드에서 그리드 가중치로 누적하고 CSV로 저장하는 매니저.
-       메인 스레드(PlayerHeatmapTracker)는 좌표를 큐에 넣기만 하고,
-       그리드 갱신 + 파일 IO는 워커 스레드가 전담한다.
-       플레이어가 한 번도 가지 않은 셀은 딕셔너리에 아예 안 생기므로 가중치는 자동으로 0이다.
+       
  *///////////////////////////////////////////
 public sealed class PlayerHeatmapRecorder : MonoBehaviour
 {

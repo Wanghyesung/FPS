@@ -1,4 +1,3 @@
-using UnityEditor;
 using UnityEngine;
 
 /*///////////////////////////////////////////
@@ -75,6 +74,9 @@ public class Bullet : MonoBehaviour
         {
             ++m_tShotInfo.HitCount;
             m_tShotInfo.HitPosition = transform.position;
+            // 총알은 transform.forward로 전진하므로 그게 곧 피격 방향이다.
+            // 이 값이 비어 있으면 적이 어디서 맞았는지 알 수 없어 반응할 수 없다
+            m_tShotInfo.MoveDir = transform.forward;
             iDamageable.TakeDamage(m_refAttackInfo, m_tShotInfo);
           
         }

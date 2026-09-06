@@ -22,7 +22,7 @@ public class SOCheckRayNode : SONode
             return eNodeState.Failure;
 
         Transform refOwnerTr = _refBB.OwnerOffset != null ? _refBB.OwnerOffset : _refBB.Owner.transform;
-        Vector3 vOrigin = refOwnerTr.position;/* + m_vEyeOffset;*/
+        Vector3 vOrigin = refOwnerTr.position;
 
         Vector3 vDelta = _refBB.TargetTr.position - vOrigin;
         float fDistance = vDelta.magnitude;
