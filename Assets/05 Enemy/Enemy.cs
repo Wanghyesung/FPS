@@ -68,6 +68,11 @@ public class Enemy : MonoBehaviour, IDamageable
         if (_refAttackInfo == null || m_bIsDead == true)
             return;
 
+        // 피격 방향을 BlackBoard에 남겨 순찰 중이던 적이 그쪽을 돌아보게 한다.
+        // 시야각(POV 80°) 밖에서 맞으면 SOPerceptionNode가 영영 발견하지 못하므로,
+        // 돌아보는 행동 자체가 탐지 수단이 된다
+        SetHitAlert(_tShotInfo);
+
         m_refObjInfo.CurrentHP -= _refAttackInfo.Damage;
 
         if (m_refObjInfo.CurrentHP > 0.0f)
@@ -78,18 +83,52 @@ public class Enemy : MonoBehaviour, IDamageable
         Die();
     }
 
+    // 투사체 진행 방향의 반대가 공격자 쪽이다.
+    // MoveDir이 비어 있는 피해(방향 없는 데미지)는 돌아볼 곳이 없으므로 무시한다
+    private void SetHitAlert(tShotInfo _tShotInfo)
+    {
+        Vector3 vFromDir = -_tShotInfo.MoveDir;
+        vFromDir.y = 0.0f;
+
+        if (vFromDir.sqrMagnitude < 0.0001f)
+            return;
+
+        BlackBoard refBB = m_refBT.BlackBoard;
+
+        refBB.HitFromDir = vFromDir.normalized;
+        refBB.HasPendingHit = true;
+        refBB.AlertEndTime = 0.0f; // 연속 피격이면 주시 시간을 처음부터 다시 잡는다
+    }
+
     private void Die()
     {
         m_bIsDead = true;
         m_refObjInfo.State = eEntityState.Dead;
 
-        // Dead 파라미터가 AnimationTable에 등록돼 있지 않으면 조용히 무시된다
+        // Animation Rigging이 계속 무기를 조준하고 있으면 상체가 사망 모션을 따라가지 못한다.
+        // 리그를 먼저 꺼야 Dead 클립이 온전히 재생된다
+        if (m_refRigBuilder != null)
+            m_refRigBuilder.enabled = false;
+
         m_refAnimTable.SetTrigger(eEntityState.Dead);
 
         m_refBT.StopBT();
 
         if (m_refAgent != null && m_refAgent.isOnNavMesh == true)
             m_refAgent.isStopped = true;
+    }
+
+    // Dead 클립 마지막 프레임의 Animation Event가 호출한다.
+    // 이벤트는 메서드 이름을 문자열로 들고 있으므로, 이름을 바꾸면 클립의 이벤트도 같이 고쳐야 한다.
+    public void OnDeadAnimationEnd()
+    {
+        // Player와 AnimatorController(PlayerAnim)를 공유하므로, 살아있는 상태에서
+        // 이 이벤트가 들어올 여지를 막는다
+        if (m_bIsDead == false)
+            return;
+
+        // 나중에 Enemy를 풀링하게 되면 여기서 ObjectPoolManager.PushObject로 바꾼다
+        gameObject.SetActive(false);
     }
 
     private void Update()

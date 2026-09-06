@@ -2,16 +2,19 @@
   "schema_version": 1,
   "branch": "devel/Enemy-AI",
   "workflow_phase": "",
-  "modified_files": [],
-  "recent_commits": [
-    "52566ad Update BattleScene.unity",
-    "ca7a455 [Add] HPTracker, PlayerHeatmapRecorder 추가",
-    "e3d178d [Fix] Enemy 시야 체크 레이가 근거리에서도 타겟을 못 맞히던 문제 해결"
+  "modified_files": [
+    "C:\\Users\\왕혜성\\Documents\\GitHub\\FPS\\Assets\\05 Enemy\\BehaviorTree.cs",
+    "C:\\Users\\왕혜성\\Documents\\GitHub\\FPS\\Assets\\05 Enemy\\Enemy.cs"
   ],
-  "session_duration": "55m 3s",
+  "recent_commits": [
+    "8fdb8c1 [Add] 적 BT 반응형 재설계 — 지각 통합 및 교전·은신 브랜치 구현",
+    "52566ad Update BattleScene.unity",
+    "ca7a455 [Add] HPTracker, PlayerHeatmapRecorder 추가"
+  ],
+  "session_duration": "143m 31s",
   "tool_calls": 0,
   "warnings_count": 17,
-  "saved_at": "2026-09-06T08:57:08Z",
+  "saved_at": "2026-09-06T10:25:37Z",
   "plan": {},
   "verification": {},
   "agent_context": {}

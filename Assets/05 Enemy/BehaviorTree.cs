@@ -63,6 +63,15 @@ public enum eEscapePhase
 }
 
 
+// 수색도 "이동 → 두리번" 2단이라 도주와 같은 이유로 단계를 남겨야 한다
+public enum eSearchPhase
+{
+    None,    // 수색 안 함
+    Moving,  // 마지막 목격 위치로 이동 중
+    Looking, // 도착해서 주변을 둘러보는 중
+}
+
+
 [Serializable]
 public class BlackBoard
 {
@@ -93,8 +102,23 @@ public class BlackBoard
     public float BlockedSinceTime; // 보이다가 시야가 끊긴 시각 (0 = 안 끊김)
 
 
+    [Header("Search")]
+
+    public eSearchPhase SearchPhase; // 수색의 현재 단계
+    public Vector3 SearchPos;        // 수색 목표 (LastSeenPos를 NavMesh 위로 스냅한 좌표)
+    public float SearchEndTime;      // 두리번거리기가 끝나는 시각 (0 = 아직 안 잡힘)
+    public float SearchBaseYaw;      // 도착했을 때의 방향 — 이 각도를 중심으로 좌우를 훑는다
+
+
+    [Header("Alert")]
+
+    public bool HasPendingHit;  // 피격했는데 아직 그쪽을 돌아보지 않은 상태
+    public Vector3 HitFromDir;  // 공격이 날아온 쪽 (평면 방향, 정규화됨)
+    public float AlertEndTime;  // 다 돌아본 뒤 그 방향을 주시할 시각 (0 = 아직 안 잡힘)
+
+
     [Header("Escape")]
-    
+
     public eEscapePhase EscapePhase; // 도주 에피소드의 현재 단계
     public Vector3 EscapePos;    // 현재 도주 목표 지점 (NavMesh 위로 스냅된 좌표)
     public float HideEndTime;    // 은신이 끝나는 시각 (0 = 아직 안 잡힘)

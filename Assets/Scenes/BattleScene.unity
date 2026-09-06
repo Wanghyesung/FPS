@@ -97639,6 +97639,12 @@ MonoBehaviour:
     Bool: 0
     Int: 0
     Float: 0
+  - State: 5
+    ParamType: 2
+    ParamName: Dead
+    Bool: 0
+    Int: 0
+    Float: 0
 --- !u!4 &8504282037081595975
 Transform:
   m_ObjectHideFlags: 0
@@ -97936,6 +97942,7 @@ MonoBehaviour:
     Owner: {fileID: 0}
     OwnerOffset: {fileID: 0}
     TargetTr: {fileID: 0}
+    TargetRoot: {fileID: 0}
     Agent: {fileID: 0}
     Weapon: {fileID: 0}
     Aim: {fileID: 0}
@@ -97955,8 +97962,16 @@ MonoBehaviour:
     LastSeenPos: {x: 0, y: 0, z: 0}
     LastSeenTime: 0
     BlockedSinceTime: 0
-    IsEscaping: 0
+    SearchPhase: 0
+    SearchPos: {x: 0, y: 0, z: 0}
+    SearchEndTime: 0
+    SearchBaseYaw: 0
+    HasPendingHit: 0
+    HitFromDir: {x: 0, y: 0, z: 0}
+    AlertEndTime: 0
+    EscapePhase: 0
     EscapePos: {x: 0, y: 0, z: 0}
+    HideEndTime: 0
     NextEscapeTime: 0
 --- !u!195 &8873425333713805855
 NavMeshAgent:
