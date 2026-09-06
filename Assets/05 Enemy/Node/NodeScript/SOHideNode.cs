@@ -14,7 +14,7 @@ public class SOHideNode : SONode
     [SerializeField] private float m_fHideDuration = 4.0f;
 
     [Tooltip("플레이어가 이 거리 안으로 들어오면 시간이 남아도 기습으로 전환한다")]
-    [SerializeField] private float m_fAmbushRange = 12.0f;
+    [SerializeField] private float m_fAmbushRange = 20.0f;
 
     [Tooltip("은신을 마친 뒤 재도주를 금지할 시간(초)")]
     [SerializeField] private float m_fEscapeCooldown = 5.0f;
@@ -29,7 +29,7 @@ public class SOHideNode : SONode
         if (refAgent.isOnNavMesh == true && refAgent.isStopped == false)
             refAgent.isStopped = true;
 
-        // 도착 첫 틱에만 종료 시각을 잡는다 — Sequence가 매 틱 재평가하므로 갱신하면 영원히 안 끝난다
+        // 도착 첫 틱에만 종료 시각을 잡는다
         if (_refBB.HideEndTime <= 0.0f)
             _refBB.HideEndTime = Time.time + m_fHideDuration;
 

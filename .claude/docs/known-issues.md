@@ -328,3 +328,32 @@ Play 모드에서 `AimTargetPoint`를 위/앞으로 이동시켜 확인: `Spine_
 `SOPerceptionNode`가 `IsChildOf(TargetRoot)`로 판정하도록 바꿔 해결했다. **`SOCheckRayNode`는
 아직 옛 root 비교를 그대로 쓰고 있다** — 현재 트리에서는 빠졌지만 에셋이 남아 있으므로,
 다시 쓸 일이 있으면 같은 방식으로 고칠 것.
+
+## [진단 완료 / 수정 미적용] InventoryManager·ObjectPoolManager의 DontDestroyOnLoad 에러 (2026-09-07)
+
+### 증상
+Play 진입 시마다 콘솔에 에러 2건:
+```
+DontDestroyOnLoad only works for root GameObjects or components on root GameObjects.
+  Assets/06 UI/InventoryManager.cs:19
+  Assets/01 Manager/ObjectPoolManager.cs:58
+```
+
+### 근본 원인
+BattleScene에서 `InventoryManager`, `ObjectPoolManager` 둘 다 루트 오브젝트가 아니라
+`Manager`(InputManager가 붙어 있는 루트) 아래의 **자식** 오브젝트다. 각자 `Awake()`에서
+`DontDestroyOnLoad(gameObject)`를 자기 자신에게 호출하는데, `DontDestroyOnLoad`는 루트
+GameObject/Transform에만 적용 가능해서 자식에게 호출하면 무조건 이 에러를 내고 아무 효과도 없다.
+
+실질적으로는 `InputManager.Awake()`가 같은 프레임에 `Manager`(루트)를 `DontDestroyOnLoad`
+시키기 때문에, 그 하위 계층 전체(`InventoryManager`/`ObjectPoolManager` 포함)가 부모를 통해
+이미 함께 보존되고 있다 — 즉 **현재는 기능적으로 정상 동작하고, 매 씬 로드마다 에러 로그만
+불필요하게 남기는 상태**다. 다만 이건 `InputManager`가 먼저 `Manager`를 보존해준다는 우연에
+기대는 구조라서, 나중에 `Manager` 계층이 재구성되거나 `InputManager`가 사라지면 이 두 싱글톤은
+소리 없이 씬 전환 시 파괴될 위험이 있다.
+
+### 제안하는 수정
+`InventoryManager.Awake()`/`ObjectPoolManager.Awake()`의 `DontDestroyOnLoad(gameObject)` 호출을
+제거 — 이미 부모(`Manager` 루트)가 보존을 책임지고 있으므로 자식이 중복 호출할 필요가 없다.
+(대안으로 `DontDestroyOnLoad(transform.root.gameObject)`로 바꾸는 방법도 있지만, 결국 같은
+`Manager`를 다시 호출하는 것뿐이라 아예 제거하는 쪽이 더 명확함.)

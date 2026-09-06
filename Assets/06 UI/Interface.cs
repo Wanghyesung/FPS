@@ -52,6 +52,16 @@ public class Interface : BaseButtonUI, ISelectDataable
         Build();
     }
 
+    private void Start()
+    {
+        InputManager.m_Instance.OnItemPressed += UseItem;
+    }
+
+    private void OnDestroy()
+    {
+        InputManager.m_Instance.OnItemPressed -= UseItem;
+    }
+
 #if UNITY_EDITOR
     private void OnValidate()
     {
@@ -125,7 +135,7 @@ public class Interface : BaseButtonUI, ISelectDataable
                 continue;
 
             if (pSlotInfo.refSlotView.SOData != null)
-                return false; //이미 장착된 소켓 (교체는 별도 처리 필요)
+                continue; 
 
             pSlotInfo.refSlotView.Bind(_SOData, i);
             OnAddData?.Invoke(_SOData);
@@ -216,5 +226,9 @@ public class Interface : BaseButtonUI, ISelectDataable
         OnSelectSlotView?.Invoke(_pTargetSlot);
     }
 
+    private void UseItem(int _iIdx)
+    {
+        m_listView[_iIdx].refSlotView.Use();
+    }
 
 }

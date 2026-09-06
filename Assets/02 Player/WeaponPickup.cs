@@ -11,6 +11,8 @@ public sealed class WeaponPickup : MonoBehaviour
     private Weapon m_refWeapon;
     private bool m_bPicked = false;
 
+    [SerializeField] private SOEquipData m_SOEquipData;
+
     private void Awake()
     {
         m_refWeapon = GetComponent<Weapon>();
@@ -26,7 +28,7 @@ public sealed class WeaponPickup : MonoBehaviour
         {
             m_bPicked = true;
             Player refPlayer = _refOther.GetComponentInParent<Player>();
-            refPlayer.PickupWeapon(m_refWeapon);
+            refPlayer.PickupWeapon(m_refWeapon, m_SOEquipData);
         }
         else if(_refOther.gameObject.layer == LayerMask.NameToLayer("Enemy"))
         {

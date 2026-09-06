@@ -6,6 +6,7 @@ using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.AddressableAssets;
 using UnityEngine.InputSystem;
+using UnityEngine.InputSystem.Utilities;
 using UnityEngine.ResourceManagement.AsyncOperations;
 
 
@@ -43,6 +44,11 @@ public class InputManager : MonoBehaviour
     [SerializeField] private List<InputActionReference> m_listThrowAction;
 
 
+    //1~4번 키 대응
+    [SerializeField] private InputActionReference m_listItemAction;
+    public event Action<int> OnItemPressed;
+
+
     private bool m_isDeltaInitialized = false;
 
     public event Action OnSpacePressed;
@@ -51,8 +57,6 @@ public class InputManager : MonoBehaviour
     public event Action OnRButtonRelease;
 
     public event Action OnLButtonPressed;
-
-
 
     private void Awake()
     {
@@ -86,11 +90,18 @@ public class InputManager : MonoBehaviour
         for (int i = 0; i < m_listThrowAction.Count; ++i)
             m_listThrowAction[i].action.Enable();
 
+        m_listItemAction.action.Enable();
+        m_listItemAction.action.performed += OnItemPerformed;
     }
 
     private void Start()
     {
 
+    }
+
+    private void OnDestroy()
+    {
+        m_listItemAction.action.performed -= OnItemPerformed;
     }
 
     private void  Update()
@@ -109,6 +120,27 @@ public class InputManager : MonoBehaviour
 
         UpdateThrowValue();
 
+
+    }
+
+    private void OnItemPerformed(InputAction.CallbackContext _tCtx)
+    {
+        ReadOnlyArray<InputControl> listControls = m_listItemAction.action.controls;
+
+        int iIndex = -1;
+        for (int i = 0; i < listControls.Count; ++i)
+        {
+            if (listControls[i] == _tCtx.control)
+            {
+                iIndex = i;
+                break;
+            }
+        }
+
+        if (iIndex < 0)
+            return;
+
+        OnItemPressed?.Invoke(iIndex);
     }
 
     private void UpdateMoveValue()

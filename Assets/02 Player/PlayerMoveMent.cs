@@ -48,7 +48,7 @@ public class PlayerMovement : MonoBehaviour
     }
 
     private void Update()
-    {
+    {   
         m_vDelta = InputManager.m_Instance.InputInfo.Delta;
         m_vMoveDir = InputManager.m_Instance.InputInfo.MoveDir;
         Look();

@@ -193,7 +193,6 @@ public class Enemy : MonoBehaviour, IDamageable
             m_refWeapon.RightHandGripTr, m_refWeaponRigTarget.RightHint);
 
         m_refBT.BlackBoard.Weapon = m_refWeapon;
-        m_refAnimTable.SetBool(eEntityState.HasWeapon, true);
     }
 
 }

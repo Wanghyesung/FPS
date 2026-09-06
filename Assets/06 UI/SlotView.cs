@@ -122,5 +122,9 @@ public class SlotView : BaseButtonUI
             m_refCountBadgeText.text = m_iCount.ToString();
     }
 
-
+    public void Use()
+    {
+        if(m_SOTargetSO != null)
+            m_SOTargetSO.Use();
+    }
 }
