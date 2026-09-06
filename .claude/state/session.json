@@ -2,19 +2,16 @@
   "schema_version": 1,
   "branch": "devel/Enemy-AI",
   "workflow_phase": "",
-  "modified_files": [
-    "C:\\Users\\user\\Documents\\GitHub\\FPS\\Assets\\05 Enemy\\Node\\NodeScript\\SOIsArrivePointNode.cs",
-    "C:\\Users\\user\\Documents\\GitHub\\FPS\\Assets\\05 Enemy\\Node\\NodeScript\\SOWaitCheckPointNode.cs"
-  ],
+  "modified_files": [],
   "recent_commits": [
-    "e3d178d [Fix] Enemy 시야 체크 레이가 근거리에서도 타겟을 못 맞히던 문제 해결",
-    "e11d2ec [Add] 순찰 재개 및 HP 30 이하 도주 행동 트리 구현",
-    "3f0b36d [Fix] 총알 생성 오류 해결"
+    "52566ad Update BattleScene.unity",
+    "ca7a455 [Add] HPTracker, PlayerHeatmapRecorder 추가",
+    "e3d178d [Fix] Enemy 시야 체크 레이가 근거리에서도 타겟을 못 맞히던 문제 해결"
   ],
-  "session_duration": "2m 9s",
+  "session_duration": "55m 3s",
   "tool_calls": 0,
   "warnings_count": 17,
-  "saved_at": "2026-09-04T07:17:21Z",
+  "saved_at": "2026-09-06T08:57:08Z",
   "plan": {},
   "verification": {},
   "agent_context": {}

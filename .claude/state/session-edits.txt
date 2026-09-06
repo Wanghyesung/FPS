@@ -1,2 +1,0 @@
-C:\Users\user\Documents\GitHub\FPS\Assets\05 Enemy\Node\NodeScript\SOWaitCheckPointNode.cs
-C:\Users\user\Documents\GitHub\FPS\Assets\05 Enemy\Node\NodeScript\SOIsArrivePointNode.cs

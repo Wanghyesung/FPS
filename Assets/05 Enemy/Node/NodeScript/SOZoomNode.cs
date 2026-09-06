@@ -18,4 +18,10 @@ public class SOZoomNode : SONode
         _refBB.Weapon.Zoom();
         return eNodeState.Success;
     }
+
+    public override void Abort(BlackBoard _refBB)
+    {
+        if (_refBB.Weapon != null)
+            _refBB.Weapon.UnZoom();
+    }
 }

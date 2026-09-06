@@ -454,3 +454,4 @@
 2026-09-04 15:41:56 | C:\\Users\\user\\Documents\\GitHub\\FPS\\Assets\\05 Enemy\\Node\\NodeScript\\SOCheckPointNode.cs | 1 file changed, 11 insertions(+), 3 deletions(-)
 2026-09-04 16:16:42 | C:\\Users\\user\\Documents\\GitHub\\FPS\\Assets\\05 Enemy\\Node\\NodeScript\\SOWaitCheckPointNode.cs | 1 file changed, 5 insertions(+)
 2026-09-04 16:17:06 | C:\\Users\\user\\Documents\\GitHub\\FPS\\Assets\\05 Enemy\\Node\\NodeScript\\SOIsArrivePointNode.cs | 1 file changed, 5 insertions(+)
+2026-09-04 20:33:52 | C:\\Users\\왕혜성\\Documents\\GitHub\\FPS\\.claude\\docs\\bt-redesign-plan.md | new file, 397 lines

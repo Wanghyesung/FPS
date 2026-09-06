@@ -3023,7 +3023,7 @@ Camera:
   m_Enabled: 1
   serializedVersion: 2
   m_ClearFlags: 1
-  m_BackGroundColor: {r: 0.19215687, g: 0.3019608, b: 0.4745098, a: 0}
+  m_BackGroundColor: {r: 0, g: 0, b: 0, a: 1}
   m_projectionMatrixMode: 1
   m_GateFitMode: 2
   m_FOVAxisMode: 0
@@ -76045,7 +76045,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 300, y: 36.2}
+  m_AnchoredPosition: {x: 300, y: 36.19995}
   m_SizeDelta: {x: 600, y: 70}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1779957059
@@ -94808,7 +94808,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &4381000868970496786
 Transform:
   m_ObjectHideFlags: 0
@@ -95744,7 +95744,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &5835106372747831003
 Transform:
   m_ObjectHideFlags: 0
@@ -96484,7 +96484,7 @@ SkinnedMeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 744bd37595a63474c8e17dbd6db744ae, type: 2}
+  - {fileID: 2100000, guid: 8cf7af6d02581524388ebf12e7986fb0, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -97059,7 +97059,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!23 &7563988905358801202
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -97930,7 +97930,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e9a17b719dfd9434bb31d10623202a41, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_refRootNode: {fileID: 11400000, guid: af489c64538f5d749bd5cce88e761b75, type: 2}
+  m_refRootNode: {fileID: 11400000, guid: 392d79713065a9746a6e3642bf78c6fc, type: 2}
   m_refOwner: {fileID: 0}
   m_refBB:
     Owner: {fileID: 0}
@@ -97951,6 +97951,10 @@ MonoBehaviour:
     - {fileID: 1368178761}
     FindTarget: 0
     POV: 0
+    HasLastSeen: 0
+    LastSeenPos: {x: 0, y: 0, z: 0}
+    LastSeenTime: 0
+    BlockedSinceTime: 0
     IsEscaping: 0
     EscapePos: {x: 0, y: 0, z: 0}
     NextEscapeTime: 0

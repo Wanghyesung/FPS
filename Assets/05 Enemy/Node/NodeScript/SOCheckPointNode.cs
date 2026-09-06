@@ -16,17 +16,16 @@ public class SOCheckPointNode : SONode
             return eNodeState.Failure;
 
         _refBB.PatrolIdx %= _refBB.PatrolList.Count;
-        Transform refMovePoint = _refBB.PatrolList[_refBB.PatrolIdx];
+        Vector3 vMovePoint = _refBB.PatrolList[_refBB.PatrolIdx].position;
+
+        // Sequence가 매 틱 재평가하므로, 목표가 그대로면 경로를 다시 계산하지 않는다
+        if (_refBB.Agent.hasPath == true
+            && (_refBB.Agent.destination - vMovePoint).sqrMagnitude < 0.01f)
+            return eNodeState.Success;
 
         // 반환값을 안 보면 목표 지점이 NavMesh 밖이라 실패해도 Success로 보고돼, 다음
         // WaitCheckPointNode가 절대 줄지 않는 remainingDistance를 기다리며 영원히 Running에 갇힌다
-        bool bSetOk = _refBB.Agent.SetDestination(refMovePoint.position);
-
-#if UNITY_EDITOR
-        Debug.Log($"[CheckPointNode] Idx:{_refBB.PatrolIdx} Target:{refMovePoint.position} SetDestination:{bSetOk} pathStatus:{_refBB.Agent.pathStatus} isStopped:{_refBB.Agent.isStopped} updateRotation:{_refBB.Agent.updateRotation}", _refBB.Owner);
-#endif
-
-        if (bSetOk == false)
+        if (_refBB.Agent.SetDestination(vMovePoint) == false)
             return eNodeState.Failure;
 
         return eNodeState.Success;

@@ -23,6 +23,9 @@ public enum eNodeState
 public abstract class SONode : ScriptableObject
 {
     public abstract eNodeState Execute(BlackBoard _refBB);
+
+    // 상위 우선순위에 밀려 중단될 때, 이 노드가 바꿔둔 상태를 되돌리는 자리
+    public virtual void Abort(BlackBoard _refBB) { }
 }
 
 // SOList는 그냥 SONode 모음
@@ -50,6 +53,16 @@ public abstract class SOListNode : SONode
 }
 
 
+// 도주는 "이동 → 은신" 2단으로 진행된다. Sequence가 매 틱 0번부터 재평가하므로
+// 어느 단계인지 남겨두지 않으면 SOEscapeNode가 매 틱 목표를 새로 뽑아버린다
+public enum eEscapePhase
+{
+    None,   // 도주 안 함
+    Moving, // 엄폐 지점으로 이동 중
+    Hiding, // 도착해서 은신 중
+}
+
+
 [Serializable]
 public class BlackBoard
 {
@@ -57,6 +70,7 @@ public class BlackBoard
     public Enemy Owner;
     public Transform OwnerOffset;
     public Transform TargetTr;
+    public Transform TargetRoot;   // 히트한 콜라이더가 타겟 소유인지 판정하는 기준 (root는 다른 적과 공유됨)
     public NavMeshAgent Agent;
 
     [Header("Weapon")]
@@ -71,15 +85,20 @@ public class BlackBoard
     public List<Transform> PatrolList;
 
     [Header("FindTarget")]
-    public bool FindTarget; // 시야 내에 플레이어가 있는지
+    public bool FindTarget;        // 이번 틱에 실제로 보이는지 - SOPerceptionNode가 매 틱 갱신
     public float POV;
+    public bool HasLastSeen;       // 목격 기억이 아직 유효한지
+    public Vector3 LastSeenPos;    // 마지막으로 본 위치
+    public float LastSeenTime;     // 마지막으로 본 시각
+    public float BlockedSinceTime; // 보이다가 시야가 끊긴 시각 (0 = 안 끊김)
 
 
     [Header("Escape")]
     
-    public bool IsEscaping;      // 도주 목표 지점을 이미 잡아둔 상태인지
+    public eEscapePhase EscapePhase; // 도주 에피소드의 현재 단계
     public Vector3 EscapePos;    // 현재 도주 목표 지점 (NavMesh 위로 스냅된 좌표)
-    public float NextEscapeTime; // 이 시각(Time.time) 전까지는 HP가 낮아도 재도주하지 않음 — 도주 직후 한동안 교전하게 함
+    public float HideEndTime;    // 은신이 끝나는 시각 (0 = 아직 안 잡힘)
+    public float NextEscapeTime; // 이 시각(Time.time) 전까지는 HP가 낮아도 재도주하지 않음 — 은신 직후 한동안 교전하게 함
 
 }
 
