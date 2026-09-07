@@ -2,12 +2,14 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class GameManager : MonoBehaviour
 {
     //나중에 Map을 만들기 위해서
     [SerializeField] private List<Enemy> m_listEnemy = new List<Enemy>();
 
+    [SerializeField] private BaseButtonUI m_refEndImage;
     private int m_iRemainEnemy;
     
     private void Awake()
@@ -31,7 +33,8 @@ public class GameManager : MonoBehaviour
         --m_iRemainEnemy;
         if(m_iRemainEnemy <=0)
         {
-
+            m_refEndImage.gameObject.SetActive(true);
+            Time.timeScale = 0.0f;
         }
     }
 

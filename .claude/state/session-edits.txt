@@ -1,11 +1,12 @@
-C:\Users\왕혜성\Documents\GitHub\FPS\Assets\01 Manager\InputManager.cs
-C:\Users\왕혜성\Documents\GitHub\FPS\Assets\01 Manager\InputManager.cs
-C:\Users\왕혜성\Documents\GitHub\FPS\Assets\01 Manager\InputManager.cs
-C:\Users\왕혜성\Documents\GitHub\FPS\Assets\06 UI\Interface.cs
-C:\Users\왕혜성\Documents\GitHub\FPS\Assets\01 Manager\InputManager.cs
-C:\Users\왕혜성\Documents\GitHub\FPS\Assets\01 Manager\InputManager.cs
-C:\Users\왕혜성\Documents\GitHub\FPS\Assets\01 Manager\InputManager.cs
-C:\Users\왕혜성\Documents\GitHub\FPS\Assets\06 UI\Interface.cs
-C:\Users\왕혜성\Documents\GitHub\FPS\.claude\docs\known-issues.md
-C:\Users\왕혜성\Documents\GitHub\FPS\Assets\02 Player\Player.cs
-C:\Users\왕혜성\Documents\GitHub\FPS\Assets\02 Player\Player.cs
+C:\Users\user\Documents\GitHub\FPS\Assets\02 Player\GrenadeThrower.cs
+C:\Users\user\.claude\projects\C--Users-user-Documents-GitHub-FPS\memory\feedback_plan_before_code.md
+C:\Users\user\.claude\projects\C--Users-user-Documents-GitHub-FPS\memory\MEMORY.md
+C:\Users\user\Documents\GitHub\FPS\Assets\02 Player\GrenadeThrower.cs
+C:\Users\user\Documents\GitHub\FPS\Assets\02 Player\GrenadeThrower.cs
+C:\Users\user\Documents\GitHub\FPS\Assets\02 Player\GrenadeThrower.cs
+C:\Users\user\Documents\GitHub\FPS\Assets\02 Player\GrenadeThrower.cs
+C:\Users\user\Documents\GitHub\FPS\Assets\02 Player\GrenadeThrower.cs
+C:\Users\user\Documents\GitHub\FPS\Assets\02 Player\GrenadeThrower.cs
+C:\Users\user\Documents\GitHub\FPS\Assets\02 Player\GrenadeThrower.cs
+C:\Users\user\Documents\GitHub\FPS\Assets\02 Player\GrenadeThrower.cs
+C:\Users\user\Documents\GitHub\FPS\Assets\02 Player\GrenadeThrower.cs
