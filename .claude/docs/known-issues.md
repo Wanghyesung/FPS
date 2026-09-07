@@ -277,3 +277,83 @@ Play 모드에서 `AimTargetPoint`를 위/앞으로 이동시켜 확인: `Spine_
 **결론: ±30도 제한으로 실전 조준 범위(약 40도 이하 고도각)에서는 문제 재현 안 됨.** 더 가파른
 각도의 잔여 리스크는 실제 플레이에서 그 정도로 위를 조준할 일이 거의 없다는 전제로 수용하고
 넘어감 — 나중에 실제로 문제 되면 왼손 IK 수렴 버그 자체를 다시 파거나 limits를 더 좁힐 것.
+
+## [진단 완료 / 수정 미적용] 몬스터 Behavior Tree 구조 결함 (2026-09-04)
+
+전체 재설계 계획은 **`.claude/docs/bt-redesign-plan.md`** 에 따로 정리했다. 여기엔 "고치기 전까지
+계속 물리는 사실"만 요약해 둔다.
+
+1. **Attack 브랜치가 구조상 실행 불가** — `SO_SelectNode_Root`의 자식 순서가
+   `[Escape, Patrol, Attack]`인데, Patrol의 `SOWaitCheckPointNode`가 순찰 지점 도착 전까지 계속
+   `Running`을 반환한다. Selector는 Running에서 즉시 반환하므로 뒤쪽의 Attack은 영원히 평가되지
+   않는다. **적이 코앞에 있어도 사격하지 않는 근본 원인.**
+2. **우선순위 인터럽트 불가** — `SOSelectNode.cs:27` / `SOSequenceNode.cs:25`가 Running 자식의
+   인덱스를 `iCurrentIdx`에 래치하고 다음 틱에 그 인덱스부터 루프를 시작한다. 상위 조건(HP 체크 등)이
+   재검사되지 않는다. Sequence 쪽은 더 위험해서, Attack 시퀀스가 중간 인덱스에 래치된 채 재진입하면
+   거리/시야 검사를 건너뛰고 발사한다.
+3. **`SOAttackNode.cs:3`의 `using UnityEditor;`** — 사용처가 없는데 남아 있어 **플레이어 빌드가
+   컴파일 실패한다.** 에디터에서는 아무 경고도 안 나므로 빌드 시도 전까지 안 드러남.
+4. **시야 판정이 트리에 없음** — 시야각(`SO_CheckPOVNode_80`)이 들어간 `SO_SeqLenPov.asset`이
+   어느 `listNode`에서도 참조되지 않는 고아 에셋이다. 현재 적은 **등 뒤의 플레이어도 감지한다.**
+   또 `BlackBoard.FindTarget`은 `SOCheckRayNode.cs:41`에서 true로만 설정되고 false로 되돌리는
+   코드가 없어, 한 번 발견하면 영구히 "발견함" 상태로 남는다.
+5. **시야 레이가 발밑에서 출발** — `SOCheckRayNode.cs:25`의 눈높이 오프셋이 주석 처리돼 있다.
+   정작 `SO_CheckRayPlayerNode.asset`에는 예전 값 `m_vEyeOffset: {y: 1.5}`가 그대로 남아 있다.
+   씬의 `BlackBoard.OwnerOffset`도 비어 있어(`fileID: 0`) 대체 기준점도 없다.
+6. **시야 LayerMask에 Default 누락** — `SO_CheckRayPlayerNode.asset`의 `m_tCollideMask`가
+   `m_Bits: 8448` = Player(8) + Obstacle(13)뿐이었다. 씬 실측 결과 콜라이더 분포는
+   **Default(0) 223개 / Obstacle(13) 165개 / Ground(11) 1개**로, 레벨 지오메트리 대부분이
+   `Default(0)`에 있는데 마스크에서 빠져 있었다.
+   (2026-09-05 정정: 처음엔 `Ground` 누락으로 적었으나 실제 원인은 `Default`였다.
+   2단계에서 `SO_PerceptionNode`의 마스크를 `11009`로 잡아 해결.)
+7. **NavMeshAgent 상태 누수** — `SORotateNode`(`updateRotation=false`), `SOEscapeNode`(`speed×1.3`),
+   `SOZoomNode`(`Zoom()`)가 각각 복원하지 않는다. 복원 노드 `SOResumeMoveNode`는 Patrol 시퀀스
+   맨 앞에만 있어서, Patrol을 거치지 않고 Escape ↔ Attack만 오가면 영영 복구되지 않는다.
+8. **잔여 쓰레기** — `SOCheckAngleNode.cs:24`가 `LookRotation`에 방향 대신 월드 좌표를 넣는 버그
+   (`SORotateNode`에서 이미 고친 것과 동일). `SOFindWeaponNode.cs:10`의 `CreateAssetMenu` menuName이
+   `SOCheckLength`와 완전히 중복이고 본문은 `NotImplementedException`. `SOFind.cs`는 빈 템플릿.
+   고아 에셋 5개: `SO_CheckAngleNode`, `SO_CheckLength_In_60_Out`, `SO_IsArrivePoint`,
+   `SO_SeqLenPov`, `SO_TraceMoveNode`.
+9. **일부 SO 에셋에 필드 키가 아예 없음** — `SO_Rotate_30.asset`에 `m_fRotateDiff`,
+   `SO_EscapeNode.asset`에 `m_fEscapeCooldown`이 직렬화돼 있지 않다(필드 추가 후 에셋을 다시 저장한
+   적이 없음). 인스펙터에서 한 번 열어 의도한 값이 실제로 들어 있는지 확인할 것.
+
+### 2026-09-05 추가로 발견 — 타겟 판정이 다른 적을 플레이어로 오인
+`SOCheckRayNode`가 쓰던 `tHit.transform.root == TargetTr.root` 비교는 이 씬에서 성립하지 않는다.
+`Player`와 `Enemy`가 **둘 다 `DnynamicObject`라는 같은 부모** 아래 있어서 `root`가 동일하다 —
+레이가 다른 적을 맞혀도 "플레이어를 봤다"가 된다. 지금까지 안 터진 건 마스크에서 `Enemy(12)`가
+빠져 있어 애초에 적 콜라이더를 못 맞혔기 때문일 뿐이다.
+
+2단계에서 `BlackBoard.TargetRoot`(= `Player.transform`, `Enemy.Awake`에서 주입)를 추가하고
+`SOPerceptionNode`가 `IsChildOf(TargetRoot)`로 판정하도록 바꿔 해결했다. **`SOCheckRayNode`는
+아직 옛 root 비교를 그대로 쓰고 있다** — 현재 트리에서는 빠졌지만 에셋이 남아 있으므로,
+다시 쓸 일이 있으면 같은 방식으로 고칠 것.
+
+## [진단 완료 / 수정 미적용] InventoryManager·ObjectPoolManager의 DontDestroyOnLoad 에러 (2026-09-07)
+
+### 증상
+Play 진입 시마다 콘솔에 에러 2건:
+```
+DontDestroyOnLoad only works for root GameObjects or components on root GameObjects.
+  Assets/06 UI/InventoryManager.cs:19
+  Assets/01 Manager/ObjectPoolManager.cs:58
+```
+
+### 근본 원인
+BattleScene에서 `InventoryManager`, `ObjectPoolManager` 둘 다 루트 오브젝트가 아니라
+`Manager`(InputManager가 붙어 있는 루트) 아래의 **자식** 오브젝트다. 각자 `Awake()`에서
+`DontDestroyOnLoad(gameObject)`를 자기 자신에게 호출하는데, `DontDestroyOnLoad`는 루트
+GameObject/Transform에만 적용 가능해서 자식에게 호출하면 무조건 이 에러를 내고 아무 효과도 없다.
+
+실질적으로는 `InputManager.Awake()`가 같은 프레임에 `Manager`(루트)를 `DontDestroyOnLoad`
+시키기 때문에, 그 하위 계층 전체(`InventoryManager`/`ObjectPoolManager` 포함)가 부모를 통해
+이미 함께 보존되고 있다 — 즉 **현재는 기능적으로 정상 동작하고, 매 씬 로드마다 에러 로그만
+불필요하게 남기는 상태**다. 다만 이건 `InputManager`가 먼저 `Manager`를 보존해준다는 우연에
+기대는 구조라서, 나중에 `Manager` 계층이 재구성되거나 `InputManager`가 사라지면 이 두 싱글톤은
+소리 없이 씬 전환 시 파괴될 위험이 있다.
+
+### 제안하는 수정
+`InventoryManager.Awake()`/`ObjectPoolManager.Awake()`의 `DontDestroyOnLoad(gameObject)` 호출을
+제거 — 이미 부모(`Manager` 루트)가 보존을 책임지고 있으므로 자식이 중복 호출할 필요가 없다.
+(대안으로 `DontDestroyOnLoad(transform.root.gameObject)`로 바꾸는 방법도 있지만, 결국 같은
+`Manager`를 다시 호출하는 것뿐이라 아예 제거하는 쪽이 더 명확함.)

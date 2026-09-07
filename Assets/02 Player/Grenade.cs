@@ -71,14 +71,15 @@ public class Grenade : MonoBehaviour
             if (iDamageable == null)
                 continue;
 
+            // 폭발은 중심에서 대상 쪽으로 밀려오므로, 대상마다 피격 방향이 다르다
+            tShot.MoveDir = (m_arrOverlapBuffer[i].transform.position - transform.position).normalized;
+
             iDamageable.TakeDamage(m_refAttackInfo, tShot);
         }
 
         if (m_refExplosionEffectObj != null)
         {
-            GameObject refEffect = ObjectPoolManager.m_Instance.GetObject(m_refExplosionEffectObj);
-            if (refEffect != null)
-                refEffect.transform.position = transform.position;
+            ObjectPoolManager.m_Instance.GetObject(m_refExplosionEffectObj, transform.position);
         }
     }
 }

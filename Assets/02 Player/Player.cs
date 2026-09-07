@@ -1,12 +1,26 @@
+using System;
+using System.Collections.Generic;
 using UnityEngine;
+using static Weapon;
+
+
+[Serializable]
+public class ObjectInfo
+{
+    public eEntityState State;
+    public float CurrentHP;
+    public float Speed;
+}
 
 [RequireComponent(typeof(WeaponRigTarget))]
 public class Player : MonoBehaviour
 {
     [SerializeField] private Aim m_refAim;
+    [SerializeField] private ScopeController m_refScope;
     [SerializeField] private Transform m_refWeaponSocket;
 
-    [SerializeField] private Weapon m_refWeapon = null; // 기본적으로 null — WeaponPickup을 통해 주워야 값이 채워진다
+    [SerializeField] private Weapon m_refWeapon = null;
+    private List<Weapon> m_listWeapon = new();
 
     private AnimationTable m_refAnimTable;
     public AnimationTable AnimationTable => m_refAnimTable;
@@ -14,7 +28,13 @@ public class Player : MonoBehaviour
     private PlayerMovement m_refMovement;
     private WeaponRigTarget m_refWeaponRigTarget;
 
-   
+    private bool m_bOnFire;
+
+    [SerializeField] private Transform m_refBodyTr;
+    public Transform BodyTr => m_refBodyTr;
+
+    static private Player GPlayer = null;
+    static public Player CurrentPlayer => GPlayer;
 
     private void Awake()
     {
@@ -23,117 +43,119 @@ public class Player : MonoBehaviour
 
         m_refAnimTable = GetComponent<AnimationTable>();
         m_refWeaponRigTarget = GetComponent<WeaponRigTarget>();
+
+        GPlayer = this;
     }
 
-    // RigBuilder.Build()는 Awake가 아니라 Start에서 호출해야 한다 — Animator가 자기 내부
-    // PlayableGraph를 초기화하기 전에 Build()가 먼저 도니, Animator 자체 초기화가 나중에
-    // RigBuilder의 그래프를 자기 기본 그래프로 덮어써 버려 IK가 계산만 되고 화면엔 반영이
-    // 안 되는 현상이 생긴다. Start 시점엔 씬의 모든 Awake/OnEnable(Animator 포함)이 이미
-    // 끝났다고 Unity가 보장하므로 안전하다.
     private void Start()
     {
-        // 씬에 미리 장착된 무기(WeaponPickup 트리거를 거치지 않은 시작 무기)도
-        // 소켓 정렬 + Init + 왼손 IK 타겟 연결이 필요하다
         if (m_refWeapon != null)
-        {
-            TakeWeapon(m_refWeapon);
             EquipWeapon(m_refWeapon);
-        }
-    }
 
-  
+        InputManager.m_Instance.OnRButtonPressed += Zoom;
+        InputManager.m_Instance.OnRButtonRelease += UnZoom;
 
-    private void Update()
-    {
-        if(m_refWeapon != null)
-        {
-            bool bRButn = InputManager.m_Instance.InputInfo.OnRButton;
-            bool bLButton = InputManager.m_Instance.InputInfo.OnLButon;
-            if (bRButn == true)
-            {
-
-                m_refWeapon.Zoom();
-            }
-            else
-            {
-                m_refWeapon.UnZoom();
-            }
-
-            GameCameraManager.m_Instance.SetZoomed(bRButn);
-
-
-            if (bRButn && bLButton && m_refWeapon.CheckTime())
-                Fire();
-        }
+        InputManager.m_Instance.OnLButtonPressed += RequestFire;
 
     }
-
-
-    private void FixedUpdate()
-    {
-
-    }
-
+    
     // WeaponPickup이 트리거 접촉 시 호출 — 무기를 손 소켓으로 옮기고 초기화한다.
-    public void PickupWeapon(Weapon _refWeapon)
+   
+    public void PickupWeapon(Weapon _refWeapon, SOEquipData _SOUIData)
     {
         if (_refWeapon == null)
             return;
+        if (InventoryManager.m_Instance.AddItem(_SOUIData) == false)
+            return;
 
         Transform tSocket = m_refWeaponSocket != null ? m_refWeaponSocket : transform;
-        //_refWeapon.transform.SetParent(tSocket, true);
 
-        // 1. World 위치 유지하며 부모 설정
         _refWeapon.transform.SetParent(tSocket, true);
 
-        // 2. 강제로 부모 위치/회전/크기로 찰떡같이 밀착
         _refWeapon.transform.localPosition = Vector3.zero;
         _refWeapon.transform.localRotation = Quaternion.identity;
         _refWeapon.transform.localScale = Vector3.one;
 
-        //TakeWeapon(_refWeapon);
-
-        EquipWeapon(_refWeapon);
-
-        GameCameraManager.m_Instance.ThirdPersonPivot = _refWeapon.ZoomTr;
+        // 여기서 EquipWeapon(리그 바인딩)을 하면 안 된다 — 바로 아래에서 비활성화되므로
+        // 지금 손에 든 무기의 IK 바인딩을 '비활성 트랜스폼'으로 덮어써 버린다.
+        // 리그는 실제로 꺼내 드는 UseWeapon 시점에 건다.
+        _refWeapon.gameObject.SetActive(false);
+        m_listWeapon.Add(_refWeapon); //TODO : 중복으로 같은 웨폰이 들어오면 문제
     }
 
-    // 무기의 RightHandGripTr이 소켓(오른손) 위치/회전에 정확히 겹치도록 무기 자체를 배치한다.
-    // 소켓은 무기 종류와 무관한 고정값(대략 손 위 어딘가) 하나만 유지하고, 각 무기가 자기
-    // 그립 포인트를 갖게 해서 — 무기마다 소켓을 따로 튜닝하지 않아도 어떤 무기든 손에 맞게 붙는다.
-    private void TakeWeapon(Weapon _refWeapon)
-    {
-        Transform refWeapon = _refWeapon.transform;
-        Transform refGrip = _refWeapon.RightHandGripTr;
-        Transform refSocket = m_refWeaponSocket != null ? m_refWeaponSocket : transform;
-        
-        if (refGrip == null)
-        {
-            refWeapon.localPosition = Vector3.zero;
-            refWeapon.localRotation = Quaternion.identity;
-            return;
-        }
 
-        refWeapon.rotation = refSocket.rotation * Quaternion.Inverse(refGrip.localRotation);
-        refWeapon.position += refSocket.position - refGrip.position;
-    }
-
+    // 리그(손 IK target / WeaponAimIK 대상)를 이 무기로 다시 묶는다.
+    // RigBuilder.Build()는 호출 시점의 트랜스폼에 핸들을 바인딩하므로,
+    // 무기를 바꿀 때마다 '활성화한 뒤에' 반드시 다시 호출해야 한다.
     private void EquipWeapon(Weapon _refWeapon)
     {
-        m_refWeapon = _refWeapon;
-        m_refWeapon.Init();
+        _refWeapon.Init();
         m_refWeaponRigTarget.SetWeapon(
-            m_refWeapon.transform,
-            m_refWeapon.LeftHandGripTr,m_refWeaponRigTarget.LeftHint,
-            m_refWeapon.RightHandGripTr,m_refWeaponRigTarget.RightHint);
-
-        m_refAnimTable.SetBool(eEntityState.HasWeapon, true);
+            _refWeapon.transform,
+            _refWeapon.LeftHandGripTr,m_refWeaponRigTarget.LeftHint,
+            _refWeapon.RightHandGripTr,m_refWeaponRigTarget.RightHint);
     }
 
-    private void Fire()
+    public void UseWeapon(eWeaponType _eWeaponType)
     {
-        m_refWeapon.Fire(m_refAim.TargetPosition);
+        if(m_refWeapon != null && m_refWeapon.WeaponType == _eWeaponType)
+            return;
+
+        for (int i = 0; i < m_listWeapon.Count; ++i)
+        {
+            if (m_listWeapon[i].WeaponType == _eWeaponType)
+            {
+                
+                if(m_refWeapon != null)
+                    m_refWeapon.gameObject.SetActive(false);
+
+                m_refWeapon = m_listWeapon[i];
+                m_refWeapon.gameObject.SetActive(true);
+
+                // 활성화 뒤에 리그를 다시 건다. 이게 없으면 IK/조준 콘스트레인트가
+                // 직전에 바인딩된(그리고 지금은 비활성인) 무기를 계속 붙들고 있어
+                // 손이 총을 못 잡고 줌을 해도 무기가 정렬되지 않는다.
+                EquipWeapon(m_refWeapon);
+
+                if (m_refScope != null)
+                    m_refScope.SetWeapon(m_refWeapon);
+
+                m_refAnimTable.SetBool(eEntityState.HasWeapon, true);
+                return;
+            }
+        }
     }
 
+    private void RequestFire()
+    {
+        if(m_refWeapon == null)
+            return;
 
+        if (m_bOnFire == true)
+            m_refWeapon.RequestFire(m_refAim.TargetPosition);
+    }
+
+    // 카메라는 CameraPivot3D에 고정한 채 FOV만 좁힌다.
+    // 만약 무기 조준 위치로 이동  시키고 싶다면 아이언사이트 모드에서만 GameCameraManager.SetAimPivot을 호출한다.
+    private void Zoom()
+    {
+        if (m_refWeapon == null)
+            return;
+
+        m_bOnFire = true;
+        m_refWeapon.Zoom(); //리깅
+
+        if (m_refScope != null)
+            m_refScope.Enter();
+    }
+    private void UnZoom()
+    {
+        m_bOnFire = false;
+
+        if (m_refWeapon != null)
+            m_refWeapon.UnZoom();
+
+        if (m_refScope != null)
+            m_refScope.Exit();
+    }
 }

@@ -25,15 +25,11 @@ MonoBehaviour:
   AliveTime: 3
   HitCount: 1
   HitStep: 1
-  KnockbackForce: 3
-  KnockbackDuration: 0.2
-  StunDuration: 0
-  BaseRotationSpeed: 90
-  MaxRotationSpeed: 180
-  RotationAccelRate: 0
-  ProximityRadius: 1.5
-  CriticalChance: 0
   RecoilAmount: 2
+  AimMode: 0
+  ZoomFov: 60
+  ZoomBlendTime: 0.12
+  HideWeaponOnAim: 0
   ExplosionRadius: 4
   VisualKickback: {x: 0, y: 0.01, z: -0.05}
   VisualRotKick: {x: -4, y: 0, z: 0}

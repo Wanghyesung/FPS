@@ -2,6 +2,7 @@ using UnityEngine;
 using UnityEditor;
 using System.Threading;
 using Cysharp.Threading.Tasks;
+#if UNITY_EDITOR
 public class RemoveMeshCollider
 {
     [MenuItem("Tools/Remove All MeshColliders")]
@@ -24,3 +25,4 @@ public class RemoveMeshCollider
         
     }
 }
+#endif

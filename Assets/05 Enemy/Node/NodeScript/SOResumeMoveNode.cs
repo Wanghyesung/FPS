@@ -1,0 +1,56 @@
+using UnityEngine;
+using UnityEngine.AI;
+
+/*///////////////////////////////////////////
+              SOResumeMoveNode
+기능 : 교전/도주 중에 바뀐 이동 관련 상태를 한 번에 기본값으로 되돌려
+       다시 NavMeshAgent로 정상 순찰 이동을 할 수 있게 만드는 노드.
+
+       되돌리는 것 : isStopped(정지) / updateRotation(회전 잠금)
+                     Agent.speed(도주 속도 배율) / EscapePhase(도주 단계) / Zoom(조준 자세)
+ *///////////////////////////////////////////
+[CreateAssetMenu(fileName = "SO_ResumeMoveNode", menuName = "Game/Monster/ActionNode/ResumeMoveNode")]
+
+public class SOResumeMoveNode : SONode
+{
+    [Tooltip("도주 단계(BlackBoard.EscapePhase)를 함께 초기화할지")]
+    [SerializeField] private bool m_bResetEscape = true;
+
+    [Tooltip("교전 중 올려둔 조준(Zoom) 자세를 함께 내릴지")]
+    [SerializeField] private bool m_bUnZoom = true;
+
+    public override eNodeState Execute(BlackBoard _refBB)
+    {
+        NavMeshAgent refAgent = _refBB.Agent;
+
+        // NavMesh 밖에서는 isStopped 대입만으로도 매 프레임 에러가 찍히므로 건드리지 않는다
+        if (refAgent == null || refAgent.isOnNavMesh == false)
+        {
+#if UNITY_EDITOR
+            Debug.Log($"[ResumeMoveNode] 실패 - isOnNavMesh: {(refAgent == null ? "Agent 없음" : refAgent.isOnNavMesh.ToString())}", _refBB.Owner);
+#endif
+            return eNodeState.Failure;
+        }
+
+        // Sequence가 매 틱 재평가하므로, 값이 실제로 다를 때만 쓴다
+        if (refAgent.isStopped == true)
+            refAgent.isStopped = false;
+
+        if (refAgent.updateRotation == false)
+            refAgent.updateRotation = true;
+
+        if (refAgent.speed != _refBB.ObjInfo.Speed)
+            refAgent.speed = _refBB.ObjInfo.Speed;
+
+        if (m_bResetEscape == true && _refBB.EscapePhase != eEscapePhase.None)
+        {
+            _refBB.EscapePhase = eEscapePhase.None;
+            _refBB.HideEndTime = 0.0f;
+        }
+
+        if (m_bUnZoom == true && _refBB.Weapon != null)
+            _refBB.Weapon.UnZoom();
+
+        return eNodeState.Success;
+    }
+}
