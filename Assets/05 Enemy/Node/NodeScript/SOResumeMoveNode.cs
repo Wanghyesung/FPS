@@ -8,10 +8,6 @@ using UnityEngine.AI;
 
        되돌리는 것 : isStopped(정지) / updateRotation(회전 잠금)
                      Agent.speed(도주 속도 배율) / EscapePhase(도주 단계) / Zoom(조준 자세)
-
-       순찰 시퀀스 맨 앞에 두어 "순찰 전 이동 복구" 책임을 한 곳으로 모은다 —
-       예전엔 SOCheckPointNode가 updateRotation만 슬쩍 되돌리고 있어서
-       정지/속도/조준 상태는 교전 때 값 그대로 남는 문제가 있었다.
  *///////////////////////////////////////////
 [CreateAssetMenu(fileName = "SO_ResumeMoveNode", menuName = "Game/Monster/ActionNode/ResumeMoveNode")]
 

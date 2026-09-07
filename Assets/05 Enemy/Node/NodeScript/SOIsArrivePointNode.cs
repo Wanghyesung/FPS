@@ -21,7 +21,7 @@ public class SOIsArrivePointNode : SONode
 
         if (_refBB.Agent.remainingDistance <= 1.0f)
         {
-            _refBB.PatrolIdx += 1;
+            //_refBB.PatrolIdx += 1;
             return eNodeState.Success;
         }
 

@@ -12,8 +12,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b7e4ae20ee4c7f3439f92fd2226e6b0e, type: 3}
   m_Name: SO_CheckPointNode_Base
   m_EditorClassIdentifier: 
-  m_listCheckPoint:
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
+  m_fSampleRadius: 20

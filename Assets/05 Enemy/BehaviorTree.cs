@@ -89,9 +89,15 @@ public class BlackBoard
     [Header("EntityInfo")]
     public ObjectInfo ObjInfo;
 
-    [Header("PatrolIdx")]
-    public int PatrolIdx; //임시로 넣은 데이터 (나중에 가중치 맵을 읽고 찾는 구조로 변경)
-    public List<Transform> PatrolList;
+    //[Header("PatrolIdx")]
+    //public int PatrolIdx; //임시로 넣은 데이터 (나중에 가중치 맵을 읽고 찾는 구조로 변경)
+    //public List<Transform> PatrolList;
+
+    [Header("CheckPoint")]
+
+    public bool HasCheckPoint;    // 이번 순찰 목표를 이미 뽑았는지 - Sequence가 매 틱 재평가해도 목표를 새로 뽑지 않게 한다
+    public Vector3 CheckPointPos; // 현재 순찰 목표 (히트맵 셀을 월드로 되돌린 뒤 NavMesh 위로 스냅한 좌표)
+
 
     [Header("FindTarget")]
     public bool FindTarget;        // 이번 틱에 실제로 보이는지 - SOPerceptionNode가 매 틱 갱신

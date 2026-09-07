@@ -24,9 +24,9 @@ public sealed class PlayerHeatmapTracker : MonoBehaviour
 
         m_fElapsed = 0f;
 
-        if (PlayerHeatmapRecorder.Instance == null)
+        if (PlayerHeatmapRecorder.m_Instance == null)
             return;
 
-        PlayerHeatmapRecorder.Instance.EnqueuePosition(m_refTr.position);
+        PlayerHeatmapRecorder.m_Instance.EnqueuePosition(m_refTr.position);
     }
 }

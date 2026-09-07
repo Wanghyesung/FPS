@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -22,6 +23,8 @@ public class Enemy : MonoBehaviour, IDamageable
 
     // ObjInfo.State는 CheckMoveState가 매 프레임 Idle/Move로 덮어쓰므로 사망 판정에 쓸 수 없다
     private bool m_bIsDead;
+
+    static public event Action OnEnemyDead;
 
     private void Awake()
     {
@@ -105,7 +108,6 @@ public class Enemy : MonoBehaviour, IDamageable
         m_bIsDead = true;
         m_refObjInfo.State = eEntityState.Dead;
 
-        // Animation Rigging이 계속 무기를 조준하고 있으면 상체가 사망 모션을 따라가지 못한다.
         // 리그를 먼저 꺼야 Dead 클립이 온전히 재생된다
         if (m_refRigBuilder != null)
             m_refRigBuilder.enabled = false;
@@ -122,13 +124,13 @@ public class Enemy : MonoBehaviour, IDamageable
     // 이벤트는 메서드 이름을 문자열로 들고 있으므로, 이름을 바꾸면 클립의 이벤트도 같이 고쳐야 한다.
     public void OnDeadAnimationEnd()
     {
-        // Player와 AnimatorController(PlayerAnim)를 공유하므로, 살아있는 상태에서
-        // 이 이벤트가 들어올 여지를 막는다
         if (m_bIsDead == false)
             return;
 
+        OnEnemyDead?.Invoke();
         // 나중에 Enemy를 풀링하게 되면 여기서 ObjectPoolManager.PushObject로 바꾼다
         gameObject.SetActive(false);
+
     }
 
     private void Update()
