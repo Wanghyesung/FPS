@@ -1491,6 +1491,7 @@ GameObject:
   - component: {fileID: 4227308012756341180}
   - component: {fileID: 7114330621721123687}
   - component: {fileID: 3911441808251293807}
+  - component: {fileID: -3828163286048465957}
   m_Layer: 8
   m_Name: Player
   m_TagString: Untagged
@@ -1745,17 +1746,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9aad54dd3bb72ef4084f907981846296, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_refAim: {fileID: 8442644703237762403}
   m_refThrowOrigin: {fileID: 8213064580015537637}
   m_refTrajectoryLine: {fileID: 1448079706498137927}
+  m_refLandingMarker: {fileID: 0}
   m_refGrenadePrefab: {fileID: 3146388827916132834, guid: b831e1fe744b681468811ae1f22ed36c,
     type: 3}
   m_SOAttackInfo: {fileID: 11400000, guid: 0b4f50f3d86798442aa3b8d961b45363, type: 2}
-  m_iLineSegments: 30
-  m_fBaseTime: 0.3
-  m_fTimePerDistance: 0.05
-  m_fMinTime: 0.4
-  m_fMaxTime: 1.6
+  m_fThrowPower: 18
+  m_fUpBias: 0.1
+  m_iMaxLinePoints: 30
+  m_iSubStepsPerPoint: 2
+  m_fMaxSimTime: 2.5
+  m_fCastRadius: 0.12
   m_tLineBlockMask:
     serializedVersion: 2
     m_Bits: 4294967295
@@ -1773,6 +1775,22 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_refMovement: {fileID: 2599404117077891066}
   m_fHideWeaponAt: 0.5
+--- !u!114 &-3828163286048465957
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4376760755971415143}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3df998a87fc3353408215def6c08159a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_refXRayFeature: {fileID: -1321818530027787408, guid: c40be3174f62c4acf8c1216858c64956,
+    type: 2}
+  m_fDuration: 5
+  m_fCoolTime: 10
 --- !u!1 &4445180479217563701
 GameObject:
   m_ObjectHideFlags: 0

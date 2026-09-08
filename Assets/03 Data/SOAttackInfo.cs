@@ -23,7 +23,7 @@ public class SOAttackInfo : ScriptableObject
 
     [Header("Stats")]
     public eWeaponType WeaponType;
-    public PoolObject PoolPrefab;
+    public SOPoolData SOData;
 
     public int Damage = 10;
     public int AttackPower = 0;

@@ -48,6 +48,10 @@ public class InputManager : MonoBehaviour
     [SerializeField] private InputActionReference m_listItemAction;
     public event Action<int> OnItemPressed;
 
+    //투시 능력 토글(기본 V키) — 단발성 입력이라 Update 폴링 없이 performed 콜백만 쓴다
+    [SerializeField] private InputActionReference m_refXRayAction;
+    public event Action OnXRayPressed;
+
 
     private bool m_isDeltaInitialized = false;
 
@@ -92,6 +96,13 @@ public class InputManager : MonoBehaviour
 
         m_listItemAction.action.Enable();
         m_listItemAction.action.performed += OnItemPerformed;
+
+        // 인스펙터에서 아직 연결 안 했어도 나머지 입력은 그대로 돌아가야 한다
+        if (m_refXRayAction != null)
+        {
+            m_refXRayAction.action.Enable();
+            m_refXRayAction.action.performed += OnXRayPerformed;
+        }
     }
 
     private void Start()
@@ -102,6 +113,9 @@ public class InputManager : MonoBehaviour
     private void OnDestroy()
     {
         m_listItemAction.action.performed -= OnItemPerformed;
+
+        if (m_refXRayAction != null)
+            m_refXRayAction.action.performed -= OnXRayPerformed;
     }
 
     private void  Update()
@@ -141,6 +155,11 @@ public class InputManager : MonoBehaviour
             return;
 
         OnItemPressed?.Invoke(iIndex);
+    }
+
+    private void OnXRayPerformed(InputAction.CallbackContext _tCtx)
+    {
+        OnXRayPressed?.Invoke();
     }
 
     private void UpdateMoveValue()

@@ -25,7 +25,7 @@ public sealed class GrenadeThrower : MonoBehaviour
     [SerializeField] private Transform m_refThrowOrigin;   // CameraPivot3D 재사용 — 시선 방향이 곧 투척 방향
     [SerializeField] private LineRenderer m_refTrajectoryLine;
     [SerializeField] private Transform m_refLandingMarker; // 착지 예상 지점 데칼 — 이 Transform의 +Z가 지면 노멀에 정렬된다
-    [SerializeField] private PoolObject m_refGrenadePrefab;
+    [SerializeField] private SOPoolData m_refGrenadePrefab;
     [SerializeField] private SOAttackInfo m_SOAttackInfo;
 
     [Header("투척")]
@@ -63,9 +63,9 @@ public sealed class GrenadeThrower : MonoBehaviour
         if (m_refGrenadePrefab == null)
             return;
 
-        Rigidbody refBody = m_refGrenadePrefab.GetComponent<Rigidbody>();
-        if (refBody != null)
-            m_fGrenadeDrag = refBody.drag;
+        //Rigidbody refBody = m_refGrenadePrefab.GetComponent<Rigidbody>();
+        //if (refBody != null)
+            //m_fGrenadeDrag = refBody.drag;
     }
 
     private void Update()

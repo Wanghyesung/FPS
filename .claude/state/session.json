@@ -1,21 +1,17 @@
 {
   "schema_version": 1,
-  "branch": "devel/Player",
+  "branch": "devel/Shader",
   "workflow_phase": "",
-  "modified_files": [
-    "C:\\Users\\user\\.claude\\projects\\C--Users-user-Documents-GitHub-FPS\\memory\\MEMORY.md",
-    "C:\\Users\\user\\.claude\\projects\\C--Users-user-Documents-GitHub-FPS\\memory\\feedback_plan_before_code.md",
-    "C:\\Users\\user\\Documents\\GitHub\\FPS\\Assets\\02 Player\\GrenadeThrower.cs"
-  ],
+  "modified_files": [],
   "recent_commits": [
+    "6645b8e [Add] 수류탄 라인 추가 Test버전",
     "1e50863 Merge branch 'devel/AITest' into devel/Player",
-    "6acc4e5 [Add] 플레이어 히트맵 추가",
-    "015f8a9 [Add] 몬스터 움직임 버벅거리는 이슈"
+    "6acc4e5 [Add] 플레이어 히트맵 추가"
   ],
-  "session_duration": "36m 12s",
+  "session_duration": "74m 28s",
   "tool_calls": 0,
-  "warnings_count": 17,
-  "saved_at": "2026-09-07T06:11:12Z",
+  "warnings_count": 18,
+  "saved_at": "2026-09-08T02:38:40Z",
   "plan": {},
   "verification": {},
   "agent_context": {}

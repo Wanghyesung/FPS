@@ -489,3 +489,13 @@
 2026-09-07 15:09:11 | C:\\Users\\user\\Documents\\GitHub\\FPS\\Assets\\02 Player\\GrenadeThrower.cs | 1 file changed, 133 insertions(+), 52 deletions(-)
 2026-09-07 15:09:19 | C:\\Users\\user\\Documents\\GitHub\\FPS\\Assets\\02 Player\\GrenadeThrower.cs | 1 file changed, 147 insertions(+), 52 deletions(-)
 2026-09-07 15:09:23 | C:\\Users\\user\\Documents\\GitHub\\FPS\\Assets\\02 Player\\GrenadeThrower.cs | 1 file changed, 147 insertions(+), 54 deletions(-)
+2026-09-08 10:11:42 | C:\\Users\\user\\Documents\\GitHub\\FPS\\Assets\\07 Rendering\\EnemyXRay.shader | new file, 186 lines
+2026-09-08 10:11:53 | C:\\Users\\user\\Documents\\GitHub\\FPS\\Assets\\07 Rendering\\M_EnemyXRay.mat | new file, 34 lines
+2026-09-08 10:13:47 | C:\\Users\\user\\Documents\\GitHub\\FPS\\Assets\\07 Rendering\\EnemyXRayFeature.cs | new file, 180 lines
+2026-09-08 10:14:11 | C:\\Users\\user\\Documents\\GitHub\\FPS\\Assets\\01 Manager\\PlayerControls.inputactions | 1 file changed, 9 insertions(+)
+2026-09-08 10:14:18 | C:\\Users\\user\\Documents\\GitHub\\FPS\\Assets\\01 Manager\\PlayerControls.inputactions | 1 file changed, 20 insertions(+)
+2026-09-08 10:14:45 | C:\\Users\\user\\Documents\\GitHub\\FPS\\Assets\\01 Manager\\InputManager.cs | 1 file changed, 4 insertions(+)
+2026-09-08 10:14:51 | C:\\Users\\user\\Documents\\GitHub\\FPS\\Assets\\01 Manager\\InputManager.cs | 1 file changed, 11 insertions(+)
+2026-09-08 10:14:56 | C:\\Users\\user\\Documents\\GitHub\\FPS\\Assets\\01 Manager\\InputManager.cs | 1 file changed, 14 insertions(+)
+2026-09-08 10:15:00 | C:\\Users\\user\\Documents\\GitHub\\FPS\\Assets\\01 Manager\\InputManager.cs | 1 file changed, 19 insertions(+)
+2026-09-08 10:16:03 | C:\\Users\\user\\Documents\\GitHub\\FPS\\Assets\\02 Player\\PlayerXRayVision.cs | new file, 144 lines

@@ -77,6 +77,15 @@
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": false
+                },
+                {
+                    "name": "XRay",
+                    "type": "Button",
+                    "id": "5f2a1e10-1a2b-4c3d-9e10-000000000017",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
                 }
             ],
             "bindings": [
@@ -242,6 +251,17 @@
                     "processors": "",
                     "groups": "",
                     "action": "Items",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "5f2a1e10-1a2b-4c3d-9e10-000000000040",
+                    "path": "<Keyboard>/v",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "XRay",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

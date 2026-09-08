@@ -8,12 +8,14 @@ using static Weapon;
 public class ObjectInfo
 {
     public eEntityState State;
+    public float MaxHP = 100.0f;
+
     public float CurrentHP;
     public float Speed;
 }
 
 [RequireComponent(typeof(WeaponRigTarget))]
-public class Player : MonoBehaviour
+public class Player : MonoBehaviour, IDamageable
 {
     [SerializeField] private Aim m_refAim;
     [SerializeField] private ScopeController m_refScope;
@@ -36,6 +38,9 @@ public class Player : MonoBehaviour
     static private Player GPlayer = null;
     static public Player CurrentPlayer => GPlayer;
 
+    static public event Action<float> OnDamaged;
+    private ObjectInfo m_refObjInfo = new() ;
+
     private void Awake()
     {
         m_refMovement = GetComponent<PlayerMovement>();
@@ -56,7 +61,6 @@ public class Player : MonoBehaviour
         InputManager.m_Instance.OnRButtonRelease += UnZoom;
 
         InputManager.m_Instance.OnLButtonPressed += RequestFire;
-
     }
     
     // WeaponPickup이 트리거 접촉 시 호출 — 무기를 손 소켓으로 옮기고 초기화한다.
@@ -157,5 +161,25 @@ public class Player : MonoBehaviour
 
         if (m_refScope != null)
             m_refScope.Exit();
+    }
+
+    public void TakeDamage(AttackInfo _refAttackInfo, tShotInfo _tShotInfo)
+    {
+        m_refObjInfo.CurrentHP -= _refAttackInfo.Damage;
+        if(m_refObjInfo.CurrentHP <= 0.0f)
+        {
+            m_refObjInfo.CurrentHP = 0.0f;
+            Dead();
+        }
+        else
+        {
+            float fRatio = m_refObjInfo.CurrentHP / m_refObjInfo.MaxHP;
+            OnDamaged?.Invoke(fRatio);
+        }
+    }
+
+    private void Dead()
+    {
+
     }
 }

@@ -22,6 +22,9 @@ public class InventoryManager : MonoBehaviour
 
     public bool AddItem(SOData _SOData)
     {
+        if (m_refInterface == null)
+            return false;
+
         return m_refInterface.AddData(_SOData);
     }
 }

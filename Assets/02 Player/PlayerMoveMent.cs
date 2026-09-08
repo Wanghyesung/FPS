@@ -10,7 +10,7 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] private float m_fMaxDown = -60.0f;
 
     [SerializeField] private float m_fSpeed = 10.0f;
-    [SerializeField] private float m_fRotSpeed = 7.0f;
+    [SerializeField] private float m_fRotSpeed = 15.0f;
 
     private Vector2 m_vDelta;
 
@@ -111,7 +111,9 @@ public class PlayerMovement : MonoBehaviour
 
     private void Jump()
     {
-       
+        //if (m_bIsGrounded == false)
+        //    return;
+
         m_refPlayer.AnimationTable.SetBool(eEntityState.Jump, true);
 
         m_fDecayMove = m_fSpeed * 0.8f;

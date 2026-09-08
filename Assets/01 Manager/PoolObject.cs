@@ -4,10 +4,10 @@ using UnityEngine.Events;
 
 public interface IPoolable
 {
-    public PoolObject PoolKey { get; }
+    public SOPoolData PoolKey { get; }
     public int PushCount { get; }
 
-    public void SetOriginalPoolObj(PoolObject _refOriginObj);
+    public void SetPoolKey(SOPoolData _refPoolData);
     public void Push();
     public void Pop();
 }
@@ -15,11 +15,11 @@ public interface IPoolable
 
 public class PoolObject : MonoBehaviour, IPoolable
 {
-    [SerializeField] private PoolObject m_refOriginalPoolObj;
+    private SOPoolData m_refPoolData;
 
     [SerializeField] private int m_iPushCount = 0;
     public int PushCount { get { return m_iPushCount; } }
-    public PoolObject PoolKey { get { return m_refOriginalPoolObj; } }
+    public SOPoolData PoolKey { get { return m_refPoolData; } }
 
     public event Action OnPush;
     public event Action OnPop;
@@ -61,8 +61,8 @@ public class PoolObject : MonoBehaviour, IPoolable
         ObjectPoolManager.m_Instance.ScheduleTime(this, _fPushTime);
     }
 
-    public void SetOriginalPoolObj(PoolObject _refOriginObj)
+    public void SetPoolKey(SOPoolData _refPoolData)
     {
-        m_refOriginalPoolObj = _refOriginObj;
+        m_refPoolData = _refPoolData;
     }
 }

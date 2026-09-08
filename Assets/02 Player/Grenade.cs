@@ -17,7 +17,7 @@ using UnityEngine;
 public class Grenade : MonoBehaviour
 {
     [SerializeField] private PoolObject m_refPoolObject;
-    [SerializeField] private PoolObject m_refExplosionEffectObj;
+    [SerializeField] private SOPoolData m_refExplosionEffectObj;
 
     private Rigidbody m_refRigidbody;
     private AttackInfo m_refAttackInfo;
@@ -32,7 +32,7 @@ public class Grenade : MonoBehaviour
         m_refPoolObject.OnPush += Explode; // SetAliveTime()으로 예약한 퓨즈 시간이 지나 자동 반납될 때 폭발
     }
 
-    public static GameObject SpawnAttackObject(PoolObject _refPrefab, Vector3 _vPos, AttackInfo _refAttackInfo, Vector3 _vInitialVelocity)
+    public static GameObject SpawnAttackObject(SOPoolData _refPrefab, Vector3 _vPos, AttackInfo _refAttackInfo, Vector3 _vInitialVelocity)
     {
         GameObject refObj = ObjectPoolManager.m_Instance.GetObject(_refPrefab, _vPos);
         if (refObj == null)

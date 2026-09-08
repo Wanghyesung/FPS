@@ -25,6 +25,7 @@ public class Enemy : MonoBehaviour, IDamageable
     private bool m_bIsDead;
 
     static public event Action OnEnemyDead;
+    static public event Action<int> OnDamaged;
 
     private void Awake()
     {
@@ -55,8 +56,6 @@ public class Enemy : MonoBehaviour, IDamageable
         m_refAgent.speed = m_refObjInfo.Speed;
     }
 
-    // RigBuilder는 자기 Awake에서 한 번 자동으로 Build()를 도는데, 이 시점은 Animator가
-    // Humanoid PlayableGraph를 아직 다 짜기 전이라 Start에서 한 번 더 Build해 바로잡는다.
     private void Start()
     {
         if (m_refRigBuilder != null)
@@ -64,26 +63,20 @@ public class Enemy : MonoBehaviour, IDamageable
 
     }
 
-    // BlackBoard.ObjInfo는 m_refObjInfo와 같은 인스턴스를 참조하므로, 여기서 HP를 깎으면
-    // 다음 Evaluate에서 SOCheckHPNode가 바로 도주(Escape) 분기로 넘어간다
     public void TakeDamage(AttackInfo _refAttackInfo, tShotInfo _tShotInfo)
     {
         if (_refAttackInfo == null || m_bIsDead == true)
             return;
 
-        // 피격 방향을 BlackBoard에 남겨 순찰 중이던 적이 그쪽을 돌아보게 한다.
-        // 시야각(POV 80°) 밖에서 맞으면 SOPerceptionNode가 영영 발견하지 못하므로,
-        // 돌아보는 행동 자체가 탐지 수단이 된다
         SetHitAlert(_tShotInfo);
 
+        int iDamage = _refAttackInfo.Damage;
         m_refObjInfo.CurrentHP -= _refAttackInfo.Damage;
 
         if (m_refObjInfo.CurrentHP > 0.0f)
-            return;
-
-        Debug.Log(m_refObjInfo.CurrentHP);
-        m_refObjInfo.CurrentHP = 0.0f;
-        Die();
+            OnDamaged?.Invoke(iDamage);
+        else
+            Die();
     }
 
     // 투사체 진행 방향의 반대가 공격자 쪽이다.

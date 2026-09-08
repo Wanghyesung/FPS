@@ -17,6 +17,11 @@ MonoBehaviour:
     m_SerializedData: []
   m_GUID: 4581d07ac003d1f4d95a660b7ca64e2a
   m_SerializeEntries:
+  - m_GUID: 002469f84841e7045a6645619dbaec8a
+    m_Address: Assets/Scenes/BattleScene.unity
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: b831e1fe744b681468811ae1f22ed36c
     m_Address: Grenade
     m_ReadOnly: 0

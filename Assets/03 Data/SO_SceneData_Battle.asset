@@ -12,6 +12,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c5259cb26e8c6e74abb1a823b44eab45, type: 3}
   m_Name: SO_SceneData_Battle
   m_EditorClassIdentifier: 
+  SceneAddress:
+    m_AssetGUID: 002469f84841e7045a6645619dbaec8a
+    m_SubObjectName: 
+    m_SubObjectType: 
+    m_EditorAssetChanged: 0
   PoolDataList:
   - {fileID: 11400000, guid: 1d0359f23f6d60341af44706a9d07b1f, type: 2}
   - {fileID: 11400000, guid: b8c23133a3678e04c96d339a16a5ef78, type: 2}

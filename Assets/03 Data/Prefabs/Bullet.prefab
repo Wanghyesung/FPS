@@ -100,7 +100,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dd2172f705ec1094ca50232bc430c48c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_refOriginalPoolObj: {fileID: 1418374523975971251}
   m_iPushCount: 0
   m_fAliveTime: 3
 --- !u!114 &5231072598929369723
@@ -115,9 +114,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b2124df85bbdfe641b933d032db4e684, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_refPoolObject: {fileID: 0}
-  m_refHitEffectObj: {fileID: 8883461540435108670, guid: c960c4b2e3e5fa64d8382ace061bff3d,
-    type: 3}
+  m_SOPoolObject: {fileID: 11400000, guid: 1d0359f23f6d60341af44706a9d07b1f, type: 2}
+  m_SOHitEffectObj: {fileID: 11400000, guid: b8c23133a3678e04c96d339a16a5ef78, type: 2}
 --- !u!136 &6814543498308955644
 CapsuleCollider:
   m_ObjectHideFlags: 0

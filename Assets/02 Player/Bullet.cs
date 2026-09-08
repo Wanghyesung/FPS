@@ -10,9 +10,10 @@ using UnityEngine;
 [RequireComponent(typeof(PoolObject))]
 public class Bullet : MonoBehaviour
 {
-    [SerializeField] private PoolObject m_refPoolObject;
-    [SerializeField] private PoolObject m_refHitEffectObj;
+    [SerializeField] private SOPoolData m_SOPoolObject;
+    [SerializeField] private SOPoolData m_SOHitEffectObj;
 
+    private PoolObject m_refPoolObj;
     private AttackInfo m_refAttackInfo;
     private tShotInfo m_tShotInfo;
 
@@ -20,7 +21,8 @@ public class Bullet : MonoBehaviour
     private Rigidbody m_refRigdbody;
     private void Awake()
     {
-        m_refPoolObject = GetComponent<PoolObject>();
+        m_refPoolObj = GetComponent<PoolObject>();
+        //m_refPoolObject = GetComponent<PoolObject>();
         m_refRigdbody = GetComponent<Rigidbody>();
 
     }
@@ -32,13 +34,14 @@ public class Bullet : MonoBehaviour
         m_refRigdbody.MovePosition(m_refRigdbody.position + transform.forward * fStep);
     }
 
-    public static GameObject SpawnAttackObject(PoolObject _refPrefab, Vector3 _vPos, Quaternion _qRot, AttackInfo _refAttackInfo, tShotInfo _refShotInfo)
+    public static GameObject SpawnAttackObject(SOPoolData _refPoolData, Vector3 _vPos, Quaternion _qRot, AttackInfo _refAttackInfo, tShotInfo _refShotInfo)
     {
-        GameObject refObj = ObjectPoolManager.m_Instance.GetObject(_refPrefab, _vPos);
+        GameObject refObj = ObjectPoolManager.m_Instance.GetObject(_refPoolData);
         if (refObj == null)
             return null;
 
         refObj.transform.rotation = _qRot;
+        refObj.transform.position = _vPos;
 
         Bullet refBullet = refObj.GetComponent<Bullet>();
         if (refBullet != null)
@@ -52,7 +55,7 @@ public class Bullet : MonoBehaviour
 
         m_refAttackInfo = _refAttackInfo;
         m_tShotInfo = _refShotInfo;
-        m_refPoolObject.SetAliveTime(_refAttackInfo.AliveTime);
+        m_refPoolObj.SetAliveTime(_refAttackInfo.AliveTime);
     }
 
 
@@ -81,9 +84,9 @@ public class Bullet : MonoBehaviour
           
         }
 
-        if (m_refHitEffectObj != null)
+        if (m_SOHitEffectObj != null)
         {
-            GameObject refHitEffect = ObjectPoolManager.m_Instance.GetObject(m_refHitEffectObj);
+            GameObject refHitEffect = ObjectPoolManager.m_Instance.GetObject(m_SOHitEffectObj);
             if (refHitEffect != null)
                 refHitEffect.transform.position = transform.position;
         }

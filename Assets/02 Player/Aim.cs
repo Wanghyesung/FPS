@@ -25,8 +25,6 @@ public class Aim : MonoBehaviour
     public Vector3 TargetPosition => m_vTargetPosition;
 
     // 리그(척추 정렬 SpineAimIK, 무기 정렬 WeaponAimIK)가 바라볼 지점.
-    // 항상 시선 방향으로 m_fMaxLength만큼 떨어진 가상 지점이다.
-    // 실제 히트 지점을 주면 가까운 벽·바닥을 볼 때 상체가 급격히 꺾인다.
     private Vector3 m_vRigAimPosition = Vector3.zero;
     public Vector3 RigAimPosition => m_vRigAimPosition;
 
