@@ -13,6 +13,7 @@ public class Bullet : MonoBehaviour
     [SerializeField] private SOPoolData m_SOPoolObject;
     [SerializeField] private SOPoolData m_SOHitEffectObj;
 
+    private TrailRenderer m_refTrail;
     private PoolObject m_refPoolObj;
     private AttackInfo m_refAttackInfo;
     private tShotInfo m_tShotInfo;
@@ -24,9 +25,13 @@ public class Bullet : MonoBehaviour
         m_refPoolObj = GetComponent<PoolObject>();
         //m_refPoolObject = GetComponent<PoolObject>();
         m_refRigdbody = GetComponent<Rigidbody>();
+        m_refTrail = GetComponent<TrailRenderer>();
 
     }
-
+    private void OnDisable()
+    {
+        m_refTrail.Clear();
+    }
     private void FixedUpdate()
     {
         float fStep = m_tShotInfo.Speed * Time.fixedDeltaTime;

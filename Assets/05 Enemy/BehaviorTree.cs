@@ -33,15 +33,14 @@ public abstract class SOListNode : SONode
 {
     [SerializeField] protected List<SONode> listNode = new List<SONode>();
 
-    //SO는 공유 메모리이기 때문에 리프 노드가 들고 있는 캐시(예: SOChargeNode)까지
     //몬스터 인스턴스마다 독립적이어야 한다 → 리스트의 자식은 전부 복제해서 사용
-
     public void CloneChildren(List<SOListNode> _ListTracker)
     {
         for (int i = 0; i < listNode.Count; i++)
         {
             if (listNode[i] is SOListNode listChild)
             {
+                //List 깊은 복사
                 SOListNode clone = Instantiate(listChild);
                 _ListTracker.Add(clone);
                 listNode[i] = clone;

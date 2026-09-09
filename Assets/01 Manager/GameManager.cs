@@ -31,7 +31,7 @@ public class GameManager : MonoBehaviour
         m_iKillCount = 0;
         m_iAttackAmount = 0;
         Enemy.OnEnemyDead += DeadEnemy;
-        Enemy.OnDamaged -= Damaged;
+        Enemy.OnDamaged += Damaged;
 
         Player.OnDamaged += PlayerDamaged;
     }

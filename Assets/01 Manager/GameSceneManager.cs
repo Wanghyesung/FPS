@@ -11,10 +11,19 @@ using UnityEngine.UI;
                 GameSceneManager
 기능 : 로비(SelectStage)에서 고른 스테이지 idx에 대응하는 SOSceneData를 찾아
       Addressable 씬을 비동기로 로드하고, 진행률을 이미지(fillAmount)로 보여준다.
-      씬 전환 도중에도 살아있어야 해서 로비에서 생성되는 DontDestroyOnLoad
-      싱글톤으로 유지하고, 씬 로드가 끝나면 그 씬에서 쓸 오브젝트 풀 데이터까지 이어서 로드한다.
+      씬 전환 도중에도 살아있어야 해서 씬에 배치된 채 DontDestroyOnLoad로 유지하고,
+      씬 로드가 끝나면 그 씬에서 쓸 오브젝트 풀 데이터까지 이어서 로드한다.
+
+수명 주의 : 이 매니저는 첫 씬의 인스턴스 하나만 살아남고, 이후 씬이 만드는 새 인스턴스는
+      Awake의 중복 가드에서 즉시 파괴된다. 그래서 씬 오브젝트(버튼의 UnityEvent 등)가
+      이 매니저를 인스펙터로 직접 붙잡으면 안 된다 - 씬 파일의 m_Target은 그 씬 안의
+      오브젝트만 지목할 수 있어서, 재로드된 씬의 버튼은 "곧 파괴될 새 인스턴스"를 가리키게 되고
+      타겟이 Missing이 되어 조용히 동작을 멈춘다(메서드 이름을 바꿔도 소용없다).
+      씬 쪽에서는 반드시 SceneController처럼 호출 시점에 m_Instance를 조회할 것.
+      반대로 이 매니저가 참조하는 오브젝트(로딩 오버레이)는 반드시 자식으로 두어야
+      DontDestroyOnLoad에 함께 딸려와서 참조가 깨지지 않는다.
  *///////////////////////////////////////////
-public class GameSceneManager : MonoBehaviour
+public sealed class GameSceneManager : MonoBehaviour
 {
     public static GameSceneManager m_Instance = null;
 
@@ -22,16 +31,18 @@ public class GameSceneManager : MonoBehaviour
     [SerializeField] private List<SOSceneData> m_listSceneData = new List<SOSceneData>();
 
     //[SerializeField] private Image m_refProgressImage; //fillAmount로 로딩 진행률 표시
+    //반드시 이 오브젝트의 자식이어야 한다(씬 Canvas 밑에 두면 씬이 언로드될 때 죽은 참조가 된다)
     [SerializeField] private LoadingOverlay m_refLoadingOverlay;
-    [SerializeField] private string m_strFirstSceneName = "LobyScene"; //Addressable이 아닌 Build Settings 등록 씬(로비/처음 씬)
+    [SerializeField] private string m_strFirstSceneName = "StartScene"; //Addressable이 아닌 Build Settings 등록 씬(로비/처음 씬)
 
+    [SerializeField] private GameObject m_refLoadCanvas;
     public int SelectedStageIdx { get; private set; } = 0;
 
     private AsyncOperationHandle<SceneInstance> m_tSceneHandle;
 
     private void Awake()
     {
-        if (m_Instance != null)
+        if (m_Instance != null && m_Instance != this)
         {
             Destroy(gameObject);
             return;
@@ -92,13 +103,16 @@ public class GameSceneManager : MonoBehaviour
 
     private void SetProgress(float _fPercent)
     {
-        m_refLoadingOverlay.SetProgress(_fPercent);
+        if (m_refLoadingOverlay == null)
+            return;
 
+        m_refLoadingOverlay.SetProgress(_fPercent);
     }
 
     //던전 클리어 등으로 처음 씬(로비)으로 돌아갈 때 호출. 로비는 Addressable이 아니라 Build Settings에 등록된 일반 씬이라 SceneManager로 바로 로드
     public void LoadFirstScene()
     {
+        m_refLoadCanvas.SetActive(true);
         LoadFirstSceneAsync().Forget();
     }
 
@@ -119,5 +133,10 @@ public class GameSceneManager : MonoBehaviour
     public void LoadScene(SOSceneData _SOSceneData)
     {
         LoadSceneAsync(_SOSceneData).Forget();
+    }
+    public void LoadBattleScene()
+    {
+        LoadStage(0);
+        m_refLoadCanvas.SetActive(false);
     }
 }

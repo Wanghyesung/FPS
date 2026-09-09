@@ -46,9 +46,10 @@ public class SOSequenceNode : SOListNode
         AbortRange(_refBB, iRanIdx);
     }
 
-    // Zoom처럼 Success를 반환하고 끝나는 자식도 상태를 되돌려야 하므로 참여한 범위 전체를 역순으로 정리
     private void AbortRange(BlackBoard _refBB, int _iFromIdx)
     {
+        // Success를 반환하고 끝나는 자식도 상태를 되돌려야 하므로
+        // 참여한 범위 전체를 역순으로 정리
         for (int i = _iFromIdx; i >= 0; --i)
             listNode[i].Abort(_refBB);
 

@@ -12132,7 +12132,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &313812628
 RectTransform:
   m_ObjectHideFlags: 0
@@ -89766,7 +89766,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &2051380257
 RectTransform:
   m_ObjectHideFlags: 0
@@ -89825,7 +89825,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 1450126987}
         m_TargetAssemblyTypeName: SceneController, Assembly-CSharp
-        m_MethodName: LoadScene
+        m_MethodName: LoadFirstScene
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -96159,7 +96159,7 @@ PrefabInstance:
     - target: {fileID: 8442644703237762403, guid: bdfe08bfdd1623b46a4bb97561294be6,
         type: 3}
       propertyPath: m_tLayerMask.m_Bits
-      value: 4096
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 9180064626667862132, guid: bdfe08bfdd1623b46a4bb97561294be6,
         type: 3}

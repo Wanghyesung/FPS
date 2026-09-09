@@ -4,14 +4,14 @@
   "workflow_phase": "",
   "modified_files": [],
   "recent_commits": [
+    "fc80a6e [Add] 투시 기능 추가",
     "6645b8e [Add] 수류탄 라인 추가 Test버전",
-    "1e50863 Merge branch 'devel/AITest' into devel/Player",
-    "6acc4e5 [Add] 플레이어 히트맵 추가"
+    "1e50863 Merge branch 'devel/AITest' into devel/Player"
   ],
-  "session_duration": "74m 28s",
+  "session_duration": "5m 25s",
   "tool_calls": 0,
   "warnings_count": 18,
-  "saved_at": "2026-09-08T02:38:40Z",
+  "saved_at": "2026-09-09T02:39:21Z",
   "plan": {},
   "verification": {},
   "agent_context": {}

@@ -43,10 +43,10 @@ public class SOSelectNode : SOListNode
 
     public override void Abort(BlackBoard _refBB)
     {
-        // Execute가 자식 전부 실패했을 때도 여기로 오므로 -1 가드가 없으면 listNode[-1]이 된다
         if (iRanIdx == -1)
             return;
 
+        //새로운 인덱스로 갱신하기 전 이전의 인덱스의 노드 초기화
         listNode[iRanIdx].Abort(_refBB);
         iRanIdx = -1;
     }

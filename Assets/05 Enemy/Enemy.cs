@@ -72,10 +72,9 @@ public class Enemy : MonoBehaviour, IDamageable
 
         int iDamage = _refAttackInfo.Damage;
         m_refObjInfo.CurrentHP -= _refAttackInfo.Damage;
-
-        if (m_refObjInfo.CurrentHP > 0.0f)
-            OnDamaged?.Invoke(iDamage);
-        else
+        OnDamaged?.Invoke(iDamage);
+        
+        if(m_refObjInfo.CurrentHP <= 0)
             Die();
     }
 
@@ -98,6 +97,9 @@ public class Enemy : MonoBehaviour, IDamageable
 
     private void Die()
     {
+        if (m_bIsDead == true)
+            return;
+
         m_bIsDead = true;
         m_refObjInfo.State = eEntityState.Dead;
 

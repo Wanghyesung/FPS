@@ -19860,7 +19860,6 @@ GameObject:
   - component: {fileID: 929630172}
   - component: {fileID: 929630171}
   - component: {fileID: 929630170}
-  - component: {fileID: 929630174}
   m_Layer: 5
   m_Name: LoadingCanvas
   m_TagString: Untagged
@@ -19944,25 +19943,13 @@ RectTransform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1396376430}
-  m_Father: {fileID: 0}
+  m_Father: {fileID: 2081690159}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0, y: 0}
---- !u!114 &929630174
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 929630169}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7fd98f20389019a40b005f2d702a5d5b, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1001 &930305331
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -22465,6 +22452,7 @@ GameObject:
   - component: {fileID: 1024621978}
   - component: {fileID: 1024621980}
   - component: {fileID: 1024621979}
+  - component: {fileID: 1024621981}
   m_Layer: 5
   m_Name: GamStartText
   m_TagString: Untagged
@@ -22530,6 +22518,54 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1024621977}
   m_CullTransparentMesh: 1
+--- !u!114 &1024621981
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1024621977}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0b02af0a932987d4dbfb522df0625f1d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  OnEnterUEvt:
+    m_PersistentCalls:
+      m_Calls: []
+  OnExitUEvt:
+    m_PersistentCalls:
+      m_Calls: []
+  OnDownUEvt:
+    m_PersistentCalls:
+      m_Calls: []
+  OnUpUEvt:
+    m_PersistentCalls:
+      m_Calls: []
+  OnBeginDragUEvt:
+    m_PersistentCalls:
+      m_Calls: []
+  OnDragUEvt:
+    m_PersistentCalls:
+      m_Calls: []
+  OnEndDragUEvt:
+    m_PersistentCalls:
+      m_Calls: []
+  OnClickUEvt:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 2081690160}
+        m_TargetAssemblyTypeName: GameSceneManager, Assembly-CSharp
+        m_MethodName: LoadBattleScene
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!1001 &1028110735
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -32493,6 +32529,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Player
       objectReference: {fileID: 0}
+    - target: {fileID: 5376193169074693862, guid: bdfe08bfdd1623b46a4bb97561294be6,
+        type: 3}
+      propertyPath: m_refAim
+      value: 
+      objectReference: {fileID: 0}
     - target: {fileID: 6730320490893319628, guid: bdfe08bfdd1623b46a4bb97561294be6,
         type: 3}
       propertyPath: m_Material
@@ -35531,7 +35572,7 @@ RectTransform:
   m_Children:
   - {fileID: 1024621978}
   - {fileID: 899552148}
-  m_Father: {fileID: 0}
+  m_Father: {fileID: 2081690159}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
@@ -38188,7 +38229,6 @@ GameObject:
   - component: {fileID: 1640728301}
   - component: {fileID: 1640728304}
   - component: {fileID: 1640728303}
-  - component: {fileID: 1640728302}
   m_Layer: 5
   m_Name: GameStart
   m_TagString: Untagged
@@ -38215,62 +38255,6 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 668.1, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!114 &1640728302
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1640728300}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4e29b1a8efbd4b44bb3f3716e73f07ff, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_Navigation:
-    m_Mode: 3
-    m_WrapAround: 0
-    m_SelectOnUp: {fileID: 0}
-    m_SelectOnDown: {fileID: 0}
-    m_SelectOnLeft: {fileID: 0}
-    m_SelectOnRight: {fileID: 0}
-  m_Transition: 1
-  m_Colors:
-    m_NormalColor: {r: 1, g: 1, b: 1, a: 1}
-    m_HighlightedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
-    m_PressedColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 1}
-    m_SelectedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
-    m_DisabledColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 0.5019608}
-    m_ColorMultiplier: 1
-    m_FadeDuration: 0.1
-  m_SpriteState:
-    m_HighlightedSprite: {fileID: 0}
-    m_PressedSprite: {fileID: 0}
-    m_SelectedSprite: {fileID: 0}
-    m_DisabledSprite: {fileID: 0}
-  m_AnimationTriggers:
-    m_NormalTrigger: Normal
-    m_HighlightedTrigger: Highlighted
-    m_PressedTrigger: Pressed
-    m_SelectedTrigger: Selected
-    m_DisabledTrigger: Disabled
-  m_Interactable: 1
-  m_TargetGraphic: {fileID: 1640728303}
-  m_OnClick:
-    m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 2081690160}
-        m_TargetAssemblyTypeName: GameSceneManager, Assembly-CSharp
-        m_MethodName: StartScene
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
 --- !u!114 &1640728303
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -48935,7 +48919,9 @@ Transform:
   m_LocalPosition: {x: 48.901157, y: 0.66387385, z: -45.489243}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
-  m_Children: []
+  m_Children:
+  - {fileID: 1525107692}
+  - {fileID: 929630173}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &2081690160
@@ -48953,7 +48939,8 @@ MonoBehaviour:
   m_listSceneData:
   - {fileID: 11400000, guid: 4c874ca3e2818854ab01ebe77758ffe5, type: 2}
   m_refLoadingOverlay: {fileID: 1396376433}
-  m_strFirstSceneName: LobyScene
+  m_strFirstSceneName: StartScene
+  m_refLoadCanvas: {fileID: 1525107688}
 --- !u!1 &2083315258
 GameObject:
   m_ObjectHideFlags: 0
@@ -50778,8 +50765,6 @@ SceneRoots:
   m_ObjectHideFlags: 0
   m_Roots:
   - {fileID: 1487826731}
-  - {fileID: 1525107692}
-  - {fileID: 929630173}
   - {fileID: 773285156}
   - {fileID: 1434907896}
   - {fileID: 75599501}
