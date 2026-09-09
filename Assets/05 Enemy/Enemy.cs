@@ -48,7 +48,7 @@ public class Enemy : MonoBehaviour, IDamageable
             m_refBT.BlackBoard.TargetRoot = refPlayer.transform;
         }
 
-        m_refBT.BlackBoard.POV = 80.0f;
+        m_refBT.BlackBoard.POV = 140.0f;
         m_refObjInfo.State = eEntityState.Idle;
         m_refObjInfo.CurrentHP = 100.0f;
         m_refObjInfo.Speed = 4.0f;

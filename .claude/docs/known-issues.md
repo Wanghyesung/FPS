@@ -357,3 +357,51 @@ GameObject/Transform에만 적용 가능해서 자식에게 호출하면 무조�
 제거 — 이미 부모(`Manager` 루트)가 보존을 책임지고 있으므로 자식이 중복 호출할 필요가 없다.
 (대안으로 `DontDestroyOnLoad(transform.root.gameObject)`로 바꾸는 방법도 있지만, 결국 같은
 `Manager`를 다시 호출하는 것뿐이라 아예 제거하는 쪽이 더 명확함.)
+
+## [수동 씬 작업 필요] BattleScene 장애물 BoxCollider 누락 (2026-09-09)
+
+`Tools/Remove All MeshColliders`(`Assets/00.Tool/RemoveMeshCollider.cs`)로 씬의 MeshCollider를
+일괄 제거한 뒤, BoxCollider를 수동으로 다시 붙이는 작업이 **진행 중이고 아직 안 끝났다.**
+
+### 씬 YAML 직접 분석 결과 (BattleScene.unity)
+- 프리팹 인스턴스 **924개**가 `m_RemovedComponents`로 MeshCollider가 제거된 상태
+- 인스턴스 레벨로 BoxCollider가 추가된 것은 **198개**(+프리팹 자체 보유 42개 = 240개)
+- 렌더러가 있는데 **콜라이더가 아예 없는 오브젝트가 1051개**, 그중 지면(y > -1.81) 위는 **818개**
+- 레이어 관례: BoxCollider를 붙인 것 중 129개가 `Obstacle`(레이어 13)로 지정돼 있음(일부는 미지정)
+
+### 남은 작업
+`Tools/Add BoxColliders To Obstacles`(`Assets/00.Tool/ObstacleColliderTool.cs`, 이번에 추가)를
+열어 [스캔] → 메시 종류별 목록에서 불필요한 항목 체크 해제 → [적용] → Ctrl+S.
+
+기본 필터 기준 예상 적용 대상은 **약 640개 / 135종**이며, 다음은 키워드로 자동 제외된다:
+`Cloud, Skydome, Grass, Rubbish, Paper, Water, Road, Decal` (178개).
+
+**적용 전 육안 확인이 필요한 그룹:**
+- `SM_Env_Port_Concrete_Slab_01`(54개) — 바닥에 까는 슬래브라 콜라이더가 불필요할 수 있음
+- `SM_Generic_Small_Rocks_01/02`(31개) — 밟고 지나가는 자갈. 최소높이 0.25m 필터에 걸릴 수도 있음
+- `SM_Env_Dock_01`, `SM_Env_Bridge_*` — 위를 걸어다녀야 하면 Box 하나로는 부정확할 수 있음
+
+### 성능 관점 메모
+BoxCollider로 교체하는 방향 자체는 FPS 레이캐스트/이동 판정 비용상 MeshCollider보다 유리하다.
+다만 `SM_Prop_WireFence_01`(92개)처럼 얇고 구멍 뚫린 메시는 Box로 감싸면 실제 형태보다
+두껍게 막히므로, 적용 후 총알이 통과해야 하는 구간이 있는지 확인할 것.
+
+## [진단 완료 / 수정 미적용] 플레이어 빌드에 옛날 Addressables 번들이 실릴 수 있음 (2026-09-09)
+
+`AddressableAssetSettings.asset`의 `m_BuildAddressablesWithPlayerBuild: 0` — 이 값은
+`PlayerBuildOption.PreferencesValue`, 즉 **프로젝트가 아니라 머신 로컬 Preferences를 따른다**는 뜻이다.
+`Edit → Preferences → Addressables`에서 "Build Addressables on Player Build"가 꺼져 있는 머신에서는
+플레이어 빌드를 해도 Addressables가 재빌드되지 않고 `Library/com.unity.addressables/aa/Windows`에
+있던 **이전 번들이 그대로 실려 나간다**. 팀원 머신마다 결과가 달라지는 구조라 재현이 어렵다.
+
+BattleScene이 Addressable 씬(`GameSceneManager.cs:92`의 `Addressables.LoadSceneAsync`)이라
+증상은 "빌드한 게임에서 씬 수정사항이 하나도 반영 안 됨"으로 나타난다 — 에디터에서 Play Mode Script를
+`Use Existing Build`로 두고 재빌드를 깜빡했을 때와 완전히 같은 증상.
+
+### 제안하는 수정
+`m_BuildAddressablesWithPlayerBuild`를 `1`(BuildWithPlayer)로 명시 고정해 프로젝트에 박아두거나,
+빌드 절차 문서에 "빌드 전 `Build → New Build → Default Build Script` 먼저 실행"을 명시할 것.
+
+### 참고 (해결됨)
+같은 날 발견된 빌드 실패 원인 2건(`RemoveMeshCollider.cs`, `TMP_TextInfoDebugTool.cs`의
+`using UnityEditor;`가 `#if UNITY_EDITOR` 밖에 있던 문제)은 수정 완료.

@@ -8,7 +8,7 @@ using UnityEngine;
 목적 : 투시 능력 입력(기본 V키)을 받아 EnemyXRayFeature를 켜고,
        지속시간이 끝나면 자동으로 끄는 능력 컨트롤러.
 
-       EnemyXRayFeature는 URP 렌더러 에셋의 서브에셋이라 씬을 넘어 살아남는다.
+       EnemyXRayFeature의 on/off는 static이라 씬을 넘어 살아남는다.
        켜진 채로 이 컴포넌트가 꺼지거나 씬이 바뀌면 투시가 영구히 켜진 상태로
        남아버리므로, OnDisable에서 반드시 되돌린다.
  *///////////////////////////////////////////
@@ -16,9 +16,6 @@ using UnityEngine;
 [DisallowMultipleComponent]
 public sealed class PlayerXRayVision : MonoBehaviour
 {
-    [Tooltip("URP-HighFidelity-Renderer.asset을 펼쳐서 나오는 EnemyXRayFeature 서브에셋을 넣는다")]
-    [SerializeField] private EnemyXRayFeature m_refXRayFeature;
-
     [Tooltip("0 이하면 다시 누를 때까지 유지되는 수동 토글로 동작한다")]
     [SerializeField] private float m_fDuration = 5.0f;
 
@@ -76,15 +73,8 @@ public sealed class PlayerXRayVision : MonoBehaviour
 
     private void OnXRayInput()
     {
-        if (m_refXRayFeature == null)
-        {
-            Debug.LogWarning($"{nameof(PlayerXRayVision)}: {nameof(EnemyXRayFeature)} 참조가 비어 있다. " +
-                             "URP 렌더러 에셋을 펼쳐서 피처 서브에셋을 인스펙터에 넣을 것", this);
-            return;
-        }
-
         // 켜져 있는 동안 다시 누르면 즉시 해제한다(수동 토글 + 조기 종료 겸용)
-        if (m_refXRayFeature.IsXRayOn == true)
+        if (EnemyXRayFeature.IsXRayOn == true)
         {
             StopXRay();
             return;
@@ -98,7 +88,7 @@ public sealed class PlayerXRayVision : MonoBehaviour
 
     private void StartXRay()
     {
-        m_refXRayFeature.SetXRayEnabled(true);
+        EnemyXRayFeature.SetXRayEnabled(true);
 
         if (m_fDuration <= 0.0f)
             return;
@@ -122,13 +112,10 @@ public sealed class PlayerXRayVision : MonoBehaviour
     {
         CancelDurationTask();
 
-        if (m_refXRayFeature == null)
+        if (EnemyXRayFeature.IsXRayOn == false)
             return;
 
-        if (m_refXRayFeature.IsXRayOn == false)
-            return;
-
-        m_refXRayFeature.SetXRayEnabled(false);
+        EnemyXRayFeature.SetXRayEnabled(false);
         m_fNextUsableTime = Time.time + m_fCoolTime;
     }
 

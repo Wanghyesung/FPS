@@ -499,3 +499,5 @@
 2026-09-08 10:14:56 | C:\\Users\\user\\Documents\\GitHub\\FPS\\Assets\\01 Manager\\InputManager.cs | 1 file changed, 14 insertions(+)
 2026-09-08 10:15:00 | C:\\Users\\user\\Documents\\GitHub\\FPS\\Assets\\01 Manager\\InputManager.cs | 1 file changed, 19 insertions(+)
 2026-09-08 10:16:03 | C:\\Users\\user\\Documents\\GitHub\\FPS\\Assets\\02 Player\\PlayerXRayVision.cs | new file, 144 lines
+2026-09-09 13:12:07 | C:\\Users\\user\\Documents\\GitHub\\FPS\\Assets\\Editor\\ObstacleColliderTool.cs | new file, 393 lines
+2026-09-09 13:13:31 | C:\\Users\\user\\Documents\\GitHub\\FPS\\Assets\\00.Tool\\ObstacleColliderTool.cs | new file, 393 lines

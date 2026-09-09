@@ -80,6 +80,13 @@ public class Bullet : MonoBehaviour
        
         if (iDamageable != null)
         {
+            if (m_SOHitEffectObj != null)
+            {
+                GameObject refHitEffect = ObjectPoolManager.m_Instance.GetObject(m_SOHitEffectObj);
+                if (refHitEffect != null)
+                    refHitEffect.transform.position = transform.position;
+            }
+
             ++m_tShotInfo.HitCount;
             m_tShotInfo.HitPosition = transform.position;
             // 총알은 transform.forward로 전진하므로 그게 곧 피격 방향이다.
@@ -87,13 +94,6 @@ public class Bullet : MonoBehaviour
             m_tShotInfo.MoveDir = transform.forward;
             iDamageable.TakeDamage(m_refAttackInfo, m_tShotInfo);
           
-        }
-
-        if (m_SOHitEffectObj != null)
-        {
-            GameObject refHitEffect = ObjectPoolManager.m_Instance.GetObject(m_SOHitEffectObj);
-            if (refHitEffect != null)
-                refHitEffect.transform.position = transform.position;
         }
 
         if (m_tShotInfo.HitCount >= m_refAttackInfo.MaxHitCount)

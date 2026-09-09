@@ -2,16 +2,18 @@
   "schema_version": 1,
   "branch": "devel/Shader",
   "workflow_phase": "",
-  "modified_files": [],
-  "recent_commits": [
-    "fc80a6e [Add] 투시 기능 추가",
-    "6645b8e [Add] 수류탄 라인 추가 Test버전",
-    "1e50863 Merge branch 'devel/AITest' into devel/Player"
+  "modified_files": [
+    "C:\\Users\\user\\AppData\\Local\\Temp\\claude\\C--Users-user-Documents-GitHub-FPS\\fca19ebf-2953-4976-916e-3803c6f8606b\\scratchpad\\fix_xray.py"
   ],
-  "session_duration": "5m 25s",
+  "recent_commits": [
+    "166727e [Fix] 게임 종료 후 ReStart가 안 눌러지는 버그",
+    "fc80a6e [Add] 투시 기능 추가",
+    "6645b8e [Add] 수류탄 라인 추가 Test버전"
+  ],
+  "session_duration": "114m 12s",
   "tool_calls": 0,
-  "warnings_count": 18,
-  "saved_at": "2026-09-09T02:39:21Z",
+  "warnings_count": 19,
+  "saved_at": "2026-09-09T07:07:37Z",
   "plan": {},
   "verification": {},
   "agent_context": {}

@@ -47,13 +47,17 @@ public sealed class EnemyXRayFeature : ScriptableRendererFeature
     private EnemyXRayPass m_refPass;
     private Material m_refRuntimeMaterial;
 
-    private bool m_bIsXRayOn;
+    // 이 피처는 빌드에서 두 벌로 존재할 수 있다. 파이프라인이 GraphicsSettings를 통해
+    // 로드한 사본과, 이 피처를 참조하는 씬이 Addressable 번들로 구워질 때 암시적
+    // 의존성으로 딸려 들어간 사본이다. on/off를 static으로 두면 어느 사본을 거쳐
+    // 켜더라도 실제로 렌더링하는 사본이 같은 값을 본다
+    private static bool s_bIsXRayOn;
 
-    public bool IsXRayOn => m_bIsXRayOn;
+    public static bool IsXRayOn => s_bIsXRayOn;
 
     public override void Create()
     {
-        m_bIsXRayOn = false;
+        s_bIsXRayOn = false;
 
         CoreUtils.Destroy(m_refRuntimeMaterial);
         m_refRuntimeMaterial = null;
@@ -74,7 +78,7 @@ public sealed class EnemyXRayFeature : ScriptableRendererFeature
     //투시가 꺼져 있어도 매 프레임 호출
     public override void AddRenderPasses(ScriptableRenderer _refRenderer, ref RenderingData _tRenderingData)
     {
-        if (m_bIsXRayOn == false)
+        if (s_bIsXRayOn == false)
             return;
 
         if (m_refPass == null || m_refRuntimeMaterial == null)
@@ -97,9 +101,9 @@ public sealed class EnemyXRayFeature : ScriptableRendererFeature
     }
 
     // 투시 능력 컨트롤러(PlayerXRayVision)가 호출한다
-    public void SetXRayEnabled(bool _bOn)
+    public static void SetXRayEnabled(bool _bOn)
     {
-        m_bIsXRayOn = _bOn;
+        s_bIsXRayOn = _bOn;
     }
 
     private void ApplyShdaerData()

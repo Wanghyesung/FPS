@@ -1787,8 +1787,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3df998a87fc3353408215def6c08159a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_refXRayFeature: {fileID: -1321818530027787408, guid: c40be3174f62c4acf8c1216858c64956,
-    type: 2}
   m_fDuration: 5
   m_fCoolTime: 10
 --- !u!1 &4445180479217563701

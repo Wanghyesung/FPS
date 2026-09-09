@@ -30,6 +30,8 @@ public class PlayerMovement : MonoBehaviour
     public float m_fJumpHeight = 10.5f;
     public float m_fRollHeight = 3.5f;
 
+
+    [SerializeField] private LayerMask m_tJumpLayerMask;
     public void Init(Player _refOwner)
     {
         m_fDecayMove = 0.0f;
@@ -111,8 +113,8 @@ public class PlayerMovement : MonoBehaviour
 
     private void Jump()
     {
-        //if (m_bIsGrounded == false)
-        //    return;
+        if (m_bIsGrounded == false)
+            return;
 
         m_refPlayer.AnimationTable.SetBool(eEntityState.Jump, true);
 
@@ -123,7 +125,6 @@ public class PlayerMovement : MonoBehaviour
 
     public void UnLock()
     {
-
         m_bLockMove = false;
         m_fDecayMove = 0.0f;
         m_fVerticalVelocity = 0.0f;
@@ -133,7 +134,8 @@ public class PlayerMovement : MonoBehaviour
 
     private void OnCollisionEnter(Collision collision)
     {
-        if (collision.gameObject.CompareTag("Ground"))
+        int iOtherLayer = collision.gameObject.layer;
+        if( ((1<< iOtherLayer) & m_tJumpLayerMask.value) != 0 )
         {
             if (m_bIsGrounded == false)
             {
@@ -148,7 +150,14 @@ public class PlayerMovement : MonoBehaviour
     
     private void OnCollisionExit(Collision collision)
     {
-        if (collision.gameObject.CompareTag("Ground"))
-            m_bIsGrounded = false;
+        //int iOtherLayer = collision.gameObject.layer;
+        //if (((1 << iOtherLayer) & m_tJumpLayerMask.value) != 0)
+        //{
+        //    if(m_bIsGrounded == true)
+        //    {
+        //        m_bIsGrounded = false;
+        //        UnLock();
+        //    }
+        //}
     }
 }

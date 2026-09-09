@@ -12,5 +12,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a3c97549dcec81b4e981e467a474bcb8, type: 3}
   m_Name: SO_CombatTimerNode
   m_EditorClassIdentifier: 
-  m_fMinCombatTime: 2
-  m_fMaxCombatTime: 5
+  m_fMinCombatTime: 0.2
+  m_fMaxCombatTime: 1
