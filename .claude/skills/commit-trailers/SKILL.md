@@ -42,11 +42,7 @@ When creating git commit messages, append structured trailers that capture decis
 Add object pooling for projectiles
 
 Replaces Instantiate/Destroy cycle with a pre-warmed pool of 32.
-<<<<<<< Updated upstream
 Pool size is configurable via SerializeField on SpawnSystem.
-=======
-Pool size is configurable via SerializeField on SpawnPresenter.
->>>>>>> Stashed changes
 
 Scope-risk: low
 Constraint: no-alloc-in-update — pool grows only in Awake
@@ -59,17 +55,12 @@ Not-tested: pool exhaustion when max size exceeded during boss fight
 Fix enemy health not resetting on respawn
 
 EnemyModel.Health was not reset in ObjectPool.OnGet callback.
-<<<<<<< Updated upstream
 Added explicit reset in EnemySystem.OnSpawn().
-=======
-Added explicit reset in EnemyPresenter.OnSpawn().
->>>>>>> Stashed changes
 
 Scope-risk: low
 Not-tested: none
 ```
 
-<<<<<<< Updated upstream
 ### Cross-system refactor
 ```
 Migrate score tracking from static class to VContainer
@@ -80,31 +71,13 @@ use constructor injection.
 
 Scope-risk: high
 Constraint: no-singletons — VContainer is the only DI mechanism
-=======
-### Cross-presenter refactor
-```
-Migrate score tracking from bare static class to ScorePresenter singleton
-
-ScoreManager was a bare static class with no duplicate-instance guard —
-replaced with ScorePresenter following the project's 절제된 싱글톤 가이드
-(static Instance property, Awake() duplicate-destroy guard with return).
-All 4 consumers updated to call ScorePresenter.Instance directly.
-
-Scope-risk: high
-Constraint: no-vcontainer — this project wires dependencies via direct
-  references or manager singletons only, per architecture.md
->>>>>>> Stashed changes
 Rejected: SO-based-score-channel — adds complexity for simple int tracking
 Not-tested: score persistence across scene transitions
 ```
 
 ### Serialization change
 ```
-<<<<<<< Updated upstream
 Rename _speed to _moveSpeed on PlayerView
-=======
-Rename m_fSpeed to m_fMoveSpeed on PlayerView
->>>>>>> Stashed changes
 
 Added FormerlySerializedAs to preserve prefab overrides.
 All 3 prefab variants verified in inspector.

@@ -1,0 +1,103 @@
+using UnityEngine;
+
+/*///////////////////////////////////////////
+                Bullet
+목적 : Weapon이 풀에서 꺼낸 투사체를 직선으로 전진시키고, 진행 경로상의 충돌을
+       매 FixedUpdate마다 Raycast로 검사해 IDamageable에게 피해를 준다.
+       AttackInfo.AliveTime이 지나면 PoolObject가 자동으로 풀에 반납한다.
+ *///////////////////////////////////////////
+
+[RequireComponent(typeof(PoolObject))]
+public class Bullet : MonoBehaviour
+{
+    [SerializeField] private SOPoolData m_SOPoolObject;
+    [SerializeField] private SOPoolData m_SOHitEffectObj;
+
+    private TrailRenderer m_refTrail;
+    private PoolObject m_refPoolObj;
+    private AttackInfo m_refAttackInfo;
+    private tShotInfo m_tShotInfo;
+
+
+    private Rigidbody m_refRigdbody;
+    private void Awake()
+    {
+        m_refPoolObj = GetComponent<PoolObject>();
+        //m_refPoolObject = GetComponent<PoolObject>();
+        m_refRigdbody = GetComponent<Rigidbody>();
+        m_refTrail = GetComponent<TrailRenderer>();
+
+    }
+    private void OnDisable()
+    {
+        m_refTrail.Clear();
+    }
+    private void FixedUpdate()
+    {
+        float fStep = m_tShotInfo.Speed * Time.fixedDeltaTime;
+
+        m_refRigdbody.MovePosition(m_refRigdbody.position + transform.forward * fStep);
+    }
+
+    public static GameObject SpawnAttackObject(SOPoolData _refPoolData, Vector3 _vPos, Quaternion _qRot, AttackInfo _refAttackInfo, tShotInfo _refShotInfo)
+    {
+        GameObject refObj = ObjectPoolManager.m_Instance.GetObject(_refPoolData);
+        if (refObj == null)
+            return null;
+
+        refObj.transform.rotation = _qRot;
+        refObj.transform.position = _vPos;
+
+        Bullet refBullet = refObj.GetComponent<Bullet>();
+        if (refBullet != null)
+            refBullet.Fire(_refAttackInfo, _refShotInfo);
+
+        return refObj;
+    }
+
+    private void Fire(AttackInfo _refAttackInfo, tShotInfo _refShotInfo)
+    {
+
+        m_refAttackInfo = _refAttackInfo;
+        m_tShotInfo = _refShotInfo;
+        m_refPoolObj.SetAliveTime(_refAttackInfo.AliveTime);
+    }
+
+
+    private void OnTriggerEnter(Collider other)
+    {
+        Attack(other);
+    }
+
+    protected virtual void Attack(Collider _refOther)
+    {
+        int iOtherLayer = 1 << _refOther.gameObject.layer;
+
+        if( (iOtherLayer & m_refAttackInfo.HitLayers.value) == 0)
+            return;
+
+        var iDamageable = _refOther.GetComponent<IDamageable>();
+       
+        if (iDamageable != null)
+        {
+            if (m_SOHitEffectObj != null)
+            {
+                GameObject refHitEffect = ObjectPoolManager.m_Instance.GetObject(m_SOHitEffectObj);
+                if (refHitEffect != null)
+                    refHitEffect.transform.position = transform.position;
+            }
+
+            ++m_tShotInfo.HitCount;
+            m_tShotInfo.HitPosition = transform.position;
+            // 총알은 transform.forward로 전진하므로 그게 곧 피격 방향이다.
+            // 이 값이 비어 있으면 적이 어디서 맞았는지 알 수 없어 반응할 수 없다
+            m_tShotInfo.MoveDir = transform.forward;
+            iDamageable.TakeDamage(m_refAttackInfo, m_tShotInfo);
+          
+        }
+
+        if (m_tShotInfo.HitCount >= m_refAttackInfo.MaxHitCount)
+            ObjectPoolManager.m_Instance.PushObject(gameObject);
+
+    }
+}

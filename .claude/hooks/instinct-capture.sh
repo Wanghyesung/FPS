@@ -11,11 +11,7 @@
 #     "tool": "Edit|Write|Bash|Read|...",
 #     "file": "Assets/Scripts/Player.cs",   # empty if not file-scoped
 #     "suffix": ".cs",                        # derived
-<<<<<<< Updated upstream
 #     "path_tag": "view|system|model|sobject|mono|editor|test|other",
-=======
-#     "path_tag": "view|presenter|model|sobject|mono|editor|test|other",
->>>>>>> Stashed changes
 #     "warning_count": 0                      # hook warnings at time of capture
 #   }
 #
@@ -55,11 +51,7 @@ if [ -n "$FILE" ]; then
         */Editor/*)                                PATH_TAG="editor" ;;
         */Tests/*|*/Test/*)                        PATH_TAG="test" ;;
         *View.cs)                                  PATH_TAG="view" ;;
-<<<<<<< Updated upstream
         *System.cs|*Service.cs)                    PATH_TAG="system" ;;
-=======
-        *Presenter.cs|*Service.cs)                 PATH_TAG="presenter" ;;
->>>>>>> Stashed changes
         *Model.cs)                                 PATH_TAG="model" ;;
         *Config.cs|*Definition.cs|*Data.cs)        PATH_TAG="sobject" ;;
         *Controller.cs|*Manager.cs|*Handler.cs|*Behaviour.cs) PATH_TAG="mono" ;;

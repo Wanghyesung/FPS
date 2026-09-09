@@ -1,0 +1,21 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1db9c7f7e2462a64f925329cdf1c3b91, type: 3}
+  m_Name: SO_PerceptionNode
+  m_EditorClassIdentifier: 
+  m_fSightRange: 60
+  m_fEyeHeight: 1.6
+  m_tCollideMask:
+    serializedVersion: 2
+    m_Bits: 11009
+  m_fRayRadius: 0.2
+  m_fMemoryDuration: 8

@@ -32,15 +32,9 @@ Run through these checks on the target files:
 
 ### Architecture
 - [ ] Classes are `sealed` unless inheritance is explicitly designed
-<<<<<<< Updated upstream
 - [ ] No singletons (use VContainer `Lifetime.Singleton` instead)
 - [ ] No `StartCoroutine` / `IEnumerator` (use UniTask)
 - [ ] Private fields use `_lowerCamelCase` naming
-=======
-- [ ] Singleton (`static T Instance`) used only for manager-level classes (`AudioManager`, `SaveManager`, `ObjectPoolManager`) — not for feature-specific Presenters (`PlayerPresenter`, `ScorePresenter`, etc.); `Awake()` duplicate-guard has `return;`
-- [ ] No `StartCoroutine` / `IEnumerator` (use UniTask)
-- [ ] Private fields use `m_` prefix + type-prefixed camelCase naming (e.g. `m_fMoveSpeed`, `m_refTarget`)
->>>>>>> Stashed changes
 - [ ] Explicit access modifiers on everything
 
 ### Unity-Specific
@@ -58,11 +52,7 @@ Report violations grouped by severity:
 ## Lint Results — [N] issues in [M] files
 
 ### Errors (must fix)
-<<<<<<< Updated upstream
 - `PlayerSystem.cs:45` — `GetComponent<Rigidbody>()` in Update, cache in Awake
-=======
-- `PlayerPresenter.cs:45` — `GetComponent<Rigidbody>()` in Update, cache in Awake
->>>>>>> Stashed changes
 - `EnemyView.cs:23` — `?.` on Unity object, use `== null` check
 
 ### Warnings (should fix)
@@ -71,11 +61,7 @@ Report violations grouped by severity:
 
 ### Clean Files
 - `PlayerModel.cs` — no issues
-<<<<<<< Updated upstream
 - `CombatSystem.cs` — no issues
-=======
-- `CombatPresenter.cs` — no issues
->>>>>>> Stashed changes
 ```
 
 ## Constraints

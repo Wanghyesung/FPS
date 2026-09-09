@@ -160,3 +160,344 @@
 2026-08-24 13:57:39 | C:\\Users\\user\\Documents\\GitHub\\ECS\\Docs\\Collider.md | 1 file changed, 76 insertions(+), 3 deletions(-)
 2026-08-24 14:04:27 | C:\\Users\\user\\Documents\\GitHub\\ECS\\Assets\\3D\\05_Manager\\ColliderManager.cs | 1 file changed, 98 insertions(+), 181 deletions(-)
 2026-08-24 14:04:59 | C:\\Users\\user\\Documents\\GitHub\\ECS\\Assets\\3D\\05_Manager\\ColliderCenterRefresher.cs | new file, 205 lines
+2026-08-24 16:15:13 | C:\\Users\\user\\Documents\\GitHub\\ECS\\.claude\\docs\\known-issues.md | 1 file changed, 10 insertions(+)
+2026-08-24 16:30:58 | C:\\Users\\user\\Documents\\GitHub\\ECS\\.claude\\rules\\architecture.md | 1 file changed, 1 insertion(+), 1 deletion(-)
+2026-08-24 16:31:00 | C:\\Users\\user\\Documents\\GitHub\\ECS\\CLAUDE.md | new file, 85 lines
+2026-08-24 16:31:03 | C:\\Users\\user\\Documents\\GitHub\\ECS\\.claude\\scripts\\validate-architecture.sh | 1 file changed, 3 insertions(+), 3 deletions(-)
+2026-08-24 16:31:05 | C:\\Users\\user\\Documents\\GitHub\\ECS\\.claude\\hooks\\gateguard.sh | 1 file changed, 5 insertions(+), 5 deletions(-)
+2026-08-24 16:31:09 | C:\\Users\\user\\Documents\\GitHub\\ECS\\.claude\\commands\\unity-learn.md | 1 file changed, 1 insertion(+), 1 deletion(-)
+2026-08-24 16:31:20 | C:\\Users\\user\\Documents\\GitHub\\ECS\\.claude\\skills\\learner\\SKILL.md | 1 file changed, 1 insertion(+), 1 deletion(-)
+2026-08-24 16:31:24 | C:\\Users\\user\\Documents\\GitHub\\ECS\\.claude\\hooks\\instinct-distill.sh | 1 file changed, 4 insertions(+), 4 deletions(-)
+2026-08-24 16:31:34 | C:\\Users\\user\\Documents\\GitHub\\ECS\\.claude\\hooks\\auto-learn.sh | 1 file changed, 2 insertions(+), 2 deletions(-)
+2026-08-24 16:31:39 | C:\\Users\\user\\Documents\\GitHub\\ECS\\.claude\\skills\\unity-instincts-guide\\SKILL.md | 1 file changed, 1 insertion(+), 1 deletion(-)
+2026-08-24 16:31:41 | C:\\Users\\user\\Documents\\GitHub\\ECS\\.claude\\commands\\unity-instincts.md | 1 file changed, 1 insertion(+), 1 deletion(-)
+2026-08-24 17:18:30 | C:\\Users\\user\\Documents\\GitHub\\FPS\\Assets\\Scripts\\FPS.Runtime.asmdef | new file, 19 lines
+2026-08-24 17:18:33 | C:\\Users\\user\\Documents\\GitHub\\FPS\\Assets\\Scripts\\Core\\IPoolable.cs | new file, 15 lines
+2026-08-24 17:18:38 | C:\\Users\\user\\Documents\\GitHub\\FPS\\Assets\\Scripts\\Core\\PoolObject.cs | new file, 23 lines
+2026-08-24 17:18:42 | C:\\Users\\user\\Documents\\GitHub\\FPS\\Assets\\Scripts\\Core\\SOPoolData.cs | new file, 21 lines
+2026-08-24 17:18:44 | C:\\Users\\user\\Documents\\GitHub\\FPS\\Assets\\Scripts\\Core\\IDamageable.cs | new file, 14 lines
+2026-08-24 17:19:08 | C:\\Users\\user\\Documents\\GitHub\\FPS\\Assets\\Scripts\\Core\\ObjectPool.cs | new file, 200 lines
+2026-08-24 17:19:34 | C:\\Users\\user\\Documents\\GitHub\\FPS\\Assets\\Scripts\\Input\\PlayerControls.cs | new file, 127 lines
+2026-08-24 17:19:41 | C:\\Users\\user\\Documents\\GitHub\\FPS\\Assets\\Scripts\\Player\\PlayerModel.cs | new file, 18 lines
+2026-08-24 17:19:43 | C:\\Users\\user\\Documents\\GitHub\\FPS\\Assets\\Scripts\\Weapons\\WeaponSlot.cs | new file, 14 lines
+2026-08-24 17:20:05 | C:\\Users\\user\\Documents\\GitHub\\FPS\\Assets\\Scripts\\Player\\PlayerPresenter.cs | new file, 168 lines
+2026-08-24 17:20:28 | C:\\Users\\user\\Documents\\GitHub\\FPS\\Assets\\Scripts\\Camera\\CameraRigPresenter.cs | new file, 103 lines
+2026-08-24 17:20:48 | C:\\Users\\user\\Documents\\GitHub\\FPS\\Assets\\Scripts\\Weapons\\WeaponDefinition.cs | new file, 72 lines
+2026-08-24 17:20:51 | C:\\Users\\user\\Documents\\GitHub\\FPS\\Assets\\Scripts\\Weapons\\WeaponModel.cs | new file, 16 lines
+2026-08-24 17:21:58 | C:\\Users\\user\\Documents\\GitHub\\FPS\\Assets\\Scripts\\Weapons\\WeaponPresenter.cs | new file, 351 lines
+2026-08-24 19:08:15 | C:\\Users\\user\\Documents\\GitHub\\FPS\\Assets\\Scripts\\Weapons\\WeaponView.cs | new file, 60 lines
+2026-08-24 19:08:33 | C:\\Users\\user\\Documents\\GitHub\\FPS\\Assets\\Scripts\\Player\\InputView.cs | new file, 194 lines
+2026-08-24 19:08:48 | C:\\Users\\user\\Documents\\GitHub\\FPS\\Assets\\Scripts\\UI\\HUDView.cs | new file, 46 lines
+2026-08-24 19:08:55 | C:\\Users\\user\\Documents\\GitHub\\FPS\\Assets\\Scripts\\UI\\HUDPresenter.cs | new file, 65 lines
+2026-08-24 19:14:17 | C:\\Users\\user\\Documents\\GitHub\\FPS\\Assets\\Scripts\\Weapons\\WeaponPresenter.cs | new file, 356 lines
+2026-08-24 19:14:29 | C:\\Users\\user\\Documents\\GitHub\\FPS\\Assets\\Scripts\\Weapons\\WeaponPresenter.cs | new file, 356 lines
+2026-08-24 19:14:43 | C:\\Users\\user\\Documents\\GitHub\\FPS\\Assets\\Scripts\\Weapons\\WeaponPresenter.cs | new file, 384 lines
+2026-08-24 19:24:48 | C:\\Users\\user\\Documents\\GitHub\\FPS\\Assets\\Scripts\\Input\\PlayerControls.cs | new file, 133 lines
+2026-08-24 19:24:56 | C:\\Users\\user\\Documents\\GitHub\\FPS\\Assets\\Scripts\\Input\\PlayerControls.cs | new file, 139 lines
+2026-08-24 19:25:01 | C:\\Users\\user\\Documents\\GitHub\\FPS\\Assets\\Scripts\\Input\\PlayerControls.cs | new file, 142 lines
+2026-08-24 19:25:06 | C:\\Users\\user\\Documents\\GitHub\\FPS\\Assets\\Scripts\\Player\\InputView.cs | new file, 195 lines
+2026-08-24 19:25:11 | C:\\Users\\user\\Documents\\GitHub\\FPS\\Assets\\Scripts\\Player\\InputView.cs | new file, 198 lines
+2026-08-24 19:25:16 | C:\\Users\\user\\Documents\\GitHub\\FPS\\Assets\\Scripts\\Player\\InputView.cs | new file, 201 lines
+2026-08-24 19:25:25 | C:\\Users\\user\\Documents\\GitHub\\FPS\\Assets\\Scripts\\Player\\InputView.cs | new file, 225 lines
+2026-08-24 19:26:02 | C:\\Users\\user\\Documents\\GitHub\\FPS\\Assets\\Scripts\\Player\\PlayerPresenter.cs | new file, 261 lines
+2026-08-24 19:26:12 | C:\\Users\\user\\Documents\\GitHub\\FPS\\Assets\\Scripts\\Weapons\\WeaponPresenter.cs | new file, 391 lines
+2026-08-24 19:26:22 | C:\\Users\\user\\Documents\\GitHub\\FPS\\Assets\\Scripts\\Weapons\\WeaponPresenter.cs | new file, 395 lines
+2026-08-24 19:26:29 | C:\\Users\\user\\Documents\\GitHub\\FPS\\Assets\\Scripts\\Weapons\\WeaponPresenter.cs | new file, 403 lines
+2026-08-24 19:26:44 | C:\\Users\\user\\Documents\\GitHub\\FPS\\Assets\\Scripts\\Weapons\\WeaponPresenter.cs | new file, 410 lines
+2026-08-24 19:26:52 | C:\\Users\\user\\Documents\\GitHub\\FPS\\Assets\\Scripts\\Weapons\\WeaponPresenter.cs | new file, 410 lines
+2026-08-24 19:27:10 | C:\\Users\\user\\Documents\\GitHub\\FPS\\Assets\\Scripts\\Weapons\\WeaponPresenter.cs | new file, 500 lines
+2026-08-24 19:27:15 | C:\\Users\\user\\Documents\\GitHub\\FPS\\Assets\\Scripts\\Weapons\\WeaponPresenter.cs | new file, 493 lines
+2026-08-24 19:27:23 | C:\\Users\\user\\Documents\\GitHub\\FPS\\Assets\\Scripts\\Weapons\\WeaponPresenter.cs | new file, 508 lines
+2026-08-24 19:27:31 | C:\\Users\\user\\Documents\\GitHub\\FPS\\Assets\\Scripts\\Weapons\\WeaponPresenter.cs | new file, 516 lines
+2026-08-24 19:27:36 | C:\\Users\\user\\Documents\\GitHub\\FPS\\Assets\\Scripts\\Weapons\\WeaponPresenter.cs | new file, 516 lines
+2026-08-24 19:27:45 | C:\\Users\\user\\Documents\\GitHub\\FPS\\Assets\\Scripts\\Weapons\\WeaponPresenter.cs | new file, 516 lines
+2026-08-24 19:27:58 | C:\\Users\\user\\Documents\\GitHub\\FPS\\Assets\\Scripts\\Items\\ItemType.cs | new file, 17 lines
+2026-08-24 19:28:08 | C:\\Users\\user\\Documents\\GitHub\\FPS\\Assets\\Scripts\\Items\\ItemDefinition.cs | new file, 37 lines
+2026-08-24 19:28:43 | C:\\Users\\user\\Documents\\GitHub\\FPS\\Assets\\Scripts\\Items\\ItemPresenter.cs | new file, 232 lines
+2026-08-24 19:29:00 | C:\\Users\\user\\Documents\\GitHub\\FPS\\Assets\\Scripts\\Items\\LootTableSO.cs | new file, 70 lines
+2026-08-24 19:29:38 | C:\\Users\\user\\Documents\\GitHub\\FPS\\Assets\\Scripts\\Items\\LootPickupPresenter.cs | new file, 171 lines
+2026-08-24 19:29:49 | C:\\Users\\user\\Documents\\GitHub\\FPS\\Assets\\Scripts\\Weapons\\WeaponDefinition.cs | new file, 73 lines
+2026-08-24 19:29:57 | C:\\Users\\user\\Documents\\GitHub\\FPS\\Assets\\Scripts\\Weapons\\WeaponDefinition.cs | new file, 77 lines
+2026-08-24 19:30:02 | C:\\Users\\user\\Documents\\GitHub\\FPS\\Assets\\Scripts\\Items\\LootPickupPresenter.cs | new file, 170 lines
+2026-08-24 19:30:09 | C:\\Users\\user\\Documents\\GitHub\\FPS\\Assets\\Scripts\\Items\\LootPickupPresenter.cs | new file, 172 lines
+2026-08-24 19:30:19 | C:\\Users\\user\\Documents\\GitHub\\FPS\\Assets\\Scripts\\Zone\\IZoneTarget.cs | new file, 20 lines
+2026-08-24 19:30:27 | C:\\Users\\user\\Documents\\GitHub\\FPS\\Assets\\Scripts\\Zone\\ZonePhaseDefinition.cs | new file, 25 lines
+2026-08-24 19:31:16 | C:\\Users\\user\\Documents\\GitHub\\FPS\\Assets\\Scripts\\Zone\\ZonePresenter.cs | new file, 289 lines
+2026-08-24 19:31:29 | C:\\Users\\user\\Documents\\GitHub\\FPS\\Assets\\Scripts\\Zone\\ZoneView.cs | new file, 41 lines
+2026-08-24 19:32:05 | C:\\Users\\user\\Documents\\GitHub\\FPS\\Assets\\Scripts\\Monster\\MonsterModel.cs | new file, 19 lines
+2026-08-24 19:32:14 | C:\\Users\\user\\Documents\\GitHub\\FPS\\Assets\\Scripts\\Monster\\MonsterContext.cs | new file, 36 lines
+2026-08-24 19:32:26 | C:\\Users\\user\\Documents\\GitHub\\FPS\\Assets\\Scripts\\Monster\\MonsterDecision.cs | new file, 30 lines
+2026-08-24 19:32:33 | C:\\Users\\user\\Documents\\GitHub\\FPS\\Assets\\Scripts\\Monster\\IMonsterBrain.cs | new file, 15 lines
+2026-08-24 19:33:18 | C:\\Users\\user\\Documents\\GitHub\\FPS\\Assets\\Scripts\\Monster\\MonsterPresenter.cs | new file, 302 lines
+2026-08-24 19:33:25 | C:\\Users\\user\\Documents\\GitHub\\FPS\\Assets\\Scripts\\Monster\\MonsterPresenter.cs | new file, 303 lines
+2026-08-24 19:33:56 | C:\\Users\\user\\Documents\\GitHub\\FPS\\Assets\\Scripts\\Monster\\MonsterFallbackController.cs | new file, 140 lines
+2026-08-24 19:34:25 | C:\\Users\\user\\Documents\\GitHub\\FPS\\Assets\\Scripts\\Match\\MatchFlowPresenter.cs | new file, 99 lines
+2026-08-24 19:34:37 | C:\\Users\\user\\Documents\\GitHub\\FPS\\Assets\\Scripts\\Match\\ResultView.cs | new file, 81 lines
+2026-08-24 19:34:53 | C:\\Users\\user\\Documents\\GitHub\\FPS\\Assets\\Scripts\\Match\\ResultPresenter.cs | new file, 72 lines
+2026-08-24 19:35:02 | C:\\Users\\user\\Documents\\GitHub\\FPS\\Assets\\Scripts\\UI\\HUDView.cs | new file, 48 lines
+2026-08-24 19:35:12 | C:\\Users\\user\\Documents\\GitHub\\FPS\\Assets\\Scripts\\UI\\HUDView.cs | new file, 85 lines
+2026-08-24 19:35:29 | C:\\Users\\user\\Documents\\GitHub\\FPS\\Assets\\Scripts\\UI\\HUDPresenter.cs | new file, 106 lines
+2026-08-24 19:35:33 | C:\\Users\\user\\Documents\\GitHub\\FPS\\Assets\\Scripts\\UI\\HUDPresenter.cs | new file, 107 lines
+2026-08-24 19:35:38 | C:\\Users\\user\\Documents\\GitHub\\FPS\\Assets\\Scripts\\FPS.Runtime.asmdef | new file, 20 lines
+2026-08-24 19:48:05 | C:\\Users\\user\\Documents\\GitHub\\FPS\\Assets\\Scripts\\Items\\LootPickupPresenter.cs | new file, 176 lines
+2026-08-24 19:48:11 | C:\\Users\\user\\Documents\\GitHub\\FPS\\Assets\\Scripts\\Items\\LootPickupPresenter.cs | new file, 184 lines
+2026-08-24 19:55:58 | C:\\Users\\user\\Documents\\GitHub\\FPS\\Assets\\Scripts\\Weapons\\WeaponPresenter.cs | new file, 524 lines
+2026-08-24 19:56:06 | C:\\Users\\user\\Documents\\GitHub\\FPS\\Assets\\Scripts\\Monster\\MonsterPresenter.cs | new file, 308 lines
+2026-08-24 19:56:11 | C:\\Users\\user\\Documents\\GitHub\\FPS\\Assets\\Scripts\\Monster\\MonsterPresenter.cs | new file, 309 lines
+2026-08-24 19:56:16 | C:\\Users\\user\\Documents\\GitHub\\FPS\\Assets\\Scripts\\Monster\\MonsterPresenter.cs | new file, 309 lines
+2026-08-24 19:56:24 | C:\\Users\\user\\Documents\\GitHub\\FPS\\Assets\\Scripts\\Match\\ResultPresenter.cs | new file, 76 lines
+2026-08-25 10:37:44 | C:\\Users\\user\\Documents\\GitHub\\FPS\\Assets\\04Weapons\\WeaponSlot.cs | new file, 12 lines
+2026-08-25 15:46:22 | C:\\Users\\user\\Documents\\GitHub\\FPS\\Assets\\06Monster\\MonsterAgent.cs | new file, 27 lines
+2026-08-25 15:46:41 | C:\\Users\\user\\Documents\\GitHub\\FPS\\Assets\\Scripts\\Match\\MatchFlowSystem.cs | new file, 58 lines
+2026-08-25 15:47:13 | C:\\Users\\user\\Documents\\GitHub\\FPS\\Assets\\03Items\\LootPickupSystem.cs | new file, 180 lines
+2026-08-25 15:47:15 | C:\\Users\\user\\Documents\\GitHub\\FPS\\Assets\\03Items\\LootPickupSystem.cs | new file, 179 lines
+2026-08-25 15:47:22 | C:\\Users\\user\\Documents\\GitHub\\FPS\\Assets\\03Items\\LootPickupSystem.cs | new file, 167 lines
+2026-08-25 15:47:30 | C:\\Users\\user\\Documents\\GitHub\\FPS\\Assets\\Scripts\\Core\\IDamageable.cs | new file, 10 lines
+2026-08-25 15:47:44 | C:\\Users\\user\\Documents\\GitHub\\FPS\\Assets\\04Weapons\\WeaponSystem.cs | new file, 521 lines
+2026-08-25 15:47:56 | C:\\Users\\user\\Documents\\GitHub\\FPS\\Assets\\03Items\\ItemSystem.cs | new file, 229 lines
+2026-08-25 15:47:58 | C:\\Users\\user\\Documents\\GitHub\\FPS\\Assets\\Scripts\\UI\\HUDSystem.cs | new file, 104 lines
+2026-08-25 16:16:39 | C:\\Users\\user\\Documents\\GitHub\\FPS\\Assets\\Scripts\\Input\\InputValue.cs | new file, 21 lines
+2026-08-25 16:16:56 | C:\\Users\\user\\Documents\\GitHub\\FPS\\Assets\\01.Player\\Player\\InputView.cs | new file, 229 lines
+2026-08-25 16:17:04 | C:\\Users\\user\\Documents\\GitHub\\FPS\\Assets\\01.Player\\Player\\InputView.cs | new file, 231 lines
+2026-08-26 08:44:25 | C:\\Users\\user\\Documents\\GitHub\\FPS\\Assets\\02 Player\\Weapon.cs | new file, 230 lines
+2026-08-26 08:44:27 | C:\\Users\\user\\Documents\\GitHub\\FPS\\Assets\\02 Player\\Weapon.cs | new file, 228 lines
+2026-08-26 08:44:29 | C:\\Users\\user\\Documents\\GitHub\\FPS\\Assets\\02 Player\\Weapon.cs | new file, 226 lines
+2026-08-26 08:44:32 | C:\\Users\\user\\Documents\\GitHub\\FPS\\Assets\\02 Player\\PlayerMoveMent.cs | new file, 73 lines
+2026-08-26 08:44:36 | C:\\Users\\user\\Documents\\GitHub\\FPS\\Assets\\Player.cs | new file, 46 lines
+2026-08-26 08:44:41 | C:\\Users\\user\\Documents\\GitHub\\FPS\\Assets\\02 Player\\IDamageable.cs | new file, 9 lines
+2026-08-26 08:44:48 | C:\\Users\\user\\Documents\\GitHub\\FPS\\Assets\\02 Player\\Bullet.cs | new file, 68 lines
+2026-08-26 09:06:03 | C:\\Users\\user\\Documents\\GitHub\\FPS\\Assets\\02 Player\\Weapon.cs | new file, 223 lines
+2026-08-26 09:06:10 | C:\\Users\\user\\Documents\\GitHub\\FPS\\Assets\\Player.cs | new file, 60 lines
+2026-08-26 09:06:11 | C:\\Users\\user\\Documents\\GitHub\\FPS\\Assets\\01 Manager\\InputManager.cs | new file, 126 lines
+2026-08-26 09:06:13 | C:\\Users\\user\\Documents\\GitHub\\FPS\\Assets\\01 Manager\\InputManager.cs | new file, 129 lines
+2026-08-26 09:06:15 | C:\\Users\\user\\Documents\\GitHub\\FPS\\Assets\\01 Manager\\InputManager.cs | new file, 131 lines
+2026-08-26 09:06:16 | C:\\Users\\user\\Documents\\GitHub\\FPS\\Assets\\01 Manager\\InputManager.cs | new file, 139 lines
+2026-08-26 09:06:22 | C:\\Users\\user\\Documents\\GitHub\\FPS\\Assets\\02 Player\\WeaponPickup.cs | new file, 32 lines
+2026-08-26 09:18:00 | C:\\Users\\user\\Documents\\GitHub\\FPS\\Assets\\01 Manager\\PlayerControls.inputactions | new file, 159 lines
+2026-08-26 09:20:02 | C:\\Users\\user\\Documents\\GitHub\\FPS\\Assets\\03 Data\\SOAttackInfo.cs | new file, 141 lines
+2026-08-26 09:20:04 | C:\\Users\\user\\Documents\\GitHub\\FPS\\Assets\\03 Data\\SOAttackInfo.cs | new file, 142 lines
+2026-08-26 09:20:06 | C:\\Users\\user\\Documents\\GitHub\\FPS\\Assets\\03 Data\\SOAttackInfo.cs | new file, 145 lines
+2026-08-26 09:20:19 | C:\\Users\\user\\Documents\\GitHub\\FPS\\Assets\\01 Manager\\CameraManager.cs | new file, 75 lines
+2026-08-26 09:20:32 | C:\\Users\\user\\Documents\\GitHub\\FPS\\Assets\\02 Player\\Weapon.cs | new file, 226 lines
+2026-08-26 09:21:03 | C:\\Users\\user\\Documents\\GitHub\\FPS\\Assets\\01 Manager\\GameCameraManager.cs | new file, 78 lines
+2026-08-26 09:21:08 | C:\\Users\\user\\Documents\\GitHub\\FPS\\Assets\\02 Player\\Weapon.cs | new file, 226 lines
+2026-08-26 09:24:58 | C:\\Users\\user\\Documents\\GitHub\\FPS\\Assets\\01 Manager\\SceneController.cs | new file, 18 lines
+2026-08-26 09:25:02 | C:\\Users\\user\\Documents\\GitHub\\FPS\\Assets\\01 Manager\\SceneController.cs | new file, 19 lines
+2026-08-26 10:15:47 | C:\\Users\\user\\Documents\\GitHub\\FPS\\Assets\\01 Manager\\InputManager.cs | new file, 140 lines
+2026-08-26 10:15:49 | C:\\Users\\user\\Documents\\GitHub\\FPS\\Assets\\01 Manager\\InputManager.cs | new file, 141 lines
+2026-08-26 10:15:50 | C:\\Users\\user\\Documents\\GitHub\\FPS\\Assets\\01 Manager\\InputManager.cs | new file, 144 lines
+2026-08-26 10:15:52 | C:\\Users\\user\\Documents\\GitHub\\FPS\\Assets\\01 Manager\\InputManager.cs | new file, 146 lines
+2026-08-26 10:15:54 | C:\\Users\\user\\Documents\\GitHub\\FPS\\Assets\\01 Manager\\InputManager.cs | new file, 154 lines
+2026-08-26 10:16:03 | C:\\Users\\user\\Documents\\GitHub\\FPS\\Assets\\02 Player\\Weapon.cs | new file, 231 lines
+2026-08-26 10:16:10 | C:\\Users\\user\\Documents\\GitHub\\FPS\\Assets\\03 Data\\SOSceneData.cs | new file, 16 lines
+2026-08-26 10:16:16 | C:\\Users\\user\\Documents\\GitHub\\FPS\\Assets\\01 Manager\\SceneController.cs | new file, 19 lines
+2026-08-26 10:16:25 | C:\\Users\\user\\Documents\\GitHub\\FPS\\Assets\\01 Manager\\SceneController.cs | new file, 18 lines
+2026-08-26 10:17:00 | C:\\Users\\user\\Documents\\GitHub\\FPS\\Assets\\02 Player\\CameraZoomView.cs | new file, 32 lines
+2026-08-26 10:17:10 | C:\\Users\\user\\Documents\\GitHub\\FPS\\Assets\\01 Manager\\PlayerControls.inputactions | new file, 167 lines
+2026-08-26 10:17:16 | C:\\Users\\user\\Documents\\GitHub\\FPS\\Assets\\01 Manager\\PlayerControls.inputactions | new file, 178 lines
+2026-08-26 10:18:18 | C:\\Users\\user\\Documents\\GitHub\\FPS\\Assets\\02 Player\\HitEffectView.cs | new file, 23 lines
+2026-08-26 11:13:54 | C:\\Users\\user\\Documents\\GitHub\\FPS\\Assets\\01 Manager\\GameCameraManager.cs | new file, 83 lines
+2026-08-26 11:14:01 | C:\\Users\\user\\Documents\\GitHub\\FPS\\Assets\\02 Player\\Player.cs | new file, 63 lines
+2026-08-26 12:59:17 | C:\\Users\\user\\Documents\\GitHub\\FPS\\Assets\\02 Player\\PlayerAnim.controller | new file, 329 lines
+2026-08-26 12:59:25 | C:\\Users\\user\\Documents\\GitHub\\FPS\\Assets\\02 Player\\PlayerAnim.controller | new file, 303 lines
+2026-08-26 12:59:31 | C:\\Users\\user\\Documents\\GitHub\\FPS\\Assets\\02 Player\\PlayerAnim.controller | new file, 300 lines
+2026-08-26 12:59:45 | C:\\Users\\user\\Documents\\GitHub\\FPS\\Assets\\02 Player\\PlayerAnim.controller | new file, 300 lines
+2026-08-26 13:12:37 | C:\\Users\\user\\Documents\\GitHub\\FPS\\Assets\\02 Player\\WeaponIK.cs | new file, 44 lines
+2026-08-26 13:12:44 | C:\\Users\\user\\Documents\\GitHub\\FPS\\Assets\\02 Player\\Weapon.cs | new file, 234 lines
+2026-08-26 13:12:53 | C:\\Users\\user\\Documents\\GitHub\\FPS\\Assets\\02 Player\\Player.cs | new file, 71 lines
+2026-08-26 13:13:02 | C:\\Users\\user\\Documents\\GitHub\\FPS\\Assets\\02 Player\\Player.cs | new file, 78 lines
+2026-08-26 13:38:07 | C:\\Users\\user\\Documents\\GitHub\\FPS\\.claude\\docs\\known-issues.md | 1 file changed, 12 insertions(+)
+2026-08-26 14:04:43 | C:\\Users\\user\\Documents\\GitHub\\FPS\\Assets\\02 Player\\WeaponIK.cs | new file, 66 lines
+2026-08-26 14:04:52 | C:\\Users\\user\\Documents\\GitHub\\FPS\\Assets\\02 Player\\Player.cs | new file, 78 lines
+2026-08-26 14:19:02 | C:\\Users\\user\\Documents\\GitHub\\FPS\\Assets\\02 Player\\Weapon.cs | new file, 236 lines
+2026-08-26 14:19:13 | C:\\Users\\user\\Documents\\GitHub\\FPS\\Assets\\02 Player\\WeaponIK.cs | new file, 51 lines
+2026-08-26 14:19:22 | C:\\Users\\user\\Documents\\GitHub\\FPS\\Assets\\02 Player\\Player.cs | new file, 78 lines
+2026-08-26 14:25:32 | C:\\Users\\user\\Documents\\GitHub\\FPS\\Assets\\02 Player\\WeaponIK.cs | new file, 89 lines
+2026-08-26 14:28:22 | C:\\Users\\user\\Documents\\GitHub\\FPS\\Assets\\02 Player\\WeaponIK.cs | new file, 49 lines
+2026-08-26 14:28:30 | C:\\Users\\user\\Documents\\GitHub\\FPS\\Assets\\02 Player\\Weapon.cs | new file, 234 lines
+2026-08-26 14:28:39 | C:\\Users\\user\\Documents\\GitHub\\FPS\\Assets\\02 Player\\Player.cs | new file, 79 lines
+2026-08-26 15:03:36 | C:\\Users\\user\\Documents\\GitHub\\FPS\\Assets\\02 Player\\WeaponIK.cs | new file, 52 lines
+2026-08-26 15:55:59 | C:\\Users\\user\\Documents\\GitHub\\FPS\\Assets\\02 Player\\Weapon.cs | new file, 236 lines
+2026-08-26 15:56:13 | C:\\Users\\user\\Documents\\GitHub\\FPS\\Assets\\02 Player\\Player.cs | new file, 82 lines
+2026-08-26 15:56:28 | C:\\Users\\user\\Documents\\GitHub\\FPS\\Assets\\02 Player\\Player.cs | new file, 100 lines
+2026-08-28 09:47:12 | C:\\Users\\user\\Documents\\GitHub\\FPS\\Assets\\02 Player\\UpperBodyMask.mask | new file, 13 lines
+2026-08-28 09:48:22 | C:\\Users\\user\\Documents\\GitHub\\FPS\\Assets\\02 Player\\PlayerAnim.controller | 1 file changed, 172 insertions(+), 141 deletions(-)
+2026-08-28 09:48:39 | C:\\Users\\user\\Documents\\GitHub\\FPS\\Assets\\02 Player\\PlayerAnim.controller | 1 file changed, 172 insertions(+), 141 deletions(-)
+2026-08-28 09:48:41 | C:\\Users\\user\\Documents\\GitHub\\FPS\\Assets\\02 Player\\PlayerAnim.controller | 1 file changed, 171 insertions(+), 140 deletions(-)
+2026-08-28 09:48:47 | C:\\Users\\user\\Documents\\GitHub\\FPS\\Assets\\02 Player\\PlayerAnim.controller | 1 file changed, 171 insertions(+), 140 deletions(-)
+2026-08-28 09:48:52 | C:\\Users\\user\\Documents\\GitHub\\FPS\\Assets\\02 Player\\AnimationTable.cs | 1 file changed, 1 insertion(+)
+2026-08-28 09:48:59 | C:\\Users\\user\\Documents\\GitHub\\FPS\\Assets\\02 Player\\Player.cs | 1 file changed, 1 deletion(-)
+2026-08-28 09:49:01 | C:\\Users\\user\\Documents\\GitHub\\FPS\\Assets\\02 Player\\Player.cs | 1 file changed, 2 insertions(+), 1 deletion(-)
+2026-08-28 09:49:56 | C:\\Users\\user\\Documents\\GitHub\\FPS\\.claude\\docs\\known-issues.md | 1 file changed, 33 insertions(+)
+2026-08-28 12:55:13 | C:\\Users\\user\\Documents\\GitHub\\FPS\\Assets\\02 Player\\Weapon.cs | 1 file changed, 17 insertions(+)
+2026-08-28 12:55:25 | C:\\Users\\user\\Documents\\GitHub\\FPS\\Assets\\02 Player\\Player.cs | 1 file changed, 35 insertions(+), 9 deletions(-)
+2026-08-28 13:06:20 | C:\\Users\\user\\Documents\\GitHub\\FPS\\Assets\\01 Manager\\GameCameraManager.cs | 1 file changed, 3 insertions(+)
+2026-08-28 13:06:29 | C:\\Users\\user\\Documents\\GitHub\\FPS\\Assets\\01 Manager\\GameCameraManager.cs | 1 file changed, 11 insertions(+), 2 deletions(-)
+2026-08-28 13:24:54 | C:\\Users\\user\\Documents\\GitHub\\FPS\\Assets\\02 Player\\PlayerMoveMent.cs | 1 file changed, 12 insertions(+), 1 deletion(-)
+2026-08-28 13:25:04 | C:\\Users\\user\\Documents\\GitHub\\FPS\\Assets\\01 Manager\\GameCameraManager.cs | 1 file changed, 4 insertions(+), 4 deletions(-)
+2026-08-28 13:25:17 | C:\\Users\\user\\Documents\\GitHub\\FPS\\Assets\\01 Manager\\GameCameraManager.cs | 1 file changed, 9 insertions(+), 12 deletions(-)
+2026-08-28 13:25:27 | C:\\Users\\user\\Documents\\GitHub\\FPS\\Assets\\01 Manager\\GameCameraManager.cs | 1 file changed, 12 insertions(+), 15 deletions(-)
+2026-08-28 13:34:41 | C:\\Users\\user\\Documents\\GitHub\\FPS\\Assets\\02 Player\\PlayerMoveMent.cs | 1 file changed, 13 insertions(+), 1 deletion(-)
+2026-08-28 13:34:48 | C:\\Users\\user\\Documents\\GitHub\\FPS\\Assets\\02 Player\\PlayerMoveMent.cs | 1 file changed, 18 insertions(+), 2 deletions(-)
+2026-08-28 13:41:27 | C:\\Users\\user\\Documents\\GitHub\\FPS\\Assets\\03 Data\\SOAttackInfo.cs | 1 file changed, 9 insertions(+)
+2026-08-28 13:42:21 | C:\\Users\\user\\Documents\\GitHub\\FPS\\Assets\\02 Player\\Weapon.cs | 1 file changed, 21 insertions(+)
+2026-08-28 13:42:31 | C:\\Users\\user\\Documents\\GitHub\\FPS\\Assets\\02 Player\\Weapon.cs | 1 file changed, 27 insertions(+)
+2026-08-28 13:42:43 | C:\\Users\\user\\Documents\\GitHub\\FPS\\Assets\\02 Player\\Weapon.cs | 1 file changed, 38 insertions(+)
+2026-08-28 13:43:02 | C:\\Users\\user\\Documents\\GitHub\\FPS\\Assets\\02 Player\\WeaponRecoilKick.cs | new file, 66 lines
+2026-08-28 13:43:21 | C:\\Users\\user\\Documents\\GitHub\\FPS\\Assets\\02 Player\\WeaponIK.cs | 1 file changed, 15 insertions(+)
+2026-08-28 13:43:31 | C:\\Users\\user\\Documents\\GitHub\\FPS\\Assets\\02 Player\\Player.cs | 1 file changed, 36 insertions(+), 9 deletions(-)
+2026-08-28 13:44:55 | C:\\Users\\user\\Documents\\GitHub\\FPS\\.claude\\docs\\known-issues.md | 1 file changed, 56 insertions(+)
+2026-08-28 14:08:03 | C:\\Users\\user\\Documents\\GitHub\\FPS\\Assets\\02 Player\\WeaponIK.cs | 1 file changed, 15 insertions(+), 8 deletions(-)
+2026-08-28 14:08:58 | C:\\Users\\user\\Documents\\GitHub\\FPS\\Assets\\02 Player\\WeaponIK.cs | 1 file changed, 17 insertions(+), 17 deletions(-)
+2026-08-28 14:09:10 | C:\\Users\\user\\Documents\\GitHub\\FPS\\Assets\\02 Player\\WeaponIK.cs | 1 file changed, 23 insertions(+), 19 deletions(-)
+2026-08-28 14:34:02 | C:\\Users\\user\\Documents\\GitHub\\FPS\\Assets\\02 Player\\Weapon.cs | 1 file changed, 40 insertions(+)
+2026-08-28 14:34:16 | C:\\Users\\user\\Documents\\GitHub\\FPS\\Assets\\02 Player\\WeaponIK.cs | 1 file changed, 38 insertions(+), 19 deletions(-)
+2026-08-28 14:34:27 | C:\\Users\\user\\Documents\\GitHub\\FPS\\Assets\\02 Player\\Player.cs | 1 file changed, 41 insertions(+), 15 deletions(-)
+2026-08-28 14:47:12 | C:\\Users\\user\\Documents\\GitHub\\FPS\\Assets\\02 Player\\Player.cs | 1 file changed, 43 insertions(+), 15 deletions(-)
+2026-08-28 15:36:32 | C:\\Users\\user\\Documents\\GitHub\\FPS\\Assets\\02 Player\\WeaponRigTarget.cs | new file, 46 lines
+2026-08-28 15:36:34 | C:\\Users\\user\\Documents\\GitHub\\FPS\\Assets\\02 Player\\AimRigTarget.cs | new file, 23 lines
+2026-08-28 15:36:41 | C:\\Users\\user\\Documents\\GitHub\\FPS\\Assets\\02 Player\\Player.cs | 1 file changed, 45 insertions(+), 17 deletions(-)
+2026-08-28 15:36:43 | C:\\Users\\user\\Documents\\GitHub\\FPS\\Assets\\02 Player\\Player.cs | 1 file changed, 46 insertions(+), 18 deletions(-)
+2026-08-28 15:36:46 | C:\\Users\\user\\Documents\\GitHub\\FPS\\Assets\\02 Player\\Player.cs | 1 file changed, 37 insertions(+), 18 deletions(-)
+2026-08-28 15:36:53 | C:\\Users\\user\\Documents\\GitHub\\FPS\\Assets\\02 Player\\Player.cs | 1 file changed, 38 insertions(+), 18 deletions(-)
+2026-08-28 15:37:01 | C:\\Users\\user\\Documents\\GitHub\\FPS\\Assets\\02 Player\\Weapon.cs | 1 file changed, 23 insertions(+)
+2026-08-28 15:37:38 | C:\\Users\\user\\Documents\\GitHub\\FPS\\.claude\\docs\\known-issues.md | 1 file changed, 92 insertions(+)
+2026-08-28 15:37:58 | C:\\Users\\user\\Documents\\GitHub\\FPS\\Assets\\02 Player\\Weapon.cs | 1 file changed, 25 insertions(+), 2 deletions(-)
+2026-08-28 16:19:15 | C:\\Users\\user\\Documents\\GitHub\\FPS\\Assets\\02 Player\\WeaponRigTarget.cs | new file, 65 lines
+2026-08-28 18:35:49 | C:\\Users\\user\\Documents\\GitHub\\FPS\\Assets\\02 Player\\WeaponRigTarget.cs | new file, 63 lines
+2026-08-31 12:58:51 | C:\\Users\\user\\Documents\\GitHub\\FPS\\Assets\\02 Player\\WeaponRecoilKick.cs | 1 file changed, 5 insertions(+), 1 deletion(-)
+2026-08-31 13:16:05 | C:\\Users\\user\\Documents\\GitHub\\FPS\\Assets\\02 Player\\Player.cs | 1 file changed, 9 insertions(+), 1 deletion(-)
+2026-08-31 13:19:48 | C:\\Users\\user\\Documents\\GitHub\\FPS\\Assets\\02 Player\\WeaponRigTarget.cs | 1 file changed, 6 insertions(+)
+2026-08-31 13:36:13 | C:\\Users\\user\\Documents\\GitHub\\FPS\\.claude\\docs\\known-issues.md | 1 file changed, 38 insertions(+)
+2026-08-31 13:45:09 | C:\\Users\\user\\Documents\\GitHub\\FPS\\.claude\\docs\\known-issues.md | 1 file changed, 59 insertions(+)
+2026-08-31 16:24:35 | C:\\Users\\user\\Documents\\GitHub\\FPS\\Assets\\02 Player\\Weapon.cs | 1 file changed, 12 insertions(+), 1 deletion(-)
+2026-08-31 16:24:37 | C:\\Users\\user\\Documents\\GitHub\\FPS\\Assets\\02 Player\\Weapon.cs | 1 file changed, 11 insertions(+), 1 deletion(-)
+2026-08-31 16:24:41 | C:\\Users\\user\\Documents\\GitHub\\FPS\\Assets\\02 Player\\Weapon.cs | 1 file changed, 10 insertions(+), 1 deletion(-)
+2026-08-31 16:24:42 | C:\\Users\\user\\Documents\\GitHub\\FPS\\Assets\\02 Player\\Weapon.cs | 1 file changed, 3 deletions(-)
+2026-08-31 16:24:48 | C:\\Users\\user\\Documents\\GitHub\\FPS\\Assets\\02 Player\\Player.cs | 1 file changed, 13 insertions(+), 4 deletions(-)
+2026-08-31 16:24:49 | C:\\Users\\user\\Documents\\GitHub\\FPS\\Assets\\02 Player\\Player.cs | 1 file changed, 12 insertions(+), 4 deletions(-)
+2026-08-31 16:43:30 | C:\\Users\\user\\Documents\\GitHub\\FPS\\Assets\\02 Player\\Weapon.cs | 1 file changed, 1 insertion(+), 3 deletions(-)
+2026-08-31 16:43:45 | C:\\Users\\user\\Documents\\GitHub\\FPS\\Assets\\02 Player\\WeaponAimAlign.cs | new file, 60 lines
+2026-08-31 17:02:56 | C:\\Users\\user\\Documents\\GitHub\\FPS\\Assets\\02 Player\\Player.cs | 1 file changed, 16 insertions(+), 7 deletions(-)
+2026-08-31 17:03:07 | C:\\Users\\user\\Documents\\GitHub\\FPS\\Assets\\02 Player\\Weapon.cs | 1 file changed, 14 insertions(+), 2 deletions(-)
+2026-08-31 17:03:21 | C:\\Users\\user\\Documents\\GitHub\\FPS\\Assets\\02 Player\\WeaponAimAlign.cs | new file, 66 lines
+2026-08-31 17:15:24 | C:\\Users\\user\\Documents\\GitHub\\FPS\\Assets\\02 Player\\WeaponRigTarget.cs | 1 file changed, 12 insertions(+), 5 deletions(-)
+2026-08-31 19:25:22 | C:\\Users\\user\\Documents\\GitHub\\FPS\\Assets\\02 Player\\Player.cs | 1 file changed, 4 deletions(-)
+2026-08-31 19:25:24 | C:\\Users\\user\\Documents\\GitHub\\FPS\\Assets\\02 Player\\Player.cs | 1 file changed, 5 deletions(-)
+2026-08-31 19:25:29 | C:\\Users\\user\\Documents\\GitHub\\FPS\\Assets\\02 Player\\AnimationTable.cs | 1 file changed, 6 deletions(-)
+2026-08-31 19:25:44 | C:\\Users\\user\\Documents\\GitHub\\FPS\\Assets\\01 Manager\\GameCameraManager.cs | 1 file changed, 7 insertions(+)
+2026-08-31 19:25:51 | C:\\Users\\user\\Documents\\GitHub\\FPS\\Assets\\01 Manager\\GameCameraManager.cs | 1 file changed, 11 insertions(+), 3 deletions(-)
+2026-08-31 19:36:12 | C:\\Users\\user\\Documents\\GitHub\\FPS\\Assets\\02 Player\\PlayerMoveMent.cs | 1 file changed, 5 insertions(+), 2 deletions(-)
+2026-08-31 19:36:21 | C:\\Users\\user\\Documents\\GitHub\\FPS\\Assets\\01 Manager\\GameCameraManager.cs | 1 file changed, 11 insertions(+), 9 deletions(-)
+2026-08-31 19:53:50 | C:\\Users\\user\\Documents\\GitHub\\FPS\\Assets\\02 Player\\AnimationTable.cs | 1 file changed, 2 insertions(+), 6 deletions(-)
+2026-08-31 19:54:01 | C:\\Users\\user\\Documents\\GitHub\\FPS\\Assets\\02 Player\\PlayerMoveMent.cs | 1 file changed, 10 insertions(+), 2 deletions(-)
+2026-09-01 09:29:03 | C:\\Users\\user\\Documents\\GitHub\\FPS\\Assets\\02 Player\\PlayerAnim.controller | 1 file changed, 125 insertions(+), 107 deletions(-)
+2026-09-01 14:01:57 | C:\\Users\\user\\Documents\\GitHub\\FPS\\Assets\\02 Player\\PlayerMoveMent.cs | 1 file changed, 101 insertions(+), 34 deletions(-)
+2026-09-01 14:11:50 | C:\\Users\\user\\Documents\\GitHub\\FPS\\Assets\\02 Player\\PlayerMoveMent.cs | 1 file changed, 107 insertions(+), 34 deletions(-)
+2026-09-01 16:23:28 | C:\\Users\\user\\Documents\\GitHub\\FPS\\.claude\\docs\\known-issues.md | 1 file changed, 52 insertions(+)
+2026-09-01 17:05:34 | C:\\Users\\user\\Documents\\GitHub\\FPS\\Assets\\02 Player\\AimTargetFollower.cs | new file, 24 lines
+2026-09-01 17:06:18 | C:\\Users\\user\\Documents\\GitHub\\FPS\\Assets\\02 Player\\WeaponAimAlign.cs | 1 file changed, 24 insertions(+), 43 deletions(-)
+2026-09-01 17:07:04 | C:\\Users\\user\\Documents\\GitHub\\FPS\\Assets\\02 Player\\WeaponRigTarget.cs | 1 file changed, 21 insertions(+), 1 deletion(-)
+2026-09-01 17:09:37 | C:\\Users\\user\\Documents\\GitHub\\FPS\\Assets\\02 Player\\Player.cs | 1 file changed, 1 insertion(+)
+2026-09-01 17:10:18 | C:\\Users\\user\\Documents\\GitHub\\FPS\\Assets\\02 Player\\Aim.cs | 1 file changed, 7 insertions(+), 14 deletions(-)
+2026-09-01 17:23:54 | C:\\Users\\user\\Documents\\GitHub\\FPS\\.claude\\docs\\known-issues.md | 1 file changed, 52 insertions(+)
+2026-09-01 17:24:44 | C:\\Users\\user\\Documents\\GitHub\\FPS\\.claude\\docs\\known-issues.md | 1 file changed, 81 insertions(+)
+2026-09-01 18:57:02 | C:\\Users\\user\\Documents\\GitHub\\FPS\\.claude\\docs\\known-issues.md | 1 file changed, 40 insertions(+)
+2026-09-01 19:01:29 | C:\\Users\\user\\Documents\\GitHub\\FPS\\.claude\\docs\\known-issues.md | 1 file changed, 47 insertions(+)
+2026-09-01 20:25:39 | C:\\Users\\user\\Documents\\GitHub\\FPS\\Assets\\03 Data\\SOAttackInfo.cs | 1 file changed, 3 insertions(+)
+2026-09-01 20:25:49 | C:\\Users\\user\\Documents\\GitHub\\FPS\\Assets\\03 Data\\SOAttackInfo.cs | 1 file changed, 4 insertions(+)
+2026-09-01 20:25:55 | C:\\Users\\user\\Documents\\GitHub\\FPS\\Assets\\03 Data\\SOAttackInfo.cs | 1 file changed, 7 insertions(+)
+2026-09-01 20:26:19 | C:\\Users\\user\\Documents\\GitHub\\FPS\\Assets\\02 Player\\Grenade.cs | new file, 84 lines
+2026-09-01 20:26:33 | C:\\Users\\user\\Documents\\GitHub\\FPS\\Assets\\01 Manager\\InputManager.cs | 1 file changed, 1 insertion(+)
+2026-09-01 20:26:41 | C:\\Users\\user\\Documents\\GitHub\\FPS\\Assets\\01 Manager\\InputManager.cs | 1 file changed, 2 insertions(+)
+2026-09-01 20:26:48 | C:\\Users\\user\\Documents\\GitHub\\FPS\\Assets\\01 Manager\\InputManager.cs | 1 file changed, 5 insertions(+)
+2026-09-01 20:26:53 | C:\\Users\\user\\Documents\\GitHub\\FPS\\Assets\\01 Manager\\InputManager.cs | 1 file changed, 7 insertions(+), 1 deletion(-)
+2026-09-01 20:26:59 | C:\\Users\\user\\Documents\\GitHub\\FPS\\Assets\\01 Manager\\InputManager.cs | 1 file changed, 15 insertions(+), 1 deletion(-)
+2026-09-01 20:27:47 | C:\\Users\\user\\Documents\\GitHub\\FPS\\Assets\\02 Player\\GrenadeThrower.cs | new file, 132 lines
+2026-09-01 20:32:17 | C:\\Users\\user\\Documents\\GitHub\\FPS\\Assets\\01 Manager\\PlayerControls.inputactions | 1 file changed, 9 insertions(+)
+2026-09-01 20:32:26 | C:\\Users\\user\\Documents\\GitHub\\FPS\\Assets\\01 Manager\\PlayerControls.inputactions | 1 file changed, 20 insertions(+)
+2026-09-02 09:43:07 | C:\\Users\\user\\Documents\\GitHub\\FPS\\.claude\\skills\\feature-intake\\SKILL.md | new file, 104 lines
+2026-09-02 10:07:39 | C:\\Users\\user\\Documents\\GitHub\\FPS\\.claude\\skills\\feature-intake\\example-prd.md | new file, 72 lines
+2026-09-02 10:07:56 | C:\\Users\\user\\Documents\\GitHub\\FPS\\.claude\\skills\\feature-intake\\SKILL.md | new file, 75 lines
+2026-09-02 10:24:17 | C:\\Users\\user\\Documents\\GitHub\\FPS\\.claude\\docs\\game-design.md | 1 file changed, 4 insertions(+)
+2026-09-02 10:27:24 | C:\\Users\\user\\Documents\\GitHub\\FPS\\.claude\\docs\\game-design.md | 1 file changed, 5 insertions(+), 1 deletion(-)
+2026-09-02 10:27:35 | C:\\Users\\user\\Documents\\GitHub\\FPS\\.claude\\docs\\game-design.md | 1 file changed, 6 insertions(+), 2 deletions(-)
+2026-09-02 11:33:03 | C:\\Users\\user\\Documents\\GitHub\\FPS\\Assets\\05 Enemy\\Enemy.cs | 1 file changed, 1 insertion(+)
+2026-09-02 11:33:14 | C:\\Users\\user\\Documents\\GitHub\\FPS\\Assets\\05 Enemy\\Node\\NodeScript\\SOWaitCheckPointNode.cs | new file, 22 lines
+2026-09-02 11:33:25 | C:\\Users\\user\\Documents\\GitHub\\FPS\\Assets\\05 Enemy\\Node\\NodeScript\\SOCheckPointNode.cs | new file, 20 lines
+2026-09-02 12:49:24 | C:\\Users\\user\\Documents\\GitHub\\FPS\\Assets\\05 Enemy\\Enemy.cs | 1 file changed, 5 insertions(+), 3 deletions(-)
+2026-09-02 14:25:16 | C:\\Users\\user\\Documents\\GitHub\\FPS\\.claude\\docs\\how-to-play.md | new file, 44 lines
+2026-09-03 09:08:22 | C:\\Users\\user\\Documents\\GitHub\\FPS\\Assets\\05 Enemy\\Enemy.cs | 1 file changed, 50 insertions(+)
+2026-09-03 11:52:19 | C:\\Users\\user\\Documents\\GitHub\\FPS\\Assets\\05 Enemy\\Node\\NodeScript\\SORotateNode.cs | 1 file changed, 23 insertions(+), 13 deletions(-)
+2026-09-03 12:52:20 | C:\\Users\\user\\Documents\\GitHub\\FPS\\Assets\\05 Enemy\\Enemy.cs | 1 file changed, 11 insertions(+)
+2026-09-03 12:53:50 | C:\\Users\\user\\Documents\\GitHub\\FPS\\Assets\\05 Enemy\\Node\\NodeScript\\SOCheckPointNode.cs | 1 file changed, 3 insertions(+)
+2026-09-03 15:39:34 | C:\\Users\\user\\Documents\\GitHub\\FPS\\Assets\\05 Enemy\\Node\\NodeScript\\SOCheckRayNode.cs | 1 file changed, 27 insertions(+), 9 deletions(-)
+2026-09-03 16:56:56 | C:\\Users\\user\\Documents\\GitHub\\FPS\\Assets\\01 Manager\\ObjectPoolManager.cs | 1 file changed, 8 insertions(+)
+2026-09-03 17:08:28 | C:\\Users\\user\\Documents\\GitHub\\FPS\\Assets\\02 Player\\Bullet.cs | 1 file changed, 6 insertions(+), 4 deletions(-)
+2026-09-03 17:12:56 | C:\\Users\\user\\Documents\\GitHub\\FPS\\Assets\\02 Player\\Bullet.cs | 1 file changed, 6 insertions(+), 1 deletion(-)
+2026-09-03 17:16:43 | C:\\Users\\user\\Documents\\GitHub\\FPS\\Assets\\02 Player\\Bullet.cs | 1 file changed, 13 insertions(+), 5 deletions(-)
+2026-09-03 17:16:50 | C:\\Users\\user\\Documents\\GitHub\\FPS\\Assets\\02 Player\\Bullet.cs | 1 file changed, 8 insertions(+), 5 deletions(-)
+2026-09-03 17:17:02 | C:\\Users\\user\\Documents\\GitHub\\FPS\\Assets\\02 Player\\Bullet.cs | 1 file changed, 10 insertions(+), 7 deletions(-)
+2026-09-03 17:26:12 | C:\\Users\\user\\Documents\\GitHub\\FPS\\Assets\\02 Player\\Bullet.cs | 1 file changed, 7 insertions(+), 8 deletions(-)
+2026-09-03 17:29:00 | C:\\Users\\user\\Documents\\GitHub\\FPS\\Assets\\02 Player\\Weapon.cs | 1 file changed, 3 insertions(+)
+2026-09-03 17:29:16 | C:\\Users\\user\\Documents\\GitHub\\FPS\\Assets\\02 Player\\Weapon.cs | 1 file changed, 2 insertions(+)
+2026-09-03 18:05:49 | C:\\Users\\user\\Documents\\GitHub\\FPS\\Assets\\01 Manager\\ObjectPoolManager.cs | 1 file changed, 16 insertions(+), 10 deletions(-)
+2026-09-03 18:05:55 | C:\\Users\\user\\Documents\\GitHub\\FPS\\Assets\\02 Player\\Bullet.cs | 1 file changed, 2 insertions(+)
+2026-09-03 18:06:03 | C:\\Users\\user\\Documents\\GitHub\\FPS\\Assets\\02 Player\\Bullet.cs | 1 file changed, 8 insertions(+)
+2026-09-03 18:06:11 | C:\\Users\\user\\Documents\\GitHub\\FPS\\Assets\\02 Player\\Bullet.cs | 1 file changed, 9 insertions(+), 3 deletions(-)
+2026-09-03 18:06:15 | C:\\Users\\user\\Documents\\GitHub\\FPS\\Assets\\02 Player\\Grenade.cs | 1 file changed, 1 insertion(+), 3 deletions(-)
+2026-09-03 18:06:27 | C:\\Users\\user\\Documents\\GitHub\\FPS\\Assets\\02 Player\\Player.cs | 1 file changed, 17 insertions(+), 1 deletion(-)
+2026-09-03 18:28:18 | C:\\Users\\user\\Documents\\GitHub\\FPS\\Assets\\02 Player\\Weapon.cs | 1 file changed, 13 insertions(+), 1 deletion(-)
+2026-09-04 12:54:07 | C:\\Users\\user\\Documents\\GitHub\\FPS\\Assets\\01 Manager\\PlayerHeatmapRecorder.cs | new file, 158 lines
+2026-09-04 12:54:11 | C:\\Users\\user\\Documents\\GitHub\\FPS\\Assets\\02 Player\\PlayerHeatmapTracker.cs | new file, 34 lines
+2026-09-04 15:41:53 | C:\\Users\\user\\Documents\\GitHub\\FPS\\Assets\\05 Enemy\\Node\\NodeScript\\SOResumeMoveNode.cs | 1 file changed, 6 insertions(+), 7 deletions(-)
+2026-09-04 15:41:56 | C:\\Users\\user\\Documents\\GitHub\\FPS\\Assets\\05 Enemy\\Node\\NodeScript\\SOCheckPointNode.cs | 1 file changed, 11 insertions(+), 3 deletions(-)
+2026-09-04 16:16:42 | C:\\Users\\user\\Documents\\GitHub\\FPS\\Assets\\05 Enemy\\Node\\NodeScript\\SOWaitCheckPointNode.cs | 1 file changed, 5 insertions(+)
+2026-09-04 16:17:06 | C:\\Users\\user\\Documents\\GitHub\\FPS\\Assets\\05 Enemy\\Node\\NodeScript\\SOIsArrivePointNode.cs | 1 file changed, 5 insertions(+)
+2026-09-04 20:33:52 | C:\\Users\\왕혜성\\Documents\\GitHub\\FPS\\.claude\\docs\\bt-redesign-plan.md | new file, 397 lines
+2026-09-06 18:51:00 | C:\\Users\\왕혜성\\Documents\\GitHub\\FPS\\Assets\\05 Enemy\\BehaviorTree.cs | 1 file changed, 17 insertions(+), 1 deletion(-)
+2026-09-06 18:51:07 | C:\\Users\\왕혜성\\Documents\\GitHub\\FPS\\Assets\\05 Enemy\\BehaviorTree.cs | 1 file changed, 25 insertions(+), 1 deletion(-)
+2026-09-06 19:09:21 | C:\\Users\\왕혜성\\Documents\\GitHub\\FPS\\Assets\\05 Enemy\\Enemy.cs | 1 file changed, 40 insertions(+), 1 deletion(-)
+2026-09-06 23:55:19 | C:\\Users\\왕혜성\\Documents\\GitHub\\FPS\\Assets\\02 Player\\Aim.cs | 1 file changed, 24 insertions(+), 26 deletions(-)
+2026-09-06 23:55:24 | C:\\Users\\왕혜성\\Documents\\GitHub\\FPS\\Assets\\02 Player\\AimTargetFollower.cs | 1 file changed, 6 insertions(+), 1 deletion(-)
+2026-09-06 23:55:33 | C:\\Users\\왕혜성\\Documents\\GitHub\\FPS\\Assets\\02 Player\\AimTargetFollower.cs | 1 file changed, 7 insertions(+), 2 deletions(-)
+2026-09-07 00:19:50 | C:\\Users\\왕혜성\\Documents\\GitHub\\FPS\\Assets\\03 Data\\SOAttackInfo.cs | 1 file changed, 20 insertions(+), 25 deletions(-)
+2026-09-07 00:20:01 | C:\\Users\\왕혜성\\Documents\\GitHub\\FPS\\Assets\\03 Data\\SOAttackInfo.cs | 1 file changed, 22 insertions(+), 25 deletions(-)
+2026-09-07 00:20:16 | C:\\Users\\왕혜성\\Documents\\GitHub\\FPS\\Assets\\02 Player\\Weapon.cs | 1 file changed, 58 insertions(+), 80 deletions(-)
+2026-09-07 00:20:25 | C:\\Users\\왕혜성\\Documents\\GitHub\\FPS\\Assets\\02 Player\\Weapon.cs | 1 file changed, 58 insertions(+), 80 deletions(-)
+2026-09-07 00:21:06 | C:\\Users\\왕혜성\\Documents\\GitHub\\FPS\\Assets\\01 Manager\\GameCameraManager.cs | 1 file changed, 21 insertions(+), 2 deletions(-)
+2026-09-07 00:21:18 | C:\\Users\\왕혜성\\Documents\\GitHub\\FPS\\Assets\\01 Manager\\GameCameraManager.cs | 1 file changed, 33 insertions(+), 4 deletions(-)
+2026-09-07 00:22:14 | C:\\Users\\왕혜성\\Documents\\GitHub\\FPS\\Assets\\02 Player\\ScopeController.cs | new file, 134 lines
+2026-09-07 03:19:12 | C:\\Users\\왕혜성\\Documents\\GitHub\\FPS\\Assets\\01 Manager\\InputManager.cs | 1 file changed, 25 insertions(+), 2 deletions(-)
+2026-09-07 03:19:18 | C:\\Users\\왕혜성\\Documents\\GitHub\\FPS\\Assets\\01 Manager\\InputManager.cs | 1 file changed, 30 insertions(+), 2 deletions(-)
+2026-09-07 03:19:28 | C:\\Users\\왕혜성\\Documents\\GitHub\\FPS\\Assets\\01 Manager\\InputManager.cs | 1 file changed, 22 insertions(+), 2 deletions(-)
+2026-09-07 03:19:34 | C:\\Users\\왕혜성\\Documents\\GitHub\\FPS\\Assets\\06 UI\\Interface.cs | 1 file changed, 14 insertions(+)
+2026-09-07 03:23:01 | C:\\Users\\왕혜성\\Documents\\GitHub\\FPS\\Assets\\01 Manager\\InputManager.cs | 1 file changed, 33 insertions(+), 2 deletions(-)
+2026-09-07 03:23:08 | C:\\Users\\왕혜성\\Documents\\GitHub\\FPS\\Assets\\01 Manager\\InputManager.cs | 1 file changed, 34 insertions(+), 2 deletions(-)
+2026-09-07 03:23:14 | C:\\Users\\왕혜성\\Documents\\GitHub\\FPS\\Assets\\01 Manager\\InputManager.cs | 1 file changed, 34 insertions(+), 2 deletions(-)
+2026-09-07 03:55:21 | C:\\Users\\왕혜성\\Documents\\GitHub\\FPS\\Assets\\06 UI\\Interface.cs | 1 file changed, 14 insertions(+)
+2026-09-07 03:56:41 | C:\\Users\\왕혜성\\Documents\\GitHub\\FPS\\.claude\\docs\\known-issues.md | 1 file changed, 29 insertions(+)
+2026-09-07 04:28:03 | C:\\Users\\왕혜성\\Documents\\GitHub\\FPS\\Assets\\02 Player\\Player.cs | 1 file changed, 47 insertions(+), 11 deletions(-)
+2026-09-07 04:28:07 | C:\\Users\\왕혜성\\Documents\\GitHub\\FPS\\Assets\\02 Player\\Player.cs | 1 file changed, 53 insertions(+), 11 deletions(-)
+2026-09-07 14:41:40 | C:\\Users\\user\\Documents\\GitHub\\FPS\\Assets\\02 Player\\GrenadeThrower.cs | 1 file changed, 147 insertions(+), 31 deletions(-)
+2026-09-07 14:59:29 | C:\\Users\\user\\Documents\\GitHub\\FPS\\Assets\\02 Player\\GrenadeThrower.cs | 1 file changed, 114 insertions(+), 50 deletions(-)
+2026-09-07 15:01:10 | C:\\Users\\user\\Documents\\GitHub\\FPS\\Assets\\02 Player\\GrenadeThrower.cs | 1 file changed, 129 insertions(+), 50 deletions(-)
+2026-09-07 15:01:15 | C:\\Users\\user\\Documents\\GitHub\\FPS\\Assets\\02 Player\\GrenadeThrower.cs | 1 file changed, 130 insertions(+), 50 deletions(-)
+2026-09-07 15:01:22 | C:\\Users\\user\\Documents\\GitHub\\FPS\\Assets\\02 Player\\GrenadeThrower.cs | 1 file changed, 132 insertions(+), 50 deletions(-)
+2026-09-07 15:02:14 | C:\\Users\\user\\Documents\\GitHub\\FPS\\Assets\\02 Player\\GrenadeThrower.cs | 1 file changed, 132 insertions(+), 50 deletions(-)
+2026-09-07 15:02:21 | C:\\Users\\user\\Documents\\GitHub\\FPS\\Assets\\02 Player\\GrenadeThrower.cs | 1 file changed, 133 insertions(+), 50 deletions(-)
+2026-09-07 15:09:11 | C:\\Users\\user\\Documents\\GitHub\\FPS\\Assets\\02 Player\\GrenadeThrower.cs | 1 file changed, 133 insertions(+), 52 deletions(-)
+2026-09-07 15:09:19 | C:\\Users\\user\\Documents\\GitHub\\FPS\\Assets\\02 Player\\GrenadeThrower.cs | 1 file changed, 147 insertions(+), 52 deletions(-)
+2026-09-07 15:09:23 | C:\\Users\\user\\Documents\\GitHub\\FPS\\Assets\\02 Player\\GrenadeThrower.cs | 1 file changed, 147 insertions(+), 54 deletions(-)
+2026-09-08 10:11:42 | C:\\Users\\user\\Documents\\GitHub\\FPS\\Assets\\07 Rendering\\EnemyXRay.shader | new file, 186 lines
+2026-09-08 10:11:53 | C:\\Users\\user\\Documents\\GitHub\\FPS\\Assets\\07 Rendering\\M_EnemyXRay.mat | new file, 34 lines
+2026-09-08 10:13:47 | C:\\Users\\user\\Documents\\GitHub\\FPS\\Assets\\07 Rendering\\EnemyXRayFeature.cs | new file, 180 lines
+2026-09-08 10:14:11 | C:\\Users\\user\\Documents\\GitHub\\FPS\\Assets\\01 Manager\\PlayerControls.inputactions | 1 file changed, 9 insertions(+)
+2026-09-08 10:14:18 | C:\\Users\\user\\Documents\\GitHub\\FPS\\Assets\\01 Manager\\PlayerControls.inputactions | 1 file changed, 20 insertions(+)
+2026-09-08 10:14:45 | C:\\Users\\user\\Documents\\GitHub\\FPS\\Assets\\01 Manager\\InputManager.cs | 1 file changed, 4 insertions(+)
+2026-09-08 10:14:51 | C:\\Users\\user\\Documents\\GitHub\\FPS\\Assets\\01 Manager\\InputManager.cs | 1 file changed, 11 insertions(+)
+2026-09-08 10:14:56 | C:\\Users\\user\\Documents\\GitHub\\FPS\\Assets\\01 Manager\\InputManager.cs | 1 file changed, 14 insertions(+)
+2026-09-08 10:15:00 | C:\\Users\\user\\Documents\\GitHub\\FPS\\Assets\\01 Manager\\InputManager.cs | 1 file changed, 19 insertions(+)
+2026-09-08 10:16:03 | C:\\Users\\user\\Documents\\GitHub\\FPS\\Assets\\02 Player\\PlayerXRayVision.cs | new file, 144 lines
+2026-09-09 13:12:07 | C:\\Users\\user\\Documents\\GitHub\\FPS\\Assets\\Editor\\ObstacleColliderTool.cs | new file, 393 lines
+2026-09-09 13:13:31 | C:\\Users\\user\\Documents\\GitHub\\FPS\\Assets\\00.Tool\\ObstacleColliderTool.cs | new file, 393 lines

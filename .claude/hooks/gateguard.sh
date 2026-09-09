@@ -9,11 +9,7 @@
 #   Stage 3 (ALLOW): Second attempt on same file proceeds (presumes the agent
 #                    read the deny message and gathered facts).
 #
-<<<<<<< Updated upstream
-# Also enforces Read-before-Edit and the MVS counterpart heuristic.
-=======
-# Also enforces Read-before-Edit and the MVP counterpart heuristic.
->>>>>>> Stashed changes
+# Also enforces Read-before-Edit.
 # ============================================================================
 # Trigger: PreToolUse on Edit|Write|MultiEdit
 # Exit:    2 = block, 0 = allow
@@ -81,15 +77,9 @@ if ! grep -qxF "$FILE_PATH" "$FACTS_PASSED_FILE" 2>/dev/null; then
         # Classify file to tailor the fact demand
         ROLE=""
         case "$BASENAME" in
-<<<<<<< Updated upstream
-            *View)   ROLE="View (MVS)" ;;
-            *System) ROLE="System (MVS)" ;;
-            *Model)  ROLE="Model (MVS)" ;;
-=======
-            *View)      ROLE="View (MVP)" ;;
-            *Presenter) ROLE="Presenter (MVP)" ;;
-            *Model)     ROLE="Model (MVP)" ;;
->>>>>>> Stashed changes
+            *View)   ROLE="View" ;;
+            *System) ROLE="System" ;;
+            *Model)  ROLE="Model" ;;
             *Config|*Definition|*Data) ROLE="ScriptableObject" ;;
             *Controller|*Manager|*Handler) ROLE="Behaviour" ;;
         esac
@@ -107,13 +97,7 @@ if ! grep -qxF "$FILE_PATH" "$FACTS_PASSED_FILE" 2>/dev/null; then
             echo "     Run: grep -rn 'class ${BASENAME}' Assets/" >&2
             echo "  3. Identify the asmdef this file belongs to." >&2
             echo "     Run: find $(dirname "$DIR") -name '*.asmdef' | head -5" >&2
-<<<<<<< Updated upstream
             echo "  4. If it's a System, confirm its VContainer registration plan." >&2
-=======
-            echo "  4. If it's a Presenter, confirm how it will be wired (direct" >&2
-            echo "     [SerializeField]/GetComponent reference, event subscription, or —" >&2
-            echo "     manager-level classes only — a static Instance singleton)." >&2
->>>>>>> Stashed changes
             echo "     If it's a MonoBehaviour, confirm the scene/prefab that will host it." >&2
             echo "  5. Quote the user's current instruction verbatim." >&2
         else
@@ -139,50 +123,5 @@ if ! grep -qxF "$FILE_PATH" "$FACTS_PASSED_FILE" 2>/dev/null; then
         unity_hook_block "GateGuard: present facts above, then retry the edit."
     fi
 fi
-
-<<<<<<< Updated upstream
-# --- Guard 3: MVS counterpart heuristic (advisory, does not block) ---
-=======
-# --- Guard 3: MVP counterpart heuristic (advisory, does not block) ---
->>>>>>> Stashed changes
-check_counterpart() {
-    local suffix="$1"
-    local role="$2"
-    local base="${BASENAME%View}"
-<<<<<<< Updated upstream
-    base="${base%System}"
-=======
-    base="${base%Presenter}"
->>>>>>> Stashed changes
-    base="${base%Model}"
-    local counterpart_name="${base}${suffix}"
-
-    for search_dir in "$DIR" "$(dirname "$DIR")"; do
-        local candidate
-        candidate=$(find "$search_dir" -name "${counterpart_name}.cs" -maxdepth 3 2>/dev/null | head -1)
-        if [ -n "$candidate" ] && [ -f "$candidate" ]; then
-            if ! unity_was_read "$candidate"; then
-                echo "  SUGGESTION: Consider reading the ${role} first: ${candidate}" >&2
-            fi
-            return
-        fi
-    done
-}
-
-case "$BASENAME" in
-    *View)
-        check_counterpart "Model" "Model"
-<<<<<<< Updated upstream
-        check_counterpart "System" "System"
-        ;;
-    *System)
-=======
-        check_counterpart "Presenter" "Presenter"
-        ;;
-    *Presenter)
->>>>>>> Stashed changes
-        check_counterpart "Model" "Model"
-        ;;
-esac
 
 exit 0

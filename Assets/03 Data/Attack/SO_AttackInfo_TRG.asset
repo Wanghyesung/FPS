@@ -1,0 +1,40 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 30fde1cf18d52d1438d88d655ecde787, type: 3}
+  m_Name: SO_AttackInfo_TRG
+  m_EditorClassIdentifier: 
+  Description: "\uAE30\uBCF8 \uB77C\uC774\uD50C - \uC790\uB3D9\uC0AC\uACA9"
+  WeaponType: 1
+  SOData: {fileID: 11400000, guid: 1d0359f23f6d60341af44706a9d07b1f, type: 2}
+  Damage: 100
+  AttackPower: 0
+  Cooldown: 1
+  Speed: 300
+  SpeedOffset: 40
+  AliveTime: 4
+  HitCount: 1
+  HitStep: 1
+  RecoilAmount: 5
+  AimMode: 2
+  ZoomFov: 12
+  ZoomBlendTime: 0.12
+  HideWeaponOnAim: 0
+  ExplosionRadius: 3
+  VisualKickback: {x: 0, y: 0.01, z: -0.05}
+  VisualRotKick: {x: -4, y: 0, z: 0}
+  VisualRotKickRandomYaw: 1.5
+  VisualSpringStiffness: 180
+  VisualSpringDamping: 18
+  HitLayers:
+    serializedVersion: 2
+    m_Bits: 14336
+  HitSound: {fileID: 0}

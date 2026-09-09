@@ -1,0 +1,247 @@
+using System;
+using System.Collections;
+using System.Collections.Generic;
+using System.Threading.Tasks;
+using Unity.VisualScripting;
+using UnityEngine;
+using UnityEngine.AddressableAssets;
+using UnityEngine.InputSystem;
+using UnityEngine.InputSystem.Utilities;
+using UnityEngine.ResourceManagement.AsyncOperations;
+
+
+/*///////////////////////////////////////////
+                InputManager
+기능 : 연결된 액션의 값을 가져와서 해당 값 셋팅
+ *///////////////////////////////////////////
+
+public struct tInputInfo
+{
+    public Vector2 MoveDir;
+    public Vector2 ScreenPos;
+    public Vector2 Delta;
+
+    public bool OnSpace;
+    public bool OnLButon;
+    public bool OnRButton;
+    public bool OnThrow;
+}
+
+public class InputManager : MonoBehaviour
+{
+    private tInputInfo m_tInputInfo = new tInputInfo();
+    public tInputInfo InputInfo => m_tInputInfo;
+
+    public static InputManager m_Instance = null;
+
+    [SerializeField] private List<InputActionReference> m_listMoveAction;
+    [SerializeField] private List<InputActionReference> m_listScreenAction;
+    [SerializeField] private List<InputActionReference> m_listDeltaAction;
+
+    [SerializeField] private List<InputActionReference> m_listMoveSpaceAction;
+    [SerializeField] private List<InputActionReference> m_listFireAction;
+    [SerializeField] private List<InputActionReference> m_listZoomAction;
+    [SerializeField] private List<InputActionReference> m_listThrowAction;
+
+
+    //1~4번 키 대응
+    [SerializeField] private InputActionReference m_listItemAction;
+    public event Action<int> OnItemPressed;
+
+    //투시 능력 토글(기본 V키) — 단발성 입력이라 Update 폴링 없이 performed 콜백만 쓴다
+    [SerializeField] private InputActionReference m_refXRayAction;
+    public event Action OnXRayPressed;
+
+
+    private bool m_isDeltaInitialized = false;
+
+    public event Action OnSpacePressed;
+
+    public event Action OnRButtonPressed;
+    public event Action OnRButtonRelease;
+
+    public event Action OnLButtonPressed;
+
+    private void Awake()
+    {
+        if (m_Instance != null)
+        {
+            Destroy(gameObject);
+            return;
+        }
+
+        m_Instance = this;
+        DontDestroyOnLoad(gameObject);
+
+        for (int i = 0; i < m_listMoveAction.Count; ++i)
+            m_listMoveAction[i].action.Enable();
+
+        for (int i = 0; i < m_listScreenAction.Count; ++i)
+            m_listScreenAction[i].action.Enable();
+
+        for (int i = 0; i < m_listDeltaAction.Count; ++i)
+            m_listDeltaAction[i].action.Enable();
+
+        for (int i = 0; i < m_listMoveSpaceAction.Count; ++i)
+            m_listMoveSpaceAction[i].action.Enable();
+
+        for (int i = 0; i < m_listFireAction.Count; ++i)
+            m_listFireAction[i].action.Enable();
+
+        for (int i = 0; i < m_listZoomAction.Count; ++i)
+            m_listZoomAction[i].action.Enable();
+
+        for (int i = 0; i < m_listThrowAction.Count; ++i)
+            m_listThrowAction[i].action.Enable();
+
+        m_listItemAction.action.Enable();
+        m_listItemAction.action.performed += OnItemPerformed;
+
+        // 인스펙터에서 아직 연결 안 했어도 나머지 입력은 그대로 돌아가야 한다
+        if (m_refXRayAction != null)
+        {
+            m_refXRayAction.action.Enable();
+            m_refXRayAction.action.performed += OnXRayPerformed;
+        }
+    }
+
+    private void Start()
+    {
+
+    }
+
+    private void OnDestroy()
+    {
+        m_listItemAction.action.performed -= OnItemPerformed;
+
+        if (m_refXRayAction != null)
+            m_refXRayAction.action.performed -= OnXRayPerformed;
+    }
+
+    private void  Update()
+    {
+        UpdateMoveValue();
+
+        UpdateScreenMoveValue();
+
+        UpdateDeltaValue();
+
+        UpdateSpaceValue();
+
+        UpdateFireValue();
+
+        UpdateZoomValue();
+
+        UpdateThrowValue();
+
+
+    }
+
+    private void OnItemPerformed(InputAction.CallbackContext _tCtx)
+    {
+        ReadOnlyArray<InputControl> listControls = m_listItemAction.action.controls;
+
+        int iIndex = -1;
+        for (int i = 0; i < listControls.Count; ++i)
+        {
+            if (listControls[i] == _tCtx.control)
+            {
+                iIndex = i;
+                break;
+            }
+        }
+
+        if (iIndex < 0)
+            return;
+
+        OnItemPressed?.Invoke(iIndex);
+    }
+
+    private void OnXRayPerformed(InputAction.CallbackContext _tCtx)
+    {
+        OnXRayPressed?.Invoke();
+    }
+
+    private void UpdateMoveValue()
+    {
+        for (int i = 0; i < m_listMoveAction.Count; ++i)
+        {
+            Vector2 vMoveValue = m_listMoveAction[i].action.ReadValue<Vector2>();
+            m_tInputInfo.MoveDir = vMoveValue.normalized;
+        }
+    }
+
+    private void UpdateSpaceValue()
+    {
+        for (int i = 0; i < m_listMoveSpaceAction.Count; ++i)
+        {
+            m_tInputInfo.OnSpace = m_listMoveSpaceAction[i].action.IsPressed();
+        }
+        if (m_tInputInfo.OnSpace == true)
+            OnSpacePressed?.Invoke();
+    }
+
+    private void UpdateFireValue()
+    {
+        for (int i = 0; i < m_listFireAction.Count; ++i)
+        {
+            m_tInputInfo.OnLButon = m_listFireAction[i].action.IsPressed();
+        }
+        if(m_tInputInfo.OnLButon == true)
+            OnLButtonPressed?.Invoke();
+    }
+
+    private void UpdateZoomValue()
+    {
+        bool bPrevButton = m_tInputInfo.OnRButton;
+        for (int i = 0; i < m_listZoomAction.Count; ++i)
+        {
+            m_tInputInfo.OnRButton = m_listZoomAction[i].action.IsPressed();
+        }
+
+        if(m_tInputInfo.OnRButton == true)
+            OnRButtonPressed?.Invoke();
+
+        if(bPrevButton == true && m_tInputInfo.OnRButton == false)
+            OnRButtonRelease?.Invoke();
+    }
+
+    private void UpdateThrowValue()
+    {
+        for (int i = 0; i < m_listThrowAction.Count; ++i)
+        {
+            m_tInputInfo.OnThrow = m_listThrowAction[i].action.IsPressed();
+        }
+    }
+
+    private void UpdateScreenMoveValue()
+    {
+        for (int i = 0; i < m_listScreenAction.Count; ++i)
+        {
+            Vector2 vScreenPos = m_listScreenAction[i].action.ReadValue<Vector2>();
+            m_tInputInfo.ScreenPos = vScreenPos;
+        }
+    }
+
+    private void UpdateDeltaValue()
+    {
+        for (int i = 0; i < m_listDeltaAction.Count; ++i)
+        {
+            Vector2 vDelta = m_listDeltaAction[i].action.ReadValue<Vector2>();
+
+            if (!m_isDeltaInitialized)
+            {
+                if (vDelta.sqrMagnitude > 0f)
+                {
+                    m_tInputInfo.Delta = Vector2.zero;
+                    m_isDeltaInitialized = true;
+                    continue;
+                }
+            }
+
+            m_tInputInfo.Delta = vDelta;
+        }
+    }
+
+
+}
